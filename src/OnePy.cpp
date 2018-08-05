@@ -1,4 +1,5 @@
 #include "EventEngine.cpp"
+#include "Exceptions.h"
 #include "OnePy.h"
 #include "builtin_module/CsvReader.cpp"
 #include "config.h"
@@ -29,19 +30,14 @@ void OnePiece::sunny(const bool &show_summary) {
                 //order_checker.run();
             };
 
-        } catch (const char aaa) {
-            if (aaa == 'e') {
-                try {
-                    print_finished();
-                } catch (const char bbb) {
-                    if (bbb == 'f') {
-                        if (show_summary)
-                            this->output_summary();
-                        break;
-                    }
-                };
-            }
-            cout << "Finished!" << endl;
+        } catch (except::BacktestFinished &e) {
+            e.what();
+            if (show_summary)
+                this->output_summary();
+            break;
+        } catch (except::QueueEmptyError &e) {
+            e.what(); // Hope Never Raised!
+            break;
         };
     };
 };

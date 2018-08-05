@@ -24,7 +24,7 @@ OhlcStruct CsvReader::_set_value(const vector<string> &columns,
     for (int i = 0; i < count; i++) {
 
         string key = columns[i];
-        transform(key.begin(), key.end(), key.begin(), ::tolower); // 转化为小写
+        transform(key.begin(), key.end(), key.begin(), tolower); // 转化为小写
 
         const string str_value = line_array[i];
         if (key == "date") {

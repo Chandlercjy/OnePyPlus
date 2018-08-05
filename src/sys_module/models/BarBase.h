@@ -24,6 +24,4 @@ class BarBase {
   private:
     OhlcVector _bar_series;
     void _set_ohlc();
-    const int _total_size = _bar_series.size();
-    int _bar_count = 1;
 };

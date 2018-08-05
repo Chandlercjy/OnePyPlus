@@ -1,4 +1,5 @@
 #include "EventEngine.h"
+#include "Exceptions.h"
 #include <iostream>
 
 void EventEngine::put(EVENT event) {
@@ -19,7 +20,7 @@ int EventEngine::size(void) const {
 
 void EventEngine::_check_core_empty(void) const {
     if (this->_core.empty()) {
-        throw std::logic_error("Can't get from empty");
+        throw except::QueueEmptyError();
     };
 };
 
