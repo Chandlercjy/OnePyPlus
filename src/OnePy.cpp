@@ -23,9 +23,9 @@ void OnePiece::sunny(const bool &show_summary) {
         a++;
 
         try {
-            if (!this->env->event_bus.is_core_empty()) {
-                EVENT cur_event = this->env->event_bus.get();
-                this->_run_event_loop(cur_event);
+            if (!env->event_bus.is_core_empty()) {
+                EVENT cur_event = env->event_bus.get();
+                _run_event_loop(cur_event);
                 print(cur_event);
             } else {
                 //self.env.market_maker.update_market();
@@ -35,7 +35,7 @@ void OnePiece::sunny(const bool &show_summary) {
         } catch (except::BacktestFinished &e) {
             e.what();
             if (show_summary)
-                this->output_summary();
+                output_summary();
             break;
         } catch (except::QueueEmptyError &e) {
             e.what(); // Hope Never Raised!
@@ -48,7 +48,7 @@ void OnePiece::initialize_trading_system(){};
 
 void OnePiece::_run_event_loop(const EVENT &event) {
     for (auto &single_loop : config::EVENT_LOOP) {
-        if (this->_event_is_executed(event, single_loop))
+        if (_event_is_executed(event, single_loop))
             break;
     };
 };
@@ -59,7 +59,7 @@ bool OnePiece::_event_is_executed(const EVENT &cur_event,
     if (cur_event == single_loop.if_event) {
         single_loop.run();
         if (single_loop.then_event != EVENT::None)
-            this->env->event_bus.put(single_loop.then_event);
+            env->event_bus.put(single_loop.then_event);
         return true;
     };
     return false;

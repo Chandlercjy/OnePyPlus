@@ -4,9 +4,8 @@
 
 class OnePiece {
   public:
-    Environment *env = nullptr;
-
     OnePiece() : env(Environment::getInstance()){};
+    Environment *env;
     void sunny(const bool &show_summary = true); // 主循环
     void initialize_trading_system();
 

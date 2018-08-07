@@ -54,7 +54,7 @@ void CsvReader::_load_raw_data(const string &data_path) {
 
     ifstream in_file(data_path, ios::in);
     // 判断文件是否存在
-    this->_check_is_file_exist(in_file, data_path);
+    _check_is_file_exist(in_file, data_path);
 
     //read columns
     string line_str;
@@ -75,9 +75,9 @@ void CsvReader::_load_raw_data(const string &data_path) {
         while (getline(value_str, str, ','))
             line_array.push_back(str);
 
-        auto single_bar = this->_set_value(columns_array, line_array);
+        auto single_bar = _set_value(columns_array, line_array);
 
-        this->bar_series.push_back(single_bar);
+        bar_series.push_back(single_bar);
     };
 };
 

@@ -15,9 +15,11 @@ struct SingleLoop {
     SingleLoop(EVENT if_event, EVENT then_event, string module_name);
     const EVENT if_event;
     const EVENT then_event;
-    string module_name;
-    Environment *env;
     void run();
+
+  private:
+    const string _module_name;
+    const Environment *_env;
 };
 
 static LoopVector EVENT_LOOP = {SingleLoop(EVENT::Market_updated,

@@ -13,18 +13,18 @@ SingleLoop::SingleLoop(EVENT if_event, EVENT then_event,
                        string module_name)
     : if_event(if_event),
       then_event(then_event),
-      module_name(module_name) { env = Environment::getInstance(); };
+      _module_name(module_name) { _env = Environment::getInstance(); };
 
 void SingleLoop::run() {
-    if (module_name == "cleaners")
-        run_modules(env->cleaners);
-    else if (module_name == "strategies")
-        run_modules(env->strategies);
-    else if (module_name == "riskmanagers")
-        run_modules(env->risk_managers);
-    else if (module_name == "brokers")
-        run_modules(env->brokers);
-    else if (module_name == "recorders")
-        run_modules(env->recorders);
+    if (_module_name == "cleaners")
+        run_modules(_env->cleaners);
+    else if (_module_name == "strategies")
+        run_modules(_env->strategies);
+    else if (_module_name == "riskmanagers")
+        run_modules(_env->risk_managers);
+    else if (_module_name == "brokers")
+        run_modules(_env->brokers);
+    else if (_module_name == "recorders")
+        run_modules(_env->recorders);
 }
 } // namespace config
