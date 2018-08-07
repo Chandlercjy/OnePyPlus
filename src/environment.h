@@ -1,6 +1,11 @@
 #pragma once
 #include "EventEngine.h"
-#include "sys_module/OnePyMetaBase.h"
+#include "sys_module/BrokerBase.h"
+#include "sys_module/CleanerBase.h"
+#include "sys_module/ReaderBase.h"
+#include "sys_module/RecorderBase.h"
+#include "sys_module/RiskManagerBase.h"
+#include "sys_module/StrategyBase.h"
 #include "sys_module/models/BarBase.h"
 #include <map>
 #include <string>
@@ -20,14 +25,14 @@ class Environment {
     //string suspended_tickers_record : defaultdict = defaultdict(list);
 
     //string market_maker = "";
-    map<string, BarBase *> feeds;
-    map<string, BarBase *> cleaners_feeds;
-    map<string, OnePyMetaBase *> readers;
-    map<string, OnePyMetaBase *> cleaners;
-    map<string, OnePyMetaBase *> strategies;
-    map<string, OnePyMetaBase *> brokers;
-    map<string, OnePyMetaBase *> risk_managers;
-    map<string, OnePyMetaBase *> recorders;
+    map<string, sys::ReaderBase *> readers;
+    map<string, sys::BarBase *> feeds;
+    map<string, sys::BarBase *> cleaners_feeds;
+    map<string, sys::CleanerBase *> cleaners;
+    map<string, sys::StrategyBase *> strategies;
+    map<string, sys::BrokerBase *> brokers;
+    map<string, sys::RiskManagerBase *> risk_managers;
+    map<string, sys::RecorderBase *> recorders;
     //string recorder = ""; // type: op.RecorderBase
 
     //string signals_normal = [];         // 保存最原始的所有信号
@@ -52,7 +57,7 @@ class Environment {
     //string orders_cancel_submitted = []; // 动态地保存撤单，会不断刷新
 
     //string logger = logging.getLogger("OnePy");
-    EventEngine event_bus;
+    sys::EventEngine event_bus;
     //string event_loop = "";
     //string calendar = "";  // type:op.Calendar
     //string bar_class = ""; // type:op.BarBase

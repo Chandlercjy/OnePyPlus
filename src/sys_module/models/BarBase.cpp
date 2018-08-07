@@ -1,7 +1,9 @@
 #include "BarBase.h"
 
+namespace sys {
+
 BarBase::BarBase(OhlcVector bar_series)
-    : _bar_series(bar_series) { cur_bar = _bar_series.begin(); };
+    : _bar_series(bar_series) { cur_bar = _bar_series.cbegin(); };
 
 void BarBase::_set_ohlc() {
     this->date = &(this->cur_bar)->date;
@@ -13,12 +15,10 @@ void BarBase::_set_ohlc() {
 }
 
 void BarBase::next() {
-    static const int _total_size = this->_bar_series.size();
-    static int _bar_count = 1;
     ++(this->cur_bar);
-    ++_bar_count;
-    if (_bar_count > _total_size)
+    if (this->cur_bar == this->_bar_series.cend())
         throw std::runtime_error("指针过头了");
 
     _set_ohlc();
 }
+} // namespace sys

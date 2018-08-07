@@ -2,6 +2,8 @@
 #include "Exceptions.h"
 #include <iostream>
 
+namespace sys {
+
 void EventEngine::put(EVENT event) {
     this->_core.push(event);
 };
@@ -27,3 +29,4 @@ void EventEngine::_check_core_empty(void) const {
 bool EventEngine::is_core_empty(void) const {
     return this->_core.empty() ? true : false;
 };
+} // namespace sys

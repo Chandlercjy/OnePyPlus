@@ -3,7 +3,7 @@
 
 class EventEngineTest : public ::testing::Test {
   public:
-    EventEngine engine;
+    sys::EventEngine engine;
 };
 
 TEST_F(EventEngineTest, put_and_get) {

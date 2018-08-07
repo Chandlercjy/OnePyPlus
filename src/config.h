@@ -1,7 +1,6 @@
 #pragma once
 #include "constants.h"
 #include "environment.h"
-#include "sys_module/OnePyMetaBase.h"
 #include <map>
 #include <vector>
 
@@ -9,36 +8,35 @@
 
 namespace config {
 
+struct SingleLoop;
+typedef std::vector<SingleLoop> LoopVector;
+
 struct SingleLoop {
-    SingleLoop(EVENT if_event, EVENT then_event,
-               map<string, OnePyMetaBase *> *module_dict)
-        : if_event(if_event),
-          then_event(then_event),
-          module_dict(module_dict){};
+    SingleLoop(EVENT if_event, EVENT then_event, string module_name);
     const EVENT if_event;
     const EVENT then_event;
-    map<string, OnePyMetaBase *> *module_dict;
+    string module_name;
+    Environment *env;
+    void run();
 };
-
-typedef std::vector<SingleLoop> LoopVector;
 
 static LoopVector EVENT_LOOP = {SingleLoop(EVENT::Market_updated,
                                            EVENT::Data_cleaned,
-                                           &Environment::getInstance()->cleaners),
+                                           "cleaners"),
 
                                 SingleLoop(EVENT::Data_cleaned,
                                            EVENT::Signal_generated,
-                                           &Environment::getInstance()->strategies),
+                                           "strategies"),
 
                                 SingleLoop(EVENT::Signal_generated,
                                            EVENT::Submit_order,
-                                           &Environment::getInstance()->risk_managers),
+                                           "risk_managers"),
 
                                 SingleLoop(EVENT::Submit_order,
                                            EVENT::Record_result,
-                                           &Environment::getInstance()->brokers),
+                                           "brokers"),
 
                                 SingleLoop(EVENT::Record_result,
                                            EVENT::None,
-                                           &Environment::getInstance()->recorders)};
+                                           "recorders")};
 }; // namespace config

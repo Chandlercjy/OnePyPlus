@@ -1,7 +1,8 @@
 #pragma once
-#include "OnePyMetaBase.h"
 
-class RiskManagerBase:public OnePyMetaBase {
+namespace sys {
+class RiskManagerBase {
   public:
     void run();
 };
+} // namespace sys

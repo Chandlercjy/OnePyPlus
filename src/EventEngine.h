@@ -2,6 +2,8 @@
 #include "constants.h"
 #include <queue>
 
+namespace sys {
+
 class EventEngine {
   public:
     void put(EVENT);
@@ -13,3 +15,4 @@ class EventEngine {
     std::queue<EVENT> _core;
     void _check_core_empty(void) const;
 };
+} // namespace sys

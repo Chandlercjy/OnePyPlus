@@ -4,10 +4,11 @@
 #include <string>
 #include <vector>
 
+namespace sys {
 using std::string;
 using std::vector;
 
-class ReaderBase  {
+class ReaderBase {
   public:
     //ReaderBase(const string &ticker) : ticker(ticker){};
     const string ticker;
@@ -22,3 +23,4 @@ class ReaderBase  {
   private:
     //_check_readers_key();
 };
+} // namespace sys

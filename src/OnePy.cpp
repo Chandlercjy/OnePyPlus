@@ -2,15 +2,17 @@
 #include "Exceptions.h"
 #include "OnePy.h"
 #include "builtin_module/CsvReader.cpp"
-#include "config.h"
+#include "config.cpp"
 #include "constants.h"
 #include "environment.cpp"
-#include "utils.h"
-
-void print_finished() {
-    cout << "hhhhh" << endl;
-    throw 'f';
-}
+#include "sys_module/BrokerBase.cpp"
+#include "sys_module/CleanerBase.cpp"
+#include "sys_module/ReaderBase.cpp"
+#include "sys_module/RecorderBase.cpp"
+#include "sys_module/RiskManagerBase.cpp"
+#include "sys_module/StrategyBase.cpp"
+#include "sys_module/models/BarBase.cpp"
+#include "utils.cpp"
 
 void OnePiece::sunny(const bool &show_summary) {
     _pre_initialize_trading_system();
@@ -24,7 +26,7 @@ void OnePiece::sunny(const bool &show_summary) {
             if (!this->env->event_bus.is_core_empty()) {
                 EVENT cur_event = this->env->event_bus.get();
                 this->_run_event_loop(cur_event);
-                print_type(cur_event);
+                print(cur_event);
             } else {
                 //self.env.market_maker.update_market();
                 //order_checker.run();
@@ -52,11 +54,10 @@ void OnePiece::_run_event_loop(const EVENT &event) {
 };
 
 bool OnePiece::_event_is_executed(const EVENT &cur_event,
-                                  const config::SingleLoop &single_loop) {
+                                  config::SingleLoop &single_loop) {
+
     if (cur_event == single_loop.if_event) {
-        for (auto &module : *single_loop.module_dict) {
-            module.second->run();
-        };
+        single_loop.run();
         if (single_loop.then_event != EVENT::None)
             this->env->event_bus.put(single_loop.then_event);
         return true;

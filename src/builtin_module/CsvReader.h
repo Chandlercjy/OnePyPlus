@@ -1,19 +1,14 @@
 #pragma once
-
 #include "../sys_module/ReaderBase.h"
-#include "../sys_module/models/OhlcClass.h"
+#include <fstream>
+#include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 
-using std::shared_ptr;
+namespace sys {
+using std::ifstream;
 using std::string;
-using std::vector;
-
-//class CsvOhlcClass : public OhlcClass {
-//public:
-//void set_value(const vector<string> &columns,
-//const vector<string> &line_array); //覆盖虚函数
-//};
 
 class CsvReader : public ReaderBase {
   public:
@@ -28,6 +23,9 @@ class CsvReader : public ReaderBase {
 
   private:
     void _load_raw_data(const string &data_path);
-    OhlcStruct _set_value(const vector<string> &columns,
-                          const vector<string> &line_array); //覆盖虚函数
+    inline void _check_is_file_exist(const ifstream &file,
+                                     const string &data_path);
+    OhlcVector::value_type _set_value(const vector<string> &columns,
+                                      const vector<string> &line_array); //覆盖虚函数
 };
+} // namespace sys

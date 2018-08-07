@@ -14,7 +14,10 @@ class OnePiece {
     void output_summary(){};
     void _run_event_loop(const EVENT &event);
     bool _event_is_executed(const EVENT &cur_event,
-                            const config::SingleLoop &single_loop);
+                            config::SingleLoop &single_loop);
     void _reset_all_counter();
     void _pre_initialize_trading_system();
+
+    template <class T>
+    inline void _run_modules(T &modules);
 };

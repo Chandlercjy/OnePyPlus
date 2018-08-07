@@ -1,8 +1,9 @@
 
 #pragma once
-#include "OnePyMetaBase.h"
 
-class RecorderBase : public OnePyMetaBase {
+namespace sys {
+class RecorderBase {
   public:
     void run();
 };
+} // namespace sys

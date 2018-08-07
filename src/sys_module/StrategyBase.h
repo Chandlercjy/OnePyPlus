@@ -1,8 +1,9 @@
 #pragma once
-#include "OnePyMetaBase.h"
 
-class StrategyBase:public OnePyMetaBase {
+namespace sys {
+class StrategyBase {
 
   public:
     void run();
 };
+} // namespace sys

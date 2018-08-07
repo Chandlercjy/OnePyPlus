@@ -1,9 +1,10 @@
 
 #pragma once
-#include "OnePyMetaBase.h"
 
-class CleanerBase:public OnePyMetaBase {
+namespace sys {
+class CleanerBase {
 
   public:
     void run();
 };
+} // namespace sys

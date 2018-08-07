@@ -1,18 +1,14 @@
 #include "CsvReader.h"
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <vector>
 
+namespace sys {
 using std::ifstream;
 using std::ios;
-using std::shared_ptr;
 using std::string;
 using std::stringstream;
 using std::vector;
 
-OhlcStruct CsvReader::_set_value(const vector<string> &columns,
-                                 const vector<string> &line_array) {
+OhlcVector::value_type CsvReader::_set_value(const vector<string> &columns,
+                                             const vector<string> &line_array) {
     const int count = columns.size();
     string date;
     double open;
@@ -45,15 +41,23 @@ OhlcStruct CsvReader::_set_value(const vector<string> &columns,
             };
         };
     };
-    return OhlcStruct(date, open, high, low, close, volume);
+    return OhlcVector::value_type(date, open, high, low, close, volume);
+};
+
+inline void CsvReader::_check_is_file_exist(const ifstream &file,
+                                            const string &data_path) {
+    if (!file)
+        std::cout << data_path << " 不存在!!可能路径不正确" << std::endl;
 };
 
 void CsvReader::_load_raw_data(const string &data_path) {
 
     ifstream in_file(data_path, ios::in);
-    string line_str;
+    // 判断文件是否存在
+    this->_check_is_file_exist(in_file, data_path);
 
     //read columns
+    string line_str;
     getline(in_file, line_str);
     stringstream columns(line_str);
     vector<string> columns_array;
@@ -71,8 +75,6 @@ void CsvReader::_load_raw_data(const string &data_path) {
         while (getline(value_str, str, ','))
             line_array.push_back(str);
 
-        //CsvOhlcClass *single_bar = new CsvOhlcClass;
-        //shared_ptr<CsvOhlcClass> single_bar(new CsvOhlcClass);
         auto single_bar = this->_set_value(columns_array, line_array);
 
         this->bar_series.push_back(single_bar);
@@ -84,3 +86,4 @@ OhlcVector::iterator CsvReader::load(const string &fromdate,
                                      const string &frequency) {
     return bar_series.begin();
 };
+} // namespace sys

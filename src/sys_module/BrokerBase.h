@@ -1,8 +1,8 @@
-
 #pragma once
-#include "OnePyMetaBase.h"
 
-class BrokerBase : public OnePyMetaBase {
+namespace sys {
+class BrokerBase {
   public:
     void run();
 };
+} // namespace sys
