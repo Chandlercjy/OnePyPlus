@@ -41,3 +41,11 @@ enum class EVENT {
     Record_result,
     None,
 };
+
+enum class MODULES {
+    Cleaners,
+    Strategies,
+    Risk_managers,
+    Brokers,
+    Recorders,
+};

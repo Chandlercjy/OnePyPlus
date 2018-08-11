@@ -74,10 +74,7 @@ void CsvReader::_load_raw_data(const string &data_path) {
 
         while (getline(value_str, str, ','))
             line_array.push_back(str);
-
-        auto single_bar = _set_value(columns_array, line_array);
-
-        bar_series.push_back(single_bar);
+        bar_series.push_back(_set_value(columns_array, line_array));
     };
 };
 
