@@ -1,10 +1,9 @@
+#include "Environment.cpp"
 #include "EventEngine.cpp"
 #include "Exceptions.h"
 #include "OnePy.h"
-#include "builtin_module/CsvReader.cpp"
 #include "config.cpp"
 #include "constants.h"
-#include "environment.cpp"
 #include "sys_module/BrokerBase.cpp"
 #include "sys_module/CleanerBase.cpp"
 #include "sys_module/ReaderBase.cpp"
@@ -14,17 +13,17 @@
 #include "sys_module/models/BarBase.cpp"
 #include "utils.cpp"
 
+namespace op {
 void OnePiece::sunny(const bool &show_summary) {
     _pre_initialize_trading_system();
     initialize_trading_system();
     //order_checker = PendingOrderChecker();
     int a = 1;
-    while (a < 8) {
-        a++;
+    while (a++ < 8) {
 
         try {
-            if (!env->event_bus.is_core_empty()) {
-                EVENT cur_event = env->event_bus.get();
+            if (!env->event_bus->is_core_empty()) {
+                sys::EVENT cur_event = env->event_bus->get();
                 _run_event_loop(cur_event);
                 print(cur_event);
             } else {
@@ -46,20 +45,20 @@ void OnePiece::sunny(const bool &show_summary) {
 
 void OnePiece::initialize_trading_system(){};
 
-void OnePiece::_run_event_loop(const EVENT &event) {
-    for (auto &single_loop : config::EVENT_LOOP) {
+void OnePiece::_run_event_loop(const sys::EVENT &event) {
+    for (auto &single_loop : sys::EVENT_LOOP) {
         if (_event_is_executed(event, single_loop))
             break;
     };
 };
 
-bool OnePiece::_event_is_executed(const EVENT &cur_event,
-                                  config::SingleLoop &single_loop) {
+bool OnePiece::_event_is_executed(const sys::EVENT &cur_event,
+                                  sys::SingleLoop &single_loop) {
 
     if (cur_event == single_loop.if_event) {
         single_loop.run();
-        if (single_loop.then_event != EVENT::None)
-            env->event_bus.put(single_loop.then_event);
+        if (single_loop.then_event != sys::EVENT::None)
+            env->event_bus->put(single_loop.then_event);
         return true;
     };
     return false;
@@ -67,3 +66,4 @@ bool OnePiece::_event_is_executed(const EVENT &cur_event,
 
 void OnePiece::_reset_all_counter(){};
 void OnePiece::_pre_initialize_trading_system(){};
+} // namespace op

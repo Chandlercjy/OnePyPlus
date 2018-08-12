@@ -1,8 +1,8 @@
 #pragma once
-#include "constants.h"
 #include <queue>
 
 namespace sys {
+enum class EVENT;
 
 class EventEngine {
   public:

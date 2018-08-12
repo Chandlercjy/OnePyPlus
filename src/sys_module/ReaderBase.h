@@ -1,12 +1,11 @@
 #pragma once
 
-#include "../TypeDef.h"
+#include "../DataType.h"
 #include <string>
 #include <vector>
 
 namespace sys {
 using std::string;
-using std::vector;
 
 class ReaderBase {
   public:
@@ -19,6 +18,7 @@ class ReaderBase {
     OhlcVector::iterator load_by_cleaner(const string &fromdate,
                                          const string &todate,
                                          const string &frequency);
+    virtual ~ReaderBase() = default;
 
   private:
     //_check_readers_key();

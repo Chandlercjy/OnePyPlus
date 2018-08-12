@@ -7,18 +7,22 @@
 using std::map;
 using std::string;
 using std::vector;
+namespace sys {
+enum class EVENT;
+}
 
-template <typename T>
+template <class T>
 void print(T &);
 
-template <typename T>
+template <class T>
 void print(map<string, T> &);
 
-template <typename T>
+template <class T>
 void print(const map<string, T> &);
 
-template <typename T>
+template <class T>
 void print(const map<string, T> &);
 
-template <typename T>
-void print(EVENT &);
+template <class T>
+void print(sys::EVENT &);
+

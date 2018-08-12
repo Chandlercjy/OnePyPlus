@@ -1,10 +1,12 @@
+#include "Environment.h"
 #include "config.h"
+#include "constants.h"
 
-namespace config {
+namespace sys {
 
 template <class T>
 inline void run_modules(T &modules) {
-    for (auto &module : modules) {
+    for (auto &module : *modules) {
         module.second->run();
     };
 }
@@ -54,4 +56,4 @@ LoopVector EVENT_LOOP = {SingleLoop(EVENT::Market_updated,
                          SingleLoop(EVENT::Record_result,
                                     EVENT::None,
                                     MODULES::Recorders)};
-} // namespace config
+} // namespace sys
