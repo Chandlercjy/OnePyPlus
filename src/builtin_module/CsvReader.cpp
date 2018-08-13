@@ -1,15 +1,15 @@
 #include "CsvReader.h"
 
 namespace sys {
+
 using std::ifstream;
 using std::ios;
 using std::string;
 using std::stringstream;
 using std::vector;
 
-OhlcVector::value_type CsvReader::_set_value(const vector<string> &columns,
-                                             const vector<string> &line_array) {
-    const int count = columns.size();
+inline OhlcVector::value_type settle_ohlc(const vector<string> &columns,
+                                          const vector<string> &line_array) {
     string date;
     double open;
     double high;
@@ -17,7 +17,7 @@ OhlcVector::value_type CsvReader::_set_value(const vector<string> &columns,
     double close;
     double volume;
 
-    for (int i = 0; i < count; i++) {
+    for (int i = 0; i < columns.size(); i++) {
 
         string key = columns[i];
         transform(key.begin(), key.end(), key.begin(), tolower); // 转化为小写
@@ -44,37 +44,37 @@ OhlcVector::value_type CsvReader::_set_value(const vector<string> &columns,
     return OhlcVector::value_type(date, open, high, low, close, volume);
 };
 
-inline void CsvReader::_check_is_file_exist(const ifstream &file,
-                                            const string &data_path) {
+inline void check_is_file_exist(const ifstream &file,
+                                const string &data_path) {
     if (!file)
         std::cout << data_path << " 不存在!!可能路径不正确" << std::endl;
 };
 
-void CsvReader::_load_raw_data(const string &data_path) {
-
-    ifstream in_file(data_path, ios::in);
-    // 判断文件是否存在
-    _check_is_file_exist(in_file, data_path);
-
-    //read columns
-    string line_str;
-    getline(in_file, line_str);
-    stringstream columns(line_str);
+inline vector<string> seperate_str(stringstream &line_str) {
     vector<string> columns_array;
     string column;
-    while (getline(columns, column, ',')) {
+    while (getline(line_str, column, ',')) {
         columns_array.push_back(column);
     };
+    return columns_array;
+}
+inline vector<string> read_line(string &line_str) {
+    stringstream columns(line_str);
+    vector<string> columns_array = seperate_str(columns);
+    return columns_array;
+};
 
-    //read data
-    while (getline(in_file, line_str)) {
-        stringstream value_str(line_str);
-        string str;
-        vector<string> line_array;
+void CsvReader::_load_raw_data(const string &data_path) {
+    ifstream in_file(data_path, ios::in);
+    check_is_file_exist(in_file, data_path); // 判断文件是否存在
 
-        while (getline(value_str, str, ','))
-            line_array.push_back(str);
-        bar_series.push_back(_set_value(columns_array, line_array));
+    string line_str;
+    getline(in_file, line_str); // read columns
+    auto columns_array = read_line(line_str);
+
+    while (getline(in_file, line_str)) { //read data
+        auto line_array = read_line(line_str);
+        bar_series.push_back(settle_ohlc(columns_array, line_array));
     };
 };
 
