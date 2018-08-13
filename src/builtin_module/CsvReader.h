@@ -18,7 +18,7 @@ class CsvReader : public ReaderBase {
         : ReaderBase(ticker) { _load_raw_data(data_path); };
 
     OhlcVector bar_series;
-    OhlcVector::iterator load(const string &fromdate,
+    OhlcVector::const_iterator load(const string &fromdate,
                               const string &todate,
                               const string &frequency) override;
 

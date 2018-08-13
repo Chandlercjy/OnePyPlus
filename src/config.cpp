@@ -5,7 +5,7 @@
 namespace sys {
 
 template <class T>
-inline void run_modules(T &modules) {
+void run_modules(T &modules) {
     for (auto &module : *modules) {
         module.second->run();
     };
@@ -15,7 +15,8 @@ SingleLoop::SingleLoop(EVENT if_event, EVENT then_event,
                        MODULES module_name)
     : if_event(if_event),
       then_event(then_event),
-      _module_name(module_name) { _env = Environment::getInstance(); };
+      _module_name(module_name),
+      _env(Environment::getInstance()){};
 
 void SingleLoop::run() {
     switch (_module_name) {

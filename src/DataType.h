@@ -5,6 +5,7 @@
 namespace sys {
 
 using std::string;
+using std::vector;
 
 struct OhlcStruct {
     OhlcStruct(const string date, const double open, const double high,
@@ -23,5 +24,6 @@ struct OhlcStruct {
     const double close;
     const double volume;
 };
-typedef std::vector<OhlcStruct> OhlcVector;
+
+typedef vector<OhlcStruct> OhlcVector;
 } // namespace sys

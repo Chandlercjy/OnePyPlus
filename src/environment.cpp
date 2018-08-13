@@ -16,7 +16,8 @@ using std::map;
 using std::string;
 
 Environment::Environment()
-    : readers(make_shared<map<string, ReaderBase *>>()),
+    : cur_suspended_tickers(make_shared<vector<string>>()),
+      readers(make_shared<map<string, ReaderBase *>>()),
       feeds(make_shared<map<string, BarBase *>>()),
       cleaners_feeds(make_shared<map<string, BarBase *>>()),
       cleaners(make_shared<map<string, CleanerBase *>>()),
@@ -31,6 +32,6 @@ Environment::Environment()
       is_live_trading(false),
       is_show_today_signals(false)
 
-{}
+          {};
 
 } // namespace sys

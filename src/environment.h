@@ -2,11 +2,13 @@
 
 #include <map>
 #include <string>
+#include <vector>
 
 namespace sys {
 using std::map;
 using std::shared_ptr;
 using std::string;
+using std::vector;
 
 class ReaderBase;
 class BarBase;
@@ -26,7 +28,7 @@ class Environment {
     //string fromdate = "";
     //string todate = "";
     //string tickers[];
-    //string cur_suspended_tickers = [];
+    shared_ptr<vector<string>> cur_suspended_tickers;
     //string suspended_tickers_record : defaultdict = defaultdict(list);
 
     //string market_maker = "";
@@ -79,7 +81,6 @@ class Environment {
         static Environment instance;
         return &instance;
     };
-
     string instrument;
 
   private:

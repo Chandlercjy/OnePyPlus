@@ -9,15 +9,15 @@ using std::string;
 
 class ReaderBase {
   public:
-    //ReaderBase(const string &ticker) : ticker(ticker){};
+    ReaderBase(const string &ticker) : ticker(ticker){};
     const string ticker;
-    virtual OhlcVector::iterator load(const string &fromdate,
-                                      const string &todate,
-                                      const string &frequency) = 0;
+    virtual OhlcVector::const_iterator load(const string &fromdate,
+                                            const string &todate,
+                                            const string &frequency) = 0;
 
-    OhlcVector::iterator load_by_cleaner(const string &fromdate,
-                                         const string &todate,
-                                         const string &frequency);
+    OhlcVector::const_iterator load_by_cleaner(const string &fromdate,
+                                               const string &todate,
+                                               const string &frequency);
     virtual ~ReaderBase() = default;
 
   private:

@@ -6,5 +6,6 @@ class CleanerBase {
 
   public:
     void run();
+    virtual ~CleanerBase() = default;
 };
 } // namespace sys

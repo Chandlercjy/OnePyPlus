@@ -4,17 +4,54 @@
 
 namespace sys {
 
-BarBase::BarBase(OhlcVector bar_series)
+BarBase::BarBase(const string &ticker, const string &frequency)
     : env(Environment::getInstance()),
-      _bar_series(bar_series) {
-    cur_bar = _bar_series.cbegin();
-};
+      ticker(ticker),
+      frequency(frequency) {}
+
+const string BarBase::date() {
+    return cur_bar->date;
+}
+
+const double BarBase::open() {
+    return cur_bar->open;
+}
+
+const double BarBase::high() {
+    return cur_bar->high;
+}
+
+const double BarBase::low() {
+    return cur_bar->low;
+}
+
+const double BarBase::close() {
+    return cur_bar->close;
+}
+
+const double BarBase::volume() {
+    return cur_bar->volume;
+}
+
+const double BarBase::execute_price() {
+    if (env->execute_on_close_or_next_open == "open")
+        return next_bar->open;
+    return cur_bar->close;
+}
+
+const double BarBase::cur_price() {
+    return cur_bar->close;
+}
+
+void BarBase::initialize() {
+}
 
 void BarBase::_update_iter_data() {
 }
 
 void BarBase::next() {
     if (is_suspended()) {
+        env->cur_suspended_tickers->push_back(ticker);
 
     } else
         next_directly();
@@ -24,20 +61,11 @@ void BarBase::next_directly() {
     ++previous_bar;
     ++cur_bar;
     ++next_bar;
-    if (next_bar == _bar_series.cend())
+    if (next_bar == _iter_data->cend())
         throw std::runtime_error("指针过头了");
-
-    date = &(cur_bar)->date;
-    open = &(cur_bar)->open;
-    high = &(cur_bar)->high;
-    low = &(cur_bar)->low;
-    close = &(cur_bar)->close;
-    volume = &(cur_bar)->volume;
 }
 
-void BarBase::initialize() {
-}
-bool BarBase::is_suspended() { return false; };
+bool BarBase::is_suspended() { return false; }
 
 void BarBase::move_next_ohlc_to_cur_ohlc() {
 }

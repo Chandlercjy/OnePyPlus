@@ -14,30 +14,35 @@ class BarBase {
     BarBase();
     Environment *env;
 
-    explicit BarBase(OhlcVector bar_series);
+    explicit BarBase(const string &ticker, const string &frequency);
+
+    const string frequency;
+    const string ticker;
 
     OhlcVector::const_iterator previous_bar;
     OhlcVector::const_iterator cur_bar;
     OhlcVector::const_iterator next_bar;
-    const string *date;
-    const double *open;
-    const double *high;
-    const double *low;
-    const double *close;
-    const double *volume;
+
+    const string date();
+    const double open();
+    const double high();
+    const double low();
+    const double close();
+    const double volume();
 
     const double execute_price();
     const double cur_price();
 
+    void initialize();
     void next();
     void next_directly();
-    void initialize();
 
     bool is_suspended();
     void move_next_ohlc_to_cur_ohlc();
+    virtual ~BarBase() = default;
 
   private:
-    OhlcVector _bar_series;
+    OhlcVector *_iter_data;
     inline void _update_iter_data();
     inline void _delete_ohlc();
 };

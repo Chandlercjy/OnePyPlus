@@ -42,13 +42,13 @@ inline OhlcVector::value_type settle_ohlc(const vector<string> &columns,
         };
     };
     return OhlcVector::value_type(date, open, high, low, close, volume);
-};
+}
 
 inline void check_is_file_exist(const ifstream &file,
                                 const string &data_path) {
     if (!file)
         std::cout << data_path << " 不存在!!可能路径不正确" << std::endl;
-};
+}
 
 inline vector<string> seperate_str(stringstream &line_str) {
     vector<string> columns_array;
@@ -58,11 +58,12 @@ inline vector<string> seperate_str(stringstream &line_str) {
     };
     return columns_array;
 }
+
 inline vector<string> read_line(string &line_str) {
     stringstream columns(line_str);
     vector<string> columns_array = seperate_str(columns);
     return columns_array;
-};
+}
 
 void CsvReader::_load_raw_data(const string &data_path) {
     ifstream in_file(data_path, ios::in);
@@ -76,11 +77,11 @@ void CsvReader::_load_raw_data(const string &data_path) {
         auto line_array = read_line(line_str);
         bar_series.push_back(settle_ohlc(columns_array, line_array));
     };
-};
+}
 
-OhlcVector::iterator CsvReader::load(const string &fromdate,
-                                     const string &todate,
-                                     const string &frequency) {
+OhlcVector::const_iterator CsvReader::load(const string &fromdate,
+                                           const string &todate,
+                                           const string &frequency) {
     return bar_series.begin();
-};
+}
 } // namespace sys

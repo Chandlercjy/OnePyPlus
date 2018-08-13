@@ -5,5 +5,6 @@ class StrategyBase {
 
   public:
     void run();
+    virtual ~StrategyBase() = default;
 };
 } // namespace sys

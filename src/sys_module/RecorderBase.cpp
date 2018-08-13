@@ -1,5 +1,5 @@
 #include "RecorderBase.h"
 
 namespace sys {
-void RecorderBase::run() { int a = 1; };
+void RecorderBase::run(){};
 } // namespace sys
