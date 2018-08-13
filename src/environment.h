@@ -76,7 +76,7 @@ class Environment {
     bool is_show_today_signals; // 是否显示当前最新信号的开关
 
   public:
-    static Environment *getInstance() {
+    static Environment *get_instance() {
 
         static Environment instance;
         return &instance;
@@ -86,7 +86,7 @@ class Environment {
   private:
     struct Object_Creator {
         Object_Creator() {
-            Environment::getInstance();
+            Environment::get_instance();
         }
     };
     static Object_Creator _object_creator;

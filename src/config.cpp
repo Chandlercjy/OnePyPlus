@@ -16,7 +16,7 @@ SingleLoop::SingleLoop(EVENT if_event, EVENT then_event,
     : if_event(if_event),
       then_event(then_event),
       _module_name(module_name),
-      _env(Environment::getInstance()){};
+      _env(Environment::get_instance()){};
 
 void SingleLoop::run() {
     switch (_module_name) {

@@ -5,7 +5,7 @@
 namespace sys {
 
 BarBase::BarBase(const string &ticker, const string &frequency)
-    : env(Environment::getInstance()),
+    : env(Environment::get_instance()),
       ticker(ticker),
       frequency(frequency) {}
 

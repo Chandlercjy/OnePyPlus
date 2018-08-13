@@ -12,7 +12,7 @@ class SingleLoop;
 namespace op {
 class OnePiece {
   public:
-    OnePiece() : env(sys::Environment::getInstance()){};
+    OnePiece() : env(sys::Environment::get_instance()){};
     sys::Environment *env;
     void sunny(const bool &show_summary = true); // 主循环
     void initialize_trading_system();
