@@ -25,6 +25,7 @@ struct SingleLoop {
 typedef std::vector<SingleLoop> LoopVector;
 extern LoopVector EVENT_LOOP;
 
-template <class T>
+template <typename T>
 inline void run_modules();
 }; // namespace sys
+

@@ -22,11 +22,11 @@ class EventEngine;
 
 class Environment {
   public:
-    string sys_date = "";
+    string sys_date;
     //string sys_frequency = "";
 
-    //string fromdate = "";
-    //string todate = "";
+    string fromdate;
+    string todate;
     //string tickers[];
     shared_ptr<vector<string>> cur_suspended_tickers;
     //string suspended_tickers_record : defaultdict = defaultdict(list);

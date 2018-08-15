@@ -25,7 +25,7 @@ class OnePiece {
     void _reset_all_counter();
     void _pre_initialize_trading_system();
 
-    template <class T>
+    template <typename T>
     inline void _run_modules(T &modules);
 };
 } // namespace op

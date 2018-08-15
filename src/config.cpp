@@ -4,7 +4,7 @@
 
 namespace sys {
 
-template <class T>
+template <typename T>
 void run_modules(T &modules) {
     for (auto &module : *modules) {
         module.second->run();

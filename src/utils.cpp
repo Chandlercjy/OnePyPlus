@@ -11,12 +11,12 @@ using std::map;
 using std::string;
 using std::vector;
 
-template <class T>
+template <typename T>
 void print(T &object) {
     cout << "Unknown Type!!!" << endl;
 }
 
-template <class T>
+template <typename T>
 void print(map<string, T> &object) {
     cout << "Map:{";
     for (auto elem : object) {
@@ -26,13 +26,13 @@ void print(map<string, T> &object) {
     cout << "}" << endl;
 }
 
-template <class T>
+template <typename T>
 void print(const map<string, T> &object) {
     cout << "const ";
     print(const_cast<map<string, T> &>(object));
 }
 
-template <class T>
+template <typename T>
 void print(vector<T> &object) {
     cout << "Vector:{";
     for (auto elem : object) {
@@ -41,7 +41,7 @@ void print(vector<T> &object) {
     cout << "}" << endl;
 }
 
-template <class T>
+template <typename T>
 void print(const vector<T> &object) {
     cout << "const ";
     print(const_cast<vector<T> &>(object));

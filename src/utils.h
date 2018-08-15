@@ -11,18 +11,19 @@ namespace sys {
 enum class EVENT;
 }
 
-template <class T>
+template <typename T>
 void print(T &);
 
-template <class T>
+template <typename T>
 void print(map<string, T> &);
 
-template <class T>
+template <typename T>
 void print(const map<string, T> &);
 
-template <class T>
+template <typename T>
 void print(const map<string, T> &);
 
-template <class T>
+template <typename T>
 void print(sys::EVENT &);
+
 

@@ -20,7 +20,7 @@ class BarBase {
     const string ticker;
 
     OhlcVector::const_iterator previous_bar;
-    OhlcVector::const_iterator cur_bar;
+    OhlcVector::const_iterator current_bar;
     OhlcVector::const_iterator next_bar;
 
     const string date();
@@ -30,10 +30,10 @@ class BarBase {
     const double close();
     const double volume();
 
-    const double execute_price();
     const double cur_price();
+    const double execute_price();
 
-    void initialize();
+    void initialize(int &buffer_day);
     void next();
     void next_directly();
 
