@@ -11,7 +11,7 @@
 #include "sys_module/RiskManagerBase.cpp"
 #include "sys_module/StrategyBase.cpp"
 #include "sys_module/models/BarBase.cpp"
-#include "utils.cpp"
+#include "utils/utils.h"
 
 namespace op {
 void OnePiece::sunny(const bool &show_summary) {
@@ -25,7 +25,7 @@ void OnePiece::sunny(const bool &show_summary) {
             if (!env->event_bus->is_core_empty()) {
                 sys::EVENT cur_event = env->event_bus->get();
                 _run_event_loop(cur_event);
-                print(cur_event);
+                utils::print(cur_event);
             } else {
                 //self.env.market_maker.update_market();
                 //order_checker.run();

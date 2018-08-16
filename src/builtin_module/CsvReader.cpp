@@ -65,7 +65,8 @@ inline vector<string> read_line(string &line_str) {
     return columns_array;
 }
 
-void CsvReader::_load_raw_data(const string &data_path) {
+shared_ptr<OhlcVector> load_raw_data(const string &data_path) {
+    auto bar_series = make_shared<OhlcVector>();
     ifstream in_file(data_path, ios::in);
     check_is_file_exist(in_file, data_path); // 判断文件是否存在
 
@@ -75,13 +76,19 @@ void CsvReader::_load_raw_data(const string &data_path) {
 
     while (getline(in_file, line_str)) { //read data
         auto line_array = read_line(line_str);
-        bar_series.push_back(settle_ohlc(columns_array, line_array));
+        bar_series->push_back(settle_ohlc(columns_array, line_array));
     };
+    return bar_series;
 }
 
-OhlcVector::const_iterator CsvReader::load(const string &fromdate,
-                                           const string &todate,
-                                           const string &frequency) {
-    return bar_series.begin();
+CsvReader::CsvReader(const string &data_path, const string &ticker)
+    : ReaderBase(ticker),
+      _data_path(data_path) { save_to_env<CsvReader>(this); };
+
+shared_ptr<OhlcVector> CsvReader::load(const string &fromdate,
+                                       const string &todate,
+                                       const string &frequency) {
+    auto bar_series = load_raw_data(_data_path);
+    return bar_series;
 }
 } // namespace sys

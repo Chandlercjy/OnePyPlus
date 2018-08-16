@@ -14,15 +14,13 @@ using std::vector;
 
 class CsvReader : public ReaderBase {
   public:
-    CsvReader(const string &data_path, const string &ticker)
-        : ReaderBase(ticker) { _load_raw_data(data_path); };
+    CsvReader(const string &data_path, const string &ticker);
 
-    OhlcVector bar_series;
-    OhlcVector::const_iterator load(const string &fromdate,
-                              const string &todate,
-                              const string &frequency) override;
+    std::shared_ptr<OhlcVector> load(const string &fromdate,
+                                     const string &todate,
+                                     const string &frequency) override;
 
   private:
-    void _load_raw_data(const string &data_path);
+    const string _data_path;
 };
 } // namespace sys

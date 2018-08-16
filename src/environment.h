@@ -22,24 +22,24 @@ class EventEngine;
 
 class Environment {
   public:
-    string sys_date;
+    string sys_date = "2017-01-05";
     //string sys_frequency = "";
 
-    string fromdate;
-    string todate;
+    string fromdate = "2018-01-01";
+    string todate = "2018-01-01";
     //string tickers[];
     shared_ptr<vector<string>> cur_suspended_tickers;
     //string suspended_tickers_record : defaultdict = defaultdict(list);
 
     //string market_maker = "";
-    shared_ptr<map<string, ReaderBase *>> readers;
-    shared_ptr<map<string, BarBase *>> feeds;
-    shared_ptr<map<string, BarBase *>> cleaners_feeds;
-    shared_ptr<map<string, CleanerBase *>> cleaners;
-    shared_ptr<map<string, StrategyBase *>> strategies;
-    shared_ptr<map<string, BrokerBase *>> brokers;
-    shared_ptr<map<string, RiskManagerBase *>> risk_managers;
-    shared_ptr<map<string, RecorderBase *>> recorders;
+    map<string, shared_ptr<ReaderBase>> readers;
+    map<string, shared_ptr<BarBase>> feeds;
+    map<string, shared_ptr<BarBase>> cleaners_feeds;
+    map<string, shared_ptr<CleanerBase>> cleaners;
+    map<string, shared_ptr<StrategyBase>> strategies;
+    map<string, shared_ptr<BrokerBase>> brokers;
+    map<string, shared_ptr<RiskManagerBase>> risk_managers;
+    map<string, shared_ptr<RecorderBase>> recorders;
     //string recorder = ""; // type: op.RecorderBase
 
     //string signals_normal = [];         // 保存最原始的所有信号
