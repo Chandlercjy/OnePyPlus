@@ -11,6 +11,7 @@
 #include "sys_module/RiskManagerBase.cpp"
 #include "sys_module/StrategyBase.cpp"
 #include "sys_module/models/BarBase.cpp"
+#include "sys_module/models/Calendar.cpp"
 #include "utils/utils.h"
 
 namespace op {

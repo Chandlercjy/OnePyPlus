@@ -1,9 +1,14 @@
+#include "../Environment.h"
+#include "../utils/arrow.h"
+#include "../utils/utils.h"
 #include "CsvReader.h"
 
 namespace sys {
 
+using namespace utils;
 using std::ifstream;
 using std::ios;
+using std::shared_ptr;
 using std::string;
 using std::stringstream;
 using std::vector;
@@ -65,10 +70,14 @@ inline vector<string> read_line(string &line_str) {
     return columns_array;
 }
 
-shared_ptr<OhlcVector> load_raw_data(const string &data_path) {
-    auto bar_series = make_shared<OhlcVector>();
-    ifstream in_file(data_path, ios::in);
-    check_is_file_exist(in_file, data_path); // 判断文件是否存在
+shared_ptr<OhlcVector> load_raw_data(const string &data_path,
+                                     const string &file_name,
+                                     const string &frequency) {
+    string true_data_path = data_path + file_name + "_" + frequency + ".csv";
+
+    auto bar_series = std::make_shared<OhlcVector>();
+    ifstream in_file(true_data_path, ios::in);
+    check_is_file_exist(in_file, true_data_path); // 判断文件是否存在
 
     string line_str;
     getline(in_file, line_str); // read columns
@@ -81,14 +90,28 @@ shared_ptr<OhlcVector> load_raw_data(const string &data_path) {
     return bar_series;
 }
 
-CsvReader::CsvReader(const string &data_path, const string &ticker)
+CsvReader::CsvReader(const string &data_path,
+                     const string &file_name,
+                     const string &ticker)
     : ReaderBase(ticker),
-      _data_path(data_path) { save_to_env<CsvReader>(this); };
+      file_name(file_name),
+      data_path(data_path) { save_to_env<CsvReader>(this); };
 
 shared_ptr<OhlcVector> CsvReader::load(const string &fromdate,
                                        const string &todate,
                                        const string &frequency) {
-    auto bar_series = load_raw_data(_data_path);
-    return bar_series;
+    shared_ptr<OhlcVector> bar_series = load_raw_data(data_path,
+                                                      file_name,
+                                                      frequency);
+    shared_ptr<OhlcVector> result = std::make_shared<OhlcVector>();
+
+    for (auto &bar : *bar_series) {
+        if (arrow::is_gt(bar.date, todate))
+            break;
+        if (arrow::is_gte(bar.date, fromdate)) {
+            result->push_back(bar);
+        }
+    };
+    return result;
 }
 } // namespace sys

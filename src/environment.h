@@ -22,14 +22,15 @@ class EventEngine;
 
 class Environment {
   public:
-    string sys_date = "2017-01-05";
-    //string sys_frequency = "";
+    string instrument;
+    string sys_date = "2017-01-06";
+    string sys_frequency = "";
 
-    string fromdate = "2018-01-01";
-    string todate = "2018-01-01";
+    const string fromdate = "2017-01-07";
+    const string todate = "2017-05-01";
     //string tickers[];
-    shared_ptr<vector<string>> cur_suspended_tickers;
-    //string suspended_tickers_record : defaultdict = defaultdict(list);
+    vector<string> cur_suspended_tickers;
+    map<string, vector<string>> suspended_tickers_record;
 
     //string market_maker = "";
     map<string, shared_ptr<ReaderBase>> readers;
@@ -81,7 +82,6 @@ class Environment {
         static Environment instance;
         return &instance;
     };
-    string instrument;
 
   private:
     struct Object_Creator {

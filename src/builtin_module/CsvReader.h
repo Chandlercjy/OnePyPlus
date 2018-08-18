@@ -14,13 +14,13 @@ using std::vector;
 
 class CsvReader : public ReaderBase {
   public:
-    CsvReader(const string &data_path, const string &ticker);
+    CsvReader(const string &data_path, const string &file_name, const string &ticker);
 
     std::shared_ptr<OhlcVector> load(const string &fromdate,
                                      const string &todate,
                                      const string &frequency) override;
 
-  private:
-    const string _data_path;
+    const string file_name;
+    const string data_path;
 };
 } // namespace sys

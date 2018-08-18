@@ -16,8 +16,7 @@ using std::map;
 using std::string;
 
 Environment::Environment()
-    : cur_suspended_tickers(make_shared<vector<string>>()),
-      event_bus(make_shared<EventEngine>()),
+    : event_bus(make_shared<EventEngine>()),
       execute_on_close_or_next_open("open"),
       is_save_original(false),
       is_live_trading(false),

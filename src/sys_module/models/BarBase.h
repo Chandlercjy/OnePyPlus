@@ -16,24 +16,24 @@ class BarBase {
 
     explicit BarBase(const string &ticker, const string &frequency);
 
-    const string frequency;
     const string ticker;
+    const string frequency;
 
-    OhlcVector::const_iterator previous_bar;
-    OhlcVector::const_iterator current_bar;
-    OhlcVector::const_iterator next_bar;
+    OhlcVector::const_iterator previous_ohlc;
+    OhlcVector::const_iterator current_ohlc;
+    OhlcVector::const_iterator next_ohlc;
 
-    const string date();
-    const double open();
-    const double high();
-    const double low();
-    const double close();
-    const double volume();
+    const string date() const;
+    const double open() const;
+    const double high() const;
+    const double low() const;
+    const double close() const;
+    const double volume() const;
 
-    const double cur_price();
-    const double execute_price();
+    const double cur_price() const;
+    const double execute_price() const;
 
-    void initialize(int &buffer_day);
+    bool initialize(int buffer_day);
     void next();
     void next_directly();
 
@@ -42,8 +42,9 @@ class BarBase {
     virtual ~BarBase() = default;
 
   private:
-    OhlcVector *_iter_data;
-    inline void _update_iter_data();
-    inline void _delete_ohlc();
+    OhlcVector::const_iterator _iter_data;
+    std::shared_ptr<OhlcVector> _bar_series = nullptr;
+    inline void _update_iter_data(const string &start, const string &end);
+    inline void _delete_ohlc(const string &msg);
 };
 } // namespace sys

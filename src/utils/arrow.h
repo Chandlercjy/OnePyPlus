@@ -1,3 +1,4 @@
+#pragma once
 #include "date.h"
 #include <string>
 
@@ -66,7 +67,7 @@ class arrow {
         return total_seconds + days(value);
     }
 
-    static seconds_type shift_days(const string date_str, const int value) {
+    static seconds_type shift_days(const string &date_str, const int value) {
         return str_to_sec(date_str) + days(value);
     }
 
@@ -82,7 +83,7 @@ class arrow {
         return total_seconds + seconds(value);
     }
 
-    static seconds_type shift_seconds(const string date_str, const int value) {
+    static seconds_type shift_seconds(const string &date_str, const int value) {
         return str_to_sec(date_str) + seconds(value);
     }
 
@@ -108,6 +109,51 @@ class arrow {
 
     static bool is_lte(const seconds_type &lval, const seconds_type &rval) {
         return lval <= rval ? true : false;
+    }
+
+    static bool is_gt(const string &lval, const string &rval) {
+        return str_to_sec(lval) > str_to_sec(rval) ? true : false;
+    }
+
+    static bool is_gt(const seconds_type &lval, const seconds_type &rval) {
+        return lval > rval ? true : false;
+    }
+
+    static bool is_lt(const string &lval, const string &rval) {
+        return str_to_sec(lval) < str_to_sec(rval) ? true : false;
+    }
+
+    static bool is_lt(const seconds_type &lval, const seconds_type &rval) {
+        return lval < rval ? true : false;
+    }
+    static int _get_isoweek_func(const int days) {
+        int result = days >= -4 ? (days + 4) % 7 : (days + 5) % 7 + 6;
+        return result == 0 ? 7 : result;
+    }
+
+    static int get_isoweek(const string &date_str) { // 周一~周日 1-7
+        char *pBeginPos = (char *) date_str.c_str();
+        char *pPos = strstr(pBeginPos, "-");
+        if (pPos == nullptr) {
+            printf("date_str[%s] err \n", date_str.c_str());
+            throw std::logic_error("Date_str is not accepted");
+        }
+        unsigned iYear = std::strtoul(pBeginPos, 0, 0);
+        unsigned iMonth = std::strtoul(pPos + 1, 0, 0);
+        pPos = strstr(pPos + 1, "-");
+        if (pPos == nullptr) {
+            printf("date_str[%s] err \n", date_str.c_str());
+            throw std::logic_error("Date_str is not accepted");
+        }
+        unsigned iDay = std::strtoul(pPos + 1, 0, 0);
+
+        auto day_obj = sys_days{year(iYear) / iMonth / iDay};
+        return _get_isoweek_func(day_obj.time_since_epoch().count());
+    }
+
+    static int get_isoweek(const seconds_type &total_seconds) {
+        auto day_obj = floor<days>(total_seconds);
+        return _get_isoweek_func(day_obj.time_since_epoch().count());
     }
 };
 
