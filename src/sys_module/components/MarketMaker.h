@@ -1,27 +1,33 @@
+#include <map>
+#include <string>
+#include <vector>
+
 #pragma once
-#include "../models/BarBase.h"
-#include "../../Environment.h"
+
 namespace sys {
+using std::string;
+using std::unique_ptr;
 
 class Calendar;
 class Environment;
+class BarBase;
 
 class MarketMaker {
   public:
-    const static Environment *env;
-    static void update_market();
-    static void initialize();
+    MarketMaker();
+    Environment *env;
+    void update_market();
+    void initialize();
 
   private:
-    static Calendar calendar;
-    static void _initialize_calendar();
-    static void _initialize_feeds();
-    static void _initialize_cleaners();
-    static void _update_recorder(bool backtest_finished = false);
-    static void _check_blowup();
-    static void _update_bar();
-    static BarBase *get_bar(string &ticker, string &frequency);
-    MarketMaker() = default;
+    unique_ptr<Calendar> calendar;
+    void _initialize_calendar();
+    void _initialize_feeds();
+    void _initialize_cleaners();
+    void _check_initialize_status() const;
+    void _update_recorder(bool backtest_finished = false);
+    void _check_blowup() const;
+    void _update_bar();
+    std::shared_ptr<BarBase> get_bar(const string &ticker, const string &frequency);
 };
-const Environment *MarketMaker::env = Environment::get_instance();
 } // namespace sys

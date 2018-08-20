@@ -3,6 +3,7 @@
 #include "../../utils/arrow.h"
 #include "../../utils/easy_func.h"
 #include "../../utils/utils.h"
+#include "../ReaderBase.h"
 #include "BarBase.h"
 
 namespace sys {
@@ -81,7 +82,6 @@ void BarBase::next() {
     if (is_suspended()) {
         env->cur_suspended_tickers.push_back(ticker);
         env->suspended_tickers_record[ticker].push_back(ticker);
-
     } else
         next_directly();
 }
@@ -90,13 +90,11 @@ void BarBase::next_directly() {
     ++previous_ohlc;
     ++current_ohlc;
     ++next_ohlc;
-    if (next_ohlc == _bar_series->cend())
-        throw std::runtime_error("指针过头了");
 }
 
 bool BarBase::is_suspended() {
-    const string now = next_ohlc->date;
-    const string tomorrow = env->sys_date;
+    const string now = env->sys_date;
+    const string tomorrow = next_ohlc->date;
     if (arrow::is_lte(tomorrow, now))
         return false;
     return true;
@@ -119,5 +117,9 @@ void BarBase::move_next_ohlc_to_cur_ohlc() {
     } else
         env->cur_suspended_tickers.push_back(ticker);
 }
+
+bool BarBase::is_bar_series_end() const {
+    return next_ohlc == _bar_series->cend() ? true : false;
+};
 
 } // namespace sys

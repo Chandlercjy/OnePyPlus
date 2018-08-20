@@ -1,6 +1,12 @@
 #include "Environment.h"
 #include "config.h"
-#include "constants.h"
+#include "Constants.h"
+#include "sys_module/BrokerBase.h"
+#include "sys_module/CleanerBase.h"
+#include "sys_module/ReaderBase.h"
+#include "sys_module/RecorderBase.h"
+#include "sys_module/RiskManagerBase.h"
+#include "sys_module/StrategyBase.h"
 
 namespace sys {
 

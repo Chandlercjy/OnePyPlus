@@ -3,7 +3,11 @@
 
 namespace sys {
 
-void CleanerBase::run(){};
+void CleanerBase::run() {
+    ;
+};
+
+void CleanerBase::initialize_buffer_data(const string &ticker, int &bufferday){};
 
 template <typename cleaner_name>
 void CleanerBase::save_to_env(const cleaner_name *self_ptr) {

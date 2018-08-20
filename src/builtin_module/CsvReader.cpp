@@ -95,11 +95,11 @@ CsvReader::CsvReader(const string &data_path,
                      const string &ticker)
     : ReaderBase(ticker),
       file_name(file_name),
-      data_path(data_path) { save_to_env<CsvReader>(this); };
+      data_path(data_path) { save_to_env(this); };
 
 shared_ptr<OhlcVector> CsvReader::load(const string &fromdate,
                                        const string &todate,
-                                       const string &frequency) {
+                                       const string &frequency) const {
     shared_ptr<OhlcVector> bar_series = load_raw_data(data_path,
                                                       file_name,
                                                       frequency);

@@ -1,5 +1,6 @@
 #pragma once
 #include "date.h"
+#include <iostream>
 #include <string>
 
 namespace utils {
@@ -26,6 +27,9 @@ class arrow {
             printf("date_str[%s] err \n", date_str.c_str());
             throw std::logic_error("Date_str is not accepted");
         }
+        if (std::strtoul(pPos + 1, 0, 0) == 0)
+            pPos++;
+
         unsigned iDay = std::strtoul(pPos + 1, 0, 0);
         unsigned iHour = 0;
         unsigned iMin = 0;
@@ -48,7 +52,7 @@ class arrow {
     };
 
     static string sec_to_str(const seconds_type &total_seconds) {
-        auto date_temp = floor<days>(total_seconds);
+        auto date_temp = time_point_cast<days>(total_seconds);
         auto date_part = year_month_day(date_temp);
         auto time_part = make_time(total_seconds - date_temp);
         char chTmp[128];
@@ -75,7 +79,7 @@ class arrow {
         return sec_to_str(shift_days(total_seconds, value));
     }
 
-    static string shift_days_to_str(const string date_str, const int value) {
+    static string shift_days_to_str(const string &date_str, const int value) {
         return sec_to_str(shift_days(date_str, value));
     }
 
@@ -91,7 +95,7 @@ class arrow {
         return sec_to_str(shift_seconds(total_seconds, value));
     }
 
-    static string shift_seconds_to_str(const string date_str, const int value) {
+    static string shift_seconds_to_str(const string &date_str, const int value) {
         return sec_to_str(shift_seconds(date_str, value));
     }
 
@@ -145,6 +149,8 @@ class arrow {
             printf("date_str[%s] err \n", date_str.c_str());
             throw std::logic_error("Date_str is not accepted");
         }
+        if (std::strtoul(pPos + 1, 0, 0) == 0)
+            pPos++;
         unsigned iDay = std::strtoul(pPos + 1, 0, 0);
 
         auto day_obj = sys_days{year(iYear) / iMonth / iDay};
@@ -154,6 +160,10 @@ class arrow {
     static int get_isoweek(const seconds_type &total_seconds) {
         auto day_obj = floor<days>(total_seconds);
         return _get_isoweek_func(day_obj.time_since_epoch().count());
+    }
+
+    static string formatter(const string &date_str) { // YYYY-MM-DD HH:mm:ss
+        return sec_to_str(str_to_sec(date_str));
     }
 };
 

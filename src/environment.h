@@ -1,8 +1,9 @@
-#pragma once
 
 #include <map>
 #include <string>
 #include <vector>
+
+#pragma once
 
 namespace sys {
 using std::map;
@@ -22,17 +23,16 @@ class EventEngine;
 
 class Environment {
   public:
-    string instrument;
-    string sys_date = "2017-01-06";
-    string sys_frequency = "";
+    string instrument = "A_shares";
+    string sys_date = "2018-01-11";
+    string sys_frequency = "D";
 
-    const string fromdate = "2017-01-07";
-    const string todate = "2017-05-01";
-    //string tickers[];
+    const string fromdate = "2018-01-12";
+    const string todate = "2018-03-19";
+    const vector<string> tickers;
     vector<string> cur_suspended_tickers;
-    map<string, vector<string>> suspended_tickers_record;
+    map<const string, vector<string>> suspended_tickers_record;
 
-    //string market_maker = "";
     map<string, shared_ptr<ReaderBase>> readers;
     map<string, shared_ptr<BarBase>> feeds;
     map<string, shared_ptr<BarBase>> cleaners_feeds;
@@ -41,7 +41,7 @@ class Environment {
     map<string, shared_ptr<BrokerBase>> brokers;
     map<string, shared_ptr<RiskManagerBase>> risk_managers;
     map<string, shared_ptr<RecorderBase>> recorders;
-    //string recorder = ""; // type: op.RecorderBase
+    shared_ptr<RecorderBase> recorder = nullptr; // type: op.RecorderBase
 
     //string signals_normal = [];         // 保存最原始的所有信号
     //string signals_trigger = [];        // 保存最原始的所有挂单信号
@@ -65,7 +65,7 @@ class Environment {
     //string orders_cancel_submitted = []; // 动态地保存撤单，会不断刷新
 
     //string logger = logging.getLogger("OnePy");
-    std::shared_ptr<EventEngine> event_bus; //看看能不能设成会报错的指针
+    std::shared_ptr<EventEngine> event_engine; //看看能不能设成会报错的指针
     //string event_loop = "";
     //string calendar = "";  // type:op.Calendar
     //string bar_class = ""; // type:op.BarBase
@@ -76,8 +76,10 @@ class Environment {
     bool is_live_trading;
     bool is_show_today_signals; // 是否显示当前最新信号的开关
 
+    void initialize_env();
+
   public:
-    static Environment *get_instance() {
+    static Environment *get_instance() noexcept {
 
         static Environment instance;
         return &instance;
@@ -90,7 +92,7 @@ class Environment {
         }
     };
     static Object_Creator _object_creator;
-    Environment();            // ctor hidden
+    Environment() noexcept;   // ctor hidden
     ~Environment() = default; // dtor hidden
 };
 } // namespace sys

@@ -15,13 +15,13 @@ using std::make_shared;
 using std::map;
 using std::string;
 
-Environment::Environment()
-    : event_bus(make_shared<EventEngine>()),
+Environment::Environment() noexcept
+    : event_engine(make_shared<EventEngine>()),
       execute_on_close_or_next_open("open"),
       is_save_original(false),
       is_live_trading(false),
-      is_show_today_signals(false)
+      is_show_today_signals(false){};
 
-          {};
+void Environment::initialize_env(){};
 
 } // namespace sys

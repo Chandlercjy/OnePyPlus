@@ -1,5 +1,7 @@
-
+#include <string>
 #pragma once
+
+using std::string;
 
 namespace sys {
 class Environment;
@@ -11,8 +13,13 @@ class CleanerBase {
     CleanerBase(const CleanerBase &) = default;
     CleanerBase &operator=(const CleanerBase &) = default;
     Environment *env;
+
+    int bufferday;
+
     void run();
     virtual ~CleanerBase() = default;
+
+    void initialize_buffer_data(const string &ticker, int &bufferday);
 
   protected:
     template <typename cleaner_name>

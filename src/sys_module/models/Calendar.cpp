@@ -8,15 +8,14 @@
 namespace sys {
 using namespace utils;
 using std::string;
-Calendar::Calendar(const string &instrument)
-    : _instrument(instrument) {
-    _set_is_trading_time_func();
-};
 
-void Calendar::_set_is_trading_time_func() {
-    if (_instrument == "A_shares")
+Calendar::Calendar()
+    : env(Environment::get_instance()){};
+
+void Calendar::initialize(const string &instrument) {
+    if (instrument == "A_shares")
         this->_is_trading_time = &Calendar::_is_A_shares_trading_time;
-    else if (_instrument == "Forex")
+    else if (instrument == "Forex")
         this->_is_trading_time = &Calendar::_is_forex_trading_time;
 };
 
@@ -38,6 +37,7 @@ bool Calendar::_is_forex_trading_time(string date_str) {
     }
     return false;
 };
+
 bool Calendar::_is_A_shares_trading_time(string date_str) {
     int weekday = arrow::get_isoweek(date_str);
     auto now = arrow::str_to_sec(date_str);
@@ -57,20 +57,19 @@ bool Calendar::_is_A_shares_trading_time(string date_str) {
     }
     return false;
 };
+
 void Calendar::update_calendar() {
-    if (env->is_live_trading)
+
+    if (env->is_live_trading) {
         assert(1 < 2); //TODO: format sys_date
-    else {
-        _check_todate();
-        env->sys_date = arrow::shift_seconds_to_str(
-            env->sys_date, get_second_ratio(env->sys_frequency));
-        while (!(this->*_is_trading_time)(env->sys_date)) {
+    } else {
+        do {
             _check_todate();
             env->sys_date = arrow::shift_seconds_to_str(
                 env->sys_date, get_second_ratio(env->sys_frequency));
-        };
+        } while (!(this->*_is_trading_time)(env->sys_date));
     };
-};
+}; // namespace sys
 void Calendar::_check_todate() {
     static arrow::seconds_type todate = arrow::str_to_sec(env->todate);
     if (arrow::str_to_sec(env->sys_date) >= todate)

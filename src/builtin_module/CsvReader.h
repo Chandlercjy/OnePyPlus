@@ -18,7 +18,7 @@ class CsvReader : public ReaderBase {
 
     std::shared_ptr<OhlcVector> load(const string &fromdate,
                                      const string &todate,
-                                     const string &frequency) override;
+                                     const string &frequency) const override;
 
     const string file_name;
     const string data_path;

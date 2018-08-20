@@ -17,4 +17,5 @@ template <typename reader_name>
 void ReaderBase::save_to_env(const reader_name *self_ptr) {
     env->readers[ticker] = std::make_shared<reader_name>(*self_ptr);
 }
+
 } // namespace sys
