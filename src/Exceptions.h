@@ -1,6 +1,9 @@
-#pragma once
-#include <exception>
 
+#include <exception>
+#include <string>
+#pragma once
+
+using std::string;
 namespace except {
 
 using std::exception;
@@ -22,14 +25,15 @@ class BacktestFinished : public exception {
 class OrderConflictError : public exception {
   public:
     const char *what() const throw() {
-        return "OrderCoflictError raised!";
+        return "$ and pct can't be set together";
     }
 };
+
 
 class PctRangeError : public exception {
   public:
     const char *what() const throw() {
-        return "PctRangeError raised!";
+        return "pct should be -1 < pct < 1";
     }
 };
 

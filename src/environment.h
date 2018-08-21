@@ -20,6 +20,12 @@ class BrokerBase;
 class RiskManagerBase;
 class RecorderBase;
 class EventEngine;
+class Signal;
+class SignalForPending;
+class SignalByTrigger;
+class SignalCancel;
+class SignalCancelTST;
+class SignalCancelPending;
 
 class Environment {
   public:
@@ -43,26 +49,27 @@ class Environment {
     map<string, shared_ptr<RecorderBase>> recorders;
     shared_ptr<RecorderBase> recorder = nullptr; // type: op.RecorderBase
 
-    //string signals_normal = [];         // 保存最原始的所有信号
-    //string signals_trigger = [];        // 保存最原始的所有挂单信号
-    //string signals_cancel = [];         // 保存最原始的所有挂单信号
-    //string orders_mkt_original = [];    // 保存最原始的所有订单信号
-    //string orders_cancel_original = []; // 保存最原始的所有订单信号
+    //vector<shared_ptr<Signal>> signals_normal;  // 保存最原始的所有信号
+    //vector<shared_ptr<Signal>> signals_trigger; // 保存最原始的所有挂单信号
+    //vector<shared_ptr<Signal>> signals_cancel;  // 保存最原始的所有挂单信号
+    //vector< > orders_mkt_original ;    // 保存最原始的所有订单信号
+    //vector< > orders_cancel_original ; // 保存最原始的所有订单信号
 
-    //string signals_normal_cur = [];  // 动态地临时信号，会不断刷新
-    //string signals_pending_cur = []; // 动态地临时信号，会不断刷新
-    //string signals_trigger_cur = []; // 动态地临时信号，会不断刷新
-    //string signals_cancel_cur = [];  // 动态地临时信号，会不断刷新
+    vector<shared_ptr<Signal>> signals_normal_cur;                      // 动态地临时信号，会不断刷新
+    vector<shared_ptr<SignalForPending>> signals_pending_cur;           // 动态地临时信号，会不断刷新
+    vector<shared_ptr<SignalByTrigger>> signals_trigger_cur;            // 动态地临时信号，会不断刷新
+    vector<shared_ptr<SignalCancelTST>> signals_cancel_tst_cur;         // 动态地临时信号，会不断刷新
+    vector<shared_ptr<SignalCancelPending>> signals_cancel_pending_cur; // 动态地临时信号，会不断刷新
 
-    //string orders_mkt_normal_cur = [];    // 动态地保存当前订单, 会不断刷新
-    //string orders_child_of_mkt_dict = {}; // 动态地保存跟随市价单的挂单
-    //string orders_mkt_absolute_cur = [];  // 动态地保存触发的挂单并成交信息，会不断刷新
-    //string orders_mkt_submitted = [];     // 动态地保存成交单，会不断刷新
+    //vector< > orders_mkt_normal_cur ;    // 动态地保存当前订单, 会不断刷新
+    //vector< > orders_child_of_mkt_dict = {}; // 动态地保存跟随市价单的挂单
+    //vector< > orders_mkt_absolute_cur ;  // 动态地保存触发的挂单并成交信息，会不断刷新
+    //vector< > orders_mkt_submitted ;     // 动态地保存成交单，会不断刷新
 
-    //string orders_pending = []; // 动态地保存挂单,触发会删除
+    //vector< > orders_pending ; // 动态地保存挂单,触发会删除
 
-    //string orders_cancel_cur = [];       // 动态地保存撤单，会不断刷新
-    //string orders_cancel_submitted = []; // 动态地保存撤单，会不断刷新
+    //vector< > orders_cancel_cur ;       // 动态地保存撤单，会不断刷新
+    //vector< > orders_cancel_submitted ; // 动态地保存撤单，会不断刷新
 
     //string logger = logging.getLogger("OnePy");
     std::shared_ptr<EventEngine> event_engine; //看看能不能设成会报错的指针

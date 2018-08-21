@@ -121,4 +121,13 @@ void handle_error(const string &file, const int &line, const string &msg) {
     throw std::logic_error(msg);
 }
 
+template <typename T>
+const bool is_elem_in_vector(const vector<T> &vec, const T &value) {
+    auto it = find(vec.begin(), vec.end(), value);
+
+    if (it != vec.end())
+        return true;
+    return false;
+}
+
 } // namespace utils

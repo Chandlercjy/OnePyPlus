@@ -1,4 +1,5 @@
 #include "../Environment.h"
+#include "../Exceptions.h"
 #include "../utils/arrow.h"
 #include "../utils/utils.h"
 #include "CsvReader.h"
@@ -51,8 +52,10 @@ inline OhlcVector::value_type settle_ohlc(const vector<string> &columns,
 
 inline void check_is_file_exist(const ifstream &file,
                                 const string &data_path) {
-    if (!file)
+    if (!file) {
         std::cout << data_path << " 不存在!!可能路径不正确" << std::endl;
+        throw except::BacktestFinished();
+    }
 }
 
 inline vector<string> seperate_str(stringstream &line_str) {
