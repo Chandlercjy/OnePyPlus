@@ -11,6 +11,12 @@ class StrategyBase {
     StrategyBase(const StrategyBase &) = default;
     StrategyBase &operator=(const StrategyBase &) = default;
     Environment *env;
+
+    void buy();
+    void sell();
+    void shortsell();
+    void cover();
+
     void run();
     virtual ~StrategyBase() = default;
 

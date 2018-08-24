@@ -7,6 +7,8 @@
 #include "src/builtin_module/StockRecorder.cpp"
 #include "src/config.cpp"
 #include "src/sys_module//components/MarketMaker.cpp"
+#include "src/sys_module//components/SignalGenerator.cpp"
+#include "src/sys_module//components/TriggeredSignalGenerator.cpp"
 #include "src/sys_module/BrokerBase.cpp"
 #include "src/sys_module/CleanerBase.cpp"
 #include "src/sys_module/ReaderBase.cpp"
@@ -15,8 +17,13 @@
 #include "src/sys_module/StrategyBase.cpp"
 #include "src/sys_module/models/BarBase.cpp"
 #include "src/sys_module/models/Calendar.cpp"
+#include "src/sys_module/models/CancelOrderBase.cpp"
+#include "src/sys_module/models/GeneralOrder.cpp"
+#include "src/sys_module/models/OrderBase.cpp"
+#include "src/sys_module/models/PendingOrderBase.cpp"
 #include "src/sys_module/models/Signal.cpp"
 #include "src/sys_module/models/SignalCancel.cpp"
+#include "src/sys_module/models/TrailingOrderBase.cpp"
 #include "src/utils/utils.h"
 #include <fstream>
 #include <iostream>

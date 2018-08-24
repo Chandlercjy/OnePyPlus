@@ -8,7 +8,6 @@ using std::string;
 enum class ActionType;
 class SignalBase;
 class Environment;
-
 class SignalGenerator {
   public:
     SignalGenerator(const string &strategy_name,

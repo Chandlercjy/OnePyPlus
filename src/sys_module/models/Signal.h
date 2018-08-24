@@ -1,10 +1,12 @@
 #include "../../Constants.h"
+#include <map>
 #include <string>
 #include <vector>
 
 #pragma once
 namespace sys {
 
+using std::map;
 using std::shared_ptr;
 using std::string;
 using std::vector;
@@ -44,6 +46,7 @@ class SignalBase {
     const int signal_id;
     const string datetime;
     const string next_datetime;
+    map<string, double> info;
 
   protected:
     static int _counter;
@@ -52,6 +55,13 @@ class SignalBase {
     void _check_conflict(const double obj,
                          const double obj_pct,
                          const string &name);
+    void _record_info(const double &price,
+                      const double &takeprofit,
+                      const double &takeprofit_pct,
+                      const double &stoploss,
+                      const double &stoploss_pct,
+                      const double &trailingstop,
+                      const double &trailingstop_pct);
 
     virtual void _save_signals() = 0;
 };
@@ -100,7 +110,7 @@ class SignalByTrigger : public SignalBase {
         const string &trigger_key,
         const double execute_price,
         const double first_cur_price,
-        const shared_ptr<OrderBase> &parent_order,
+        const double &parent_order_difference,
         const string &strategy_name,
         const ActionType &action_type,
         const double size,
@@ -118,13 +128,13 @@ class SignalByTrigger : public SignalBase {
     const string trigger_key;
     const double execute_price;
     const double first_cur_price;
-    const shared_ptr<OrderBase> parent_order;
+    const double parent_order_difference;
 
     const int signal_id; // 触发信号重新计数
-    static int _counter;
 
   private:
     void _save_signals() override;
+    static int _counter;
 };
 
 int SignalBase::_counter = 1;

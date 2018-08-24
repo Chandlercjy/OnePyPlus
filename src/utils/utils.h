@@ -123,10 +123,18 @@ void handle_error(const string &file, const int &line, const string &msg) {
 
 template <typename T>
 const bool is_elem_in_vector(const vector<T> &vec, const T &value) {
-    auto it = find(vec.begin(), vec.end(), value);
-
-    if (it != vec.end())
+    auto it = find(vec.cbegin(), vec.cend(), value);
+    if (it != vec.cend())
         return true;
+    return false;
+}
+
+template <typename T1, typename T2>
+const bool is_elem_in_map_key(const map<T1, T2> &map_obj, const T1 &key) {
+    for (auto &value : map_obj) {
+        if (value.first == key)
+            return true;
+    }
     return false;
 }
 

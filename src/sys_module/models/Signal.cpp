@@ -34,6 +34,8 @@ SignalBase::SignalBase(
       datetime(env->sys_date),
       next_datetime(env->feeds[ticker]->next_ohlc->date) {
     _check_all_conflict();
+    _record_info(price, takeprofit, takeprofit_pct, stoploss,
+                 stoploss_pct, trailingstop, trailingstop_pct);
 };
 
 void SignalBase::_check_all_conflict() {
@@ -64,6 +66,22 @@ void SignalBase::_check_conflict(const double obj,
         else if (obj_pct < 0)
             throw std::logic_error("{name.upper()} should be Positive");
     }
+};
+
+void SignalBase::_record_info(const double &price,
+                              const double &takeprofit,
+                              const double &takeprofit_pct,
+                              const double &stoploss,
+                              const double &stoploss_pct,
+                              const double &trailingstop,
+                              const double &trailingstop_pct) {
+    info["price"] = price;
+    info["takeprofit"] = takeprofit;
+    info["takeprofit_pct"] = takeprofit_pct;
+    info["stoploss"] = stoploss;
+    info["stoploss_pct"] = stoploss_pct;
+    info["trailingstop"] = trailingstop;
+    info["trailingstop_pct"] = trailingstop_pct;
 };
 
 Signal::Signal(
@@ -122,7 +140,7 @@ SignalByTrigger::SignalByTrigger(
     const string &trigger_key,
     const double execute_price,
     const double first_cur_price,
-    const shared_ptr<OrderBase> &parent_order,
+    const double &parent_order_difference,
     const string &strategy_name,
     const ActionType &action_type,
     const double size,
@@ -144,7 +162,7 @@ SignalByTrigger::SignalByTrigger(
       trigger_key(trigger_key),
       execute_price(execute_price),
       first_cur_price(first_cur_price),
-      parent_order(parent_order),
+      parent_order_difference(parent_order_difference),
       signal_id(_counter++) {
     _save_signals();
 };
