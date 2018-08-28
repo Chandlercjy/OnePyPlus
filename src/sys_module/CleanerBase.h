@@ -9,9 +9,8 @@ class Environment;
 class CleanerBase {
 
   public:
-    CleanerBase() = default;
-    CleanerBase(const CleanerBase &) = default;
-    CleanerBase &operator=(const CleanerBase &) = default;
+    CleanerBase();
+
     Environment *env;
 
     int bufferday;

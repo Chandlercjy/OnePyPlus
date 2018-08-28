@@ -5,6 +5,8 @@
 #include "TrailingOrderBase.h"
 #include <exception>
 
+#pragma once
+
 namespace sys {
 enum class ActionType;
 enum class OrderType;
@@ -24,6 +26,10 @@ class MarketOrder : public OrderBase {
 
   private:
     const string _set_long_or_short();
+
+    template <typename T>
+    const int _set_father_mkt_id(const shared_ptr<T> &signal);
+
     const ActionType _action_type;
     const OrderType _order_type;
 };
@@ -33,7 +39,6 @@ class LimitBuyOrder : public PendingOrderBase {
     using PendingOrderBase::PendingOrderBase;
     const ActionType get_action_type() const override;
     const OrderType get_order_type() const override;
-
     const bool target_below() const override;
 };
 
@@ -42,7 +47,6 @@ class LimitSellOrder : public PendingOrderBase {
     using PendingOrderBase::PendingOrderBase;
     const ActionType get_action_type() const override;
     const OrderType get_order_type() const override;
-
     const bool target_below() const override;
 };
 
@@ -120,7 +124,7 @@ class TrailingStopCoverOrder : public TrailingOrderBase {
 
 class CancelTSTOrder : public CancelOrderBase {
   public:
-    explicit CancelTSTOrder(const SignalCancelTST &signal);
+    explicit CancelTSTOrder(const shared_ptr<SignalCancelTST> &signal);
 
     const bool takeprofit;
     const bool stoploss;
@@ -134,7 +138,7 @@ class CancelTSTOrder : public CancelOrderBase {
 
 class CancelPendingOrder : public CancelOrderBase {
   public:
-    explicit CancelPendingOrder(const SignalCancelPending &signal);
+    explicit CancelPendingOrder(const shared_ptr<SignalCancelPending> &signal);
 
     const double below_price;
     const double above_price;

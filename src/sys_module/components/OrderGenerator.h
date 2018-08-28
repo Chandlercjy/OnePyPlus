@@ -15,6 +15,7 @@ using std::vector;
 class OrderGenerator {
 
   public:
+    OrderGenerator();
     Environment *env;
     void run();
 
@@ -35,20 +36,20 @@ class OrderGenerator {
     const bool is_normal_mkt(const T &signal);
 
     template <typename T1, typename T2>
-    void _child_of_mkt(const T2 &signal,
+    void _child_of_mkt(const shared_ptr<T2> &signal,
                        const int mkt_id,
                        const string &key,
-                       const vector<shared_ptr<OrderBase>> &orders_basket);
+                       vector<shared_ptr<OrderBase>> &orders_basket);
 
     template <typename T>
-    shared_ptr<MarketOrder> _generate_mkt_order(const T &signal);
+    shared_ptr<MarketOrder> _generate_mkt_order(const shared_ptr<T> &signal);
 
     template <typename T>
     vector<shared_ptr<OrderBase>> _generate_child_of_mkt(const int mkt_id,
-                                                         const T &signal);
+                                                         const shared_ptr<T> &signal);
 
     template <typename T>
-    shared_ptr<PendingOrderBase> _generate_pending_order(const T &signal);
+    shared_ptr<PendingOrderBase> _generate_pending_order(const shared_ptr<T> &signal);
 
     void submit_mkt_order_with_child(shared_ptr<MarketOrder> mkt_order,
                                      const vector<shared_ptr<OrderBase>> &orders_basket,

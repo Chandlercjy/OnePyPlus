@@ -3,7 +3,9 @@
 
 namespace sys {
 
-RecorderBase::RecorderBase() : env(Environment::get_instance()){};
+RecorderBase::RecorderBase()
+    : env(Environment::get_instance()){};
+
 void RecorderBase::initialize(){};
 void RecorderBase::run(){};
 void RecorderBase::update(const bool &order_executed){

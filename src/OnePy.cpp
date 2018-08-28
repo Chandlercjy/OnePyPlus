@@ -65,4 +65,5 @@ bool OnePiece::_event_is_executed(const sys::EVENT &cur_event,
 
 void OnePiece::_reset_all_counter() const {};
 void OnePiece::_pre_initialize_trading_system(){};
+
 } // namespace op

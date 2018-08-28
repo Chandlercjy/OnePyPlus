@@ -3,6 +3,9 @@
 
 namespace sys {
 
+CleanerBase::CleanerBase()
+    : env(Environment::get_instance()){};
+
 void CleanerBase::run() {
     ;
 };

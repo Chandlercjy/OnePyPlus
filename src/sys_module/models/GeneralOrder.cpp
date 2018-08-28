@@ -12,11 +12,11 @@ namespace sys {
 template <typename T>
 MarketOrder::MarketOrder(const T &signal, const int mkt_id)
     : OrderBase(signal, mkt_id),
-      execute_price(signal),
-      father_mkt_id(signal.mkt_id),
+      execute_price(_first_cur_price),
+      father_mkt_id(_set_father_mkt_id(signal)),
       long_or_short(_set_long_or_short()),
-      _action_type(signal.action_type),
-      _order_type(signal.order_type){};
+      _action_type(signal->action_type),
+      _order_type(OrderType::Market){};
 
 const bool MarketOrder::is_pure() {
     return !utils::is_elem_in_map_key(env->orders_child_of_mkt_dict, mkt_id);
@@ -34,6 +34,16 @@ const string MarketOrder::_set_long_or_short() {
     if (_action_type == ActionType::Buy || _action_type == ActionType::Sell)
         return "long";
     return "short";
+};
+
+template<typename T>
+const int MarketOrder::_set_father_mkt_id(const shared_ptr<T> &signal) {
+    return -1;
+};
+
+template<>
+const int MarketOrder::_set_father_mkt_id(const shared_ptr<SignalByTrigger> &signal) {
+    return signal->mkt_id;
 };
 
 const bool LimitBuyOrder::target_below() const { return true; };
@@ -76,11 +86,11 @@ const bool TrailingStopCoverOrder::target_below() const { return false; };
 const ActionType TrailingStopCoverOrder::get_action_type() const { return ActionType::Cover; };
 const OrderType TrailingStopCoverOrder::get_order_type() const { return OrderType::Trailing_stop; };
 
-CancelTSTOrder::CancelTSTOrder(const SignalCancelTST &signal)
+CancelTSTOrder::CancelTSTOrder(const shared_ptr<SignalCancelTST> &signal)
     : CancelOrderBase(signal),
-      takeprofit(signal.takeprofit),
-      stoploss(signal.stoploss),
-      trailingstop(signal.trailingstop) {
+      takeprofit(signal->takeprofit),
+      stoploss(signal->stoploss),
+      trailingstop(signal->trailingstop) {
     _save_signal_info();
 };
 
@@ -94,10 +104,10 @@ const bool CancelTSTOrder::is_target(const string &trigger_key) {
     return signal_info[trigger_key];
 };
 
-CancelPendingOrder::CancelPendingOrder(const SignalCancelPending &signal)
+CancelPendingOrder::CancelPendingOrder(const shared_ptr<SignalCancelPending> &signal)
     : CancelOrderBase(signal),
-      below_price(signal.below_price),
-      above_price(signal.above_price) {
+      below_price(signal->below_price),
+      above_price(signal->above_price) {
     _save_signal_info();
 };
 

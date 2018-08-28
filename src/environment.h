@@ -67,7 +67,7 @@ class Environment {
     vector<shared_ptr<OrderBase>> orders_mkt_normal_cur;              // 动态地保存当前订单, 会不断刷新
     map<int, vector<shared_ptr<OrderBase>>> orders_child_of_mkt_dict; // 动态地保存跟随市价单的挂单
     vector<shared_ptr<OrderBase>> orders_mkt_absolute_cur;            // 动态地保存触发的挂单并成交信息，会不断刷新
-    vector<shared_ptr<OrderBase>> orders_mkt_submitted;               // 动态地保存成交单，会不断刷新
+    vector<shared_ptr<OrderBase>> orders_mkt_submitted_cur;           // 动态地保存成交单，会不断刷新
 
     vector<shared_ptr<PendingOrderBase>> orders_pending; // 动态地保存挂单,触发会删除
 

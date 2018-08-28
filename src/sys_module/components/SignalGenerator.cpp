@@ -8,11 +8,7 @@
 
 namespace sys {
 
-SignalGenerator::SignalGenerator(const string &strategy_name,
-                                 const ActionType &action_type)
-    : env(Environment::get_instance()),
-      _strategy_name(strategy_name),
-      _action_type(action_type){};
+SignalGenerator::SignalGenerator() : env(Environment::get_instance()){};
 
 const double SignalGenerator::_settle_price_pct(const string &ticker,
                                                 double price,
@@ -34,15 +30,17 @@ void SignalGenerator::buy_or_short(const double size,
                                    const double trailingstop,
                                    const double trailingstop_pct,
                                    const double price,
-                                   const double price_pct) {
+                                   const double price_pct,
+                                   const string &strategy_name,
+                                   const ActionType &action_type) {
     const double exact_price = _settle_price_pct(ticker, price, price_pct);
-    if (exact_price == 0) {
-        SignalForPending signal{_strategy_name, _action_type, size, ticker,
+    if (exact_price != 0) {
+        SignalForPending signal{strategy_name, action_type, size, ticker, exact_price,
                                 takeprofit, takeprofit_pct, stoploss, stoploss_pct,
-                                trailingstop, trailingstop_pct, exact_price};
-    } else if (utils::is_elem_in_vector(env->tickers, ticker)) {
+                                trailingstop, trailingstop_pct};
+    } else if (utils::is_elem_in_vector(env->cur_suspended_tickers, ticker)) {
     } else {
-        Signal signal{_strategy_name, _action_type, size, ticker,
+        Signal signal{strategy_name, action_type, size, ticker,
                       takeprofit, takeprofit_pct, stoploss, stoploss_pct,
                       trailingstop, trailingstop_pct, exact_price};
     }
@@ -51,13 +49,16 @@ void SignalGenerator::buy_or_short(const double size,
 void SignalGenerator::sell_or_cover(const double size,
                                     const string &ticker,
                                     const double price,
-                                    const double price_pct) {
+                                    const double price_pct,
+                                    const string &strategy_name,
+                                    const ActionType &action_type) {
     const double exact_price = _settle_price_pct(ticker, price, price_pct);
-    Signal good_signal{_strategy_name, _action_type, size, ticker, exact_price,
+    Signal good_signal{strategy_name, action_type, size, ticker, exact_price,
                        0, 0, 0, 0, 0, 0};
 }
 
-void SignalGenerator::cancel_tst(const string &ticker,
+void SignalGenerator::cancel_tst(const string &strategy_name,
+                                 const string &ticker,
                                  const string &long_or_short,
                                  const bool takeprofit,
                                  const bool stoploss,
@@ -65,7 +66,7 @@ void SignalGenerator::cancel_tst(const string &ticker,
     if (long_or_short != "long" && long_or_short != "short")
         throw std::logic_error("long_or_short should be long or short!");
 
-    SignalCancelTST signal{_strategy_name,
+    SignalCancelTST signal{strategy_name,
                            ticker,
                            long_or_short,
                            takeprofit,
@@ -73,7 +74,8 @@ void SignalGenerator::cancel_tst(const string &ticker,
                            trailingstop};
 }
 
-void SignalGenerator::cancel_pending(const string &ticker,
+void SignalGenerator::cancel_pending(const string &strategy_name,
+                                     const string &ticker,
                                      const string &long_or_short,
                                      const double below_price,
                                      const double above_price) {
@@ -81,7 +83,7 @@ void SignalGenerator::cancel_pending(const string &ticker,
     if (long_or_short != "long" && long_or_short != "short")
         throw std::logic_error("long_or_short should be long or short!");
 
-    SignalCancelPending signal{_strategy_name,
+    SignalCancelPending signal{strategy_name,
                                ticker,
                                long_or_short,
                                below_price,

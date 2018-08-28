@@ -1,20 +1,20 @@
-#include "src/Constants.h"
 #include "src/Environment.cpp"
 #include "src/EventEngine.cpp"
 #include "src/OnePy.cpp"
-#include "src/OnePy.h"
 #include "src/builtin_module/CsvReader.cpp"
+#include "src/builtin_module/StockBroker.cpp"
 #include "src/builtin_module/StockRecorder.cpp"
 #include "src/config.cpp"
-#include "src/sys_module//components/MarketMaker.cpp"
-#include "src/sys_module//components/SignalGenerator.cpp"
-#include "src/sys_module//components/TriggeredSignalGenerator.cpp"
 #include "src/sys_module/BrokerBase.cpp"
 #include "src/sys_module/CleanerBase.cpp"
 #include "src/sys_module/ReaderBase.cpp"
 #include "src/sys_module/RecorderBase.cpp"
 #include "src/sys_module/RiskManagerBase.cpp"
 #include "src/sys_module/StrategyBase.cpp"
+#include "src/sys_module/components/MarketMaker.cpp"
+#include "src/sys_module/components/OrderGenerator.cpp"
+#include "src/sys_module/components/SignalGenerator.cpp"
+#include "src/sys_module/components/TriggeredSignalGenerator.cpp"
 #include "src/sys_module/models/BarBase.cpp"
 #include "src/sys_module/models/Calendar.cpp"
 #include "src/sys_module/models/CancelOrderBase.cpp"
@@ -33,12 +33,21 @@ using namespace std;
 using namespace except;
 
 template <typename T>
-void log(T &str) {
+void log(const T &str) {
     cout << str << endl;
 };
 
-void log2(string &str) {
-    cout << str << endl;
+class Luffy : public op::StrategyBase {
+  public:
+    Luffy() {
+        save_to_env(this);
+        //env->strategies["luffy"] = std::make_shared<Luffy>(*this);
+        //throw 1;
+    };
+    const string get_name() override { return "Luffy"; };
+    void handle_bar() override {
+        buy(10, "000001", 0, 0, 0, 0, 0, 0, 0, 0.01);
+    };
 };
 
 int main() {
@@ -52,6 +61,13 @@ int main() {
     //log(ll.previous_ohlc->date);
 
     //go.env->event_engine->put(sys::EVENT::Data_cleaned);
+    Luffy gggks;
+    log(gggks.env->instrument);
+
+    //op::Environment *env = op::Environment::get_instance();
+    //env->strategies["kjkjjkj"] = std::make_shared<Luffy>();
+    //throw 1;
+    sys::StockBroker b;
     op::StockRecorder a;
     go.sunny();
     //vector<int> test{1, 2, 3, 4, 5};

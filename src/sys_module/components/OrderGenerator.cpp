@@ -7,25 +7,28 @@
 namespace sys {
 using std::make_shared;
 
+OrderGenerator::OrderGenerator()
+    : env(Environment::get_instance()){};
+
 const double OrderGenerator::cur_price(const string &ticker) {
     return env->feeds[ticker]->cur_price();
 };
 
 template <typename T>
 const bool OrderGenerator::is_buy(const T &signal) {
-    return signal.action_type == ActionType::Buy ? true : false;
+    return signal->action_type == ActionType::Buy ? true : false;
 };
 template <typename T>
 const bool OrderGenerator::is_sell(const T &signal) {
-    return signal.action_type == ActionType::Sell ? true : false;
+    return signal->action_type == ActionType::Sell ? true : false;
 };
 template <typename T>
 const bool OrderGenerator::is_short(const T &signal) {
-    return signal.action_type == ActionType::Short ? true : false;
+    return signal->action_type == ActionType::Short ? true : false;
 };
 template <typename T>
 const bool OrderGenerator::is_shortcover(const T &signal) {
-    return signal.action_type == ActionType::Cover ? true : false;
+    return signal->action_type == ActionType::Cover ? true : false;
 };
 template <typename T>
 const bool OrderGenerator::is_absolute_mkt(const T &signal) {
@@ -37,27 +40,25 @@ const bool OrderGenerator::is_normal_mkt(const T &signal) {
 };
 
 template <typename T1, typename T2>
-void _child_of_mkt(const T2 &signal,
-                   const int mkt_id,
-                   const string &key,
-                   vector<shared_ptr<OrderBase>> &orders_basket) {
-
-    if (signal.info[key]) {
+void OrderGenerator::_child_of_mkt(const shared_ptr<T2> &signal,
+                                   const int mkt_id,
+                                   const string &key,
+                                   vector<shared_ptr<OrderBase>> &orders_basket) {
+    if (signal->info[key]) {
         T1 order(signal, mkt_id, key);
         orders_basket.push_back(make_shared<T1>(order));
     }
 };
 
 template <typename T>
-shared_ptr<MarketOrder> OrderGenerator::_generate_mkt_order(const T &signal) {
+shared_ptr<MarketOrder> OrderGenerator::_generate_mkt_order(const shared_ptr<T> &signal) {
     return make_shared<MarketOrder>(signal, _counter++);
 };
 
 template <typename T>
 vector<shared_ptr<OrderBase>> OrderGenerator::_generate_child_of_mkt(const int mkt_id,
-                                                                     const T &signal) {
+                                                                     const shared_ptr<T> &signal) {
     vector<shared_ptr<OrderBase>> orders_basket;
-    _child_of_mkt<StopSellOrder>(signal, mkt_id, "stoploss", orders_basket);
     if (is_buy(signal)) {
         _child_of_mkt<StopSellOrder>(signal, mkt_id, "stoploss", orders_basket);
         _child_of_mkt<LimitSellOrder>(signal, mkt_id, "takeprofit", orders_basket);
@@ -78,10 +79,10 @@ vector<shared_ptr<OrderBase>> OrderGenerator::_generate_child_of_mkt(const int m
 };
 
 template <typename T>
-shared_ptr<PendingOrderBase> _generate_pending_order(const T &signal) {
+shared_ptr<PendingOrderBase> OrderGenerator::_generate_pending_order(const shared_ptr<T> &signal) {
     shared_ptr<PendingOrderBase> order;
 
-    if (signal.info["price"] > cur_price(signal.ticker)) {
+    if (signal->info["price"] > cur_price(signal->ticker)) {
         if (is_buy(signal))
             order = make_shared<StopBuyOrder>(signal, 0, "price");
         else if (is_shortcover(signal))
@@ -90,7 +91,7 @@ shared_ptr<PendingOrderBase> _generate_pending_order(const T &signal) {
             order = make_shared<LimitSellOrder>(signal, 0, "price");
         else if (is_short(signal))
             order = make_shared<LimitShortOrder>(signal, 0, "price");
-    } else if (signal.info["price"] < cur_price(signal.ticker)) {
+    } else if (signal->info["price"] < cur_price(signal->ticker)) {
         if (is_buy(signal))
             order = make_shared<LimitBuyOrder>(signal, 0, "price");
         else if (is_shortcover(signal))

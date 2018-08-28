@@ -1,16 +1,17 @@
+#include <string>
+
 #pragma once
 
 namespace sys {
+using std::string;
 class Environment;
 class RiskManagerBase {
   public:
-    RiskManagerBase() = default;
-    RiskManagerBase(const RiskManagerBase &) = default;
-    RiskManagerBase &operator=(const RiskManagerBase &) = default;
+    RiskManagerBase();
     Environment *env;
 
+    virtual const string get_name() = 0;
     void run();
-    virtual ~RiskManagerBase() = default;
 
   protected:
     template <typename risk_manager_name>

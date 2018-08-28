@@ -10,7 +10,7 @@ using std::string;
 class CancelOrderBase {
   public:
     template <typename T>
-    explicit CancelOrderBase(const T &signal);
+    explicit CancelOrderBase(const shared_ptr<T> &signal);
 
     Environment *env;
 
@@ -24,7 +24,7 @@ class CancelOrderBase {
     map<string, double> signal_info;
 
     template <typename T>
-    void set_first_cur_price_and_signal_type(const T &signal);
+    void set_first_cur_price_and_signal_type(const shared_ptr<T> &signal);
 
     void set_status(const OrderStatus &value);
     const ActionType get_action_type() const;

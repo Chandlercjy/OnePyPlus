@@ -18,7 +18,7 @@ class OrderBase {
 
   public:
     template <typename T>
-    OrderBase(const T &signal,
+    OrderBase(const shared_ptr<T> &signal,
               const int mkt_id);
 
     Environment *env;
@@ -38,7 +38,7 @@ class OrderBase {
     virtual void set_status(const OrderStatus &value);
 
     template <typename T>
-    void set_first_cur_price_and_signal_type(const T &signal);
+    void set_first_cur_price_and_signal_type(const shared_ptr<T> &signal);
 
     const OrderStatus get_status() const;
     const double get_first_cur_price() const;

@@ -7,13 +7,13 @@
 namespace sys {
 
 template <typename T>
-OrderBase::OrderBase(const T &signal,
+OrderBase::OrderBase(const shared_ptr<T> &signal,
                      const int mkt_id)
     : env(Environment::get_instance()),
-      strategy_name(signal.strategy_name),
-      ticker(signal.ticker),
-      size(signal.size),
-      trading_date(signal.datetime),
+      strategy_name(signal->strategy_name),
+      ticker(signal->ticker),
+      size(signal->size),
+      trading_date(signal->datetime),
       order_id(_counter++),
       mkt_id(mkt_id)
 
@@ -32,14 +32,15 @@ const OrderStatus OrderBase::get_status() const {
 };
 
 template <typename T>
-void OrderBase::set_first_cur_price_and_signal_type(const T &signal) {
-    if (typeid(signal) == typeid(SignalByTrigger)) {
-        _first_cur_price = signal.execute_price;
-        _signal_type = "triggered";
-    } else {
-        _first_cur_price = env->feeds[ticker]->execute_price();
-        _signal_type = "normal";
-    }
+void OrderBase::set_first_cur_price_and_signal_type(const shared_ptr<T> &signal) {
+    _first_cur_price = env->feeds[ticker]->execute_price();
+    _signal_type = "normal";
+};
+
+template <>
+void OrderBase::set_first_cur_price_and_signal_type(const shared_ptr<SignalByTrigger> &signal) {
+    _first_cur_price = signal->execute_price;
+    _signal_type = "triggered";
 };
 
 const double OrderBase::get_first_cur_price() const {
@@ -52,13 +53,13 @@ const string OrderBase::get_signal_type() const {
 
 template <typename T>
 void OrderBase::_save_signal_info(const T &signal) {
-    signal_info["price"] = signal.price;
-    signal_info["takeprofit"] = signal.takeprofit;
-    signal_info["takeprofit_pct"] = signal.takeprofit_pct;
-    signal_info["stoploss"] = signal.stoploss;
-    signal_info["stoploss_pct"] = signal.stoploss_pct;
-    signal_info["trailingstop"] = signal.trailingstop;
-    signal_info["trailingstop_pct"] = signal.trailingstop_pct;
+    signal_info["price"] = signal->price;
+    signal_info["takeprofit"] = signal->takeprofit;
+    signal_info["takeprofit_pct"] = signal->takeprofit_pct;
+    signal_info["stoploss"] = signal->stoploss;
+    signal_info["stoploss_pct"] = signal->stoploss_pct;
+    signal_info["trailingstop"] = signal->trailingstop;
+    signal_info["trailingstop_pct"] = signal->trailingstop_pct;
 };
 
 } // namespace sys
