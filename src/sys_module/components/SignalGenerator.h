@@ -12,22 +12,12 @@ class SignalGenerator {
   public:
     SignalGenerator();
     Environment *env;
-    void buy_or_short(const double size,
+    void buy_or_short(map<string, double> &info,
                       const string &ticker,
-                      const double takeprofit,
-                      const double takeprofit_pct,
-                      const double stoploss,
-                      const double stoploss_pct,
-                      const double trailingstop,
-                      const double trailingstop_pct,
-                      const double price,
-                      const double price_pct,
                       const string &strategy_name,
                       const ActionType &action_type);
-    void sell_or_cover(const double size,
+    void sell_or_cover(map<string, double> &info,
                        const string &ticker,
-                       const double price,
-                       const double price_pct,
                        const string &strategy_name,
                        const ActionType &action_type);
     void cancel_tst(const string &strategy_name,

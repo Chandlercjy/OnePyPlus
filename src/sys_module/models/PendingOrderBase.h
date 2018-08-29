@@ -24,8 +24,8 @@ class PendingOrderBase : public OrderBase {
     virtual const double cur_high_cross_target_price();
     virtual const double cur_low_cross_target_price();
     const bool is_with_mkt();
-    const double below_price(const double &diff);
-    const double above_price(const double &diff);
+    const double below_price(const double diff);
+    const double above_price(const double diff);
 
     virtual const double target_price();
     virtual const bool is_triggered();

@@ -130,7 +130,7 @@ class CancelTSTOrder : public CancelOrderBase {
     const bool stoploss;
     const bool trailingstop;
     const bool is_target(const string &trigger_key) override;
-    const bool is_target(const double &target_price) override { throw std::logic_error("Never raised"); };
+    const bool is_target(const double target_price) override { throw std::logic_error("Never raised"); };
 
   private:
     void _save_signal_info() override;
@@ -143,7 +143,7 @@ class CancelPendingOrder : public CancelOrderBase {
     const double below_price;
     const double above_price;
     const bool is_target(const string &trigger_key) override { throw std::logic_error("Never raised"); };
-    const bool is_target(const double &target_price) override;
+    const bool is_target(const double target_price) override;
 
   private:
     void _save_signal_info() override;

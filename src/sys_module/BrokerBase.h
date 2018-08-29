@@ -7,6 +7,7 @@ namespace sys {
 using std::shared_ptr;
 
 class OrderGenerator;
+class MarketOrder;
 class Environment;
 
 class BrokerBase {
@@ -19,7 +20,7 @@ class BrokerBase {
   protected:
     template <typename broker_name>
     void save_to_env(const broker_name *self_ptr);
-    virtual void _required_cash_func() = 0;
+    virtual const double _required_cash_func(const shared_ptr<MarketOrder> &order) = 0;
 
   private:
     //make_shared _checker(); //TODO：返回SubmitOrderChencker

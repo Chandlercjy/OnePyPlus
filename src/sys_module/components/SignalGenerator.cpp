@@ -21,40 +21,34 @@ const double SignalGenerator::_settle_price_pct(const string &ticker,
     return price;
 };
 
-void SignalGenerator::buy_or_short(const double size,
+void SignalGenerator::buy_or_short(map<string, double> &info,
                                    const string &ticker,
-                                   const double takeprofit,
-                                   const double takeprofit_pct,
-                                   const double stoploss,
-                                   const double stoploss_pct,
-                                   const double trailingstop,
-                                   const double trailingstop_pct,
-                                   const double price,
-                                   const double price_pct,
                                    const string &strategy_name,
                                    const ActionType &action_type) {
-    const double exact_price = _settle_price_pct(ticker, price, price_pct);
+    const double exact_price = _settle_price_pct(ticker, info["price"], info["price_pct"]);
     if (exact_price != 0) {
-        SignalForPending signal{strategy_name, action_type, size, ticker, exact_price,
-                                takeprofit, takeprofit_pct, stoploss, stoploss_pct,
-                                trailingstop, trailingstop_pct};
+        info["price"] = exact_price;
+        info["price_pct"] = 0;
+        SignalForPending signal{info, ticker, strategy_name, action_type};
     } else if (utils::is_elem_in_vector(env->cur_suspended_tickers, ticker)) {
     } else {
-        Signal signal{strategy_name, action_type, size, ticker,
-                      takeprofit, takeprofit_pct, stoploss, stoploss_pct,
-                      trailingstop, trailingstop_pct, exact_price};
+        Signal signal{info, ticker, strategy_name, action_type};
     }
 }
 
-void SignalGenerator::sell_or_cover(const double size,
+void SignalGenerator::sell_or_cover(map<string, double> &info,
                                     const string &ticker,
-                                    const double price,
-                                    const double price_pct,
                                     const string &strategy_name,
                                     const ActionType &action_type) {
-    const double exact_price = _settle_price_pct(ticker, price, price_pct);
-    Signal good_signal{strategy_name, action_type, size, ticker, exact_price,
-                       0, 0, 0, 0, 0, 0};
+    const double exact_price = _settle_price_pct(ticker, info["price"], info["price_pct"]);
+    if (exact_price != 0) {
+        info["price"] = exact_price;
+        info["price_pct"] = 0;
+        SignalForPending signal{info, ticker, strategy_name, action_type};
+    } else if (utils::is_elem_in_vector(env->cur_suspended_tickers, ticker)) {
+    } else {
+        Signal signal{info, ticker, strategy_name, action_type};
+    }
 }
 
 void SignalGenerator::cancel_tst(const string &strategy_name,

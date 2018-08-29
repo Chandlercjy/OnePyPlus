@@ -16,6 +16,7 @@
 namespace sys {
 
 using namespace utils;
+using std::logic_error;
 using std::string;
 using std::unique_ptr;
 
@@ -54,9 +55,9 @@ void MarketMaker::initialize() {
 
 void MarketMaker::_check_initialize_status() const {
     if (env->recorder == nullptr)
-        throw std::logic_error("Recorder hasn't been not settled!");
+        throw logic_error("Recorder hasn't been not settled!");
     if (env->readers.size() == 0)
-        throw std::logic_error("No Readers are settled!");
+        throw logic_error("No Readers are settled!");
 }
 
 void MarketMaker::_initialize_calendar() {
@@ -114,8 +115,8 @@ void MarketMaker::_update_bar() {
     };
 };
 
-std::shared_ptr<BarBase> MarketMaker::get_bar(const string &ticker,
-                                              const string &frequency) {
+shared_ptr<BarBase> MarketMaker::get_bar(const string &ticker,
+                                         const string &frequency) {
     return env->recorder->bar_class(ticker, frequency);
 };
 } // namespace sys

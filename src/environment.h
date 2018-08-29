@@ -1,4 +1,4 @@
-
+#include "DataType.h"
 #include <map>
 #include <string>
 #include <vector>
@@ -6,10 +6,6 @@
 #pragma once
 
 namespace sys {
-using std::map;
-using std::shared_ptr;
-using std::string;
-using std::vector;
 
 class ReaderBase;
 class BarBase;
@@ -42,40 +38,42 @@ class Environment {
     vector<string> cur_suspended_tickers;
     map<const string, vector<string>> suspended_tickers_record;
 
-    map<string, shared_ptr<ReaderBase>> readers;
-    map<string, shared_ptr<BarBase>> feeds;
-    map<string, shared_ptr<BarBase>> cleaners_feeds;
-    map<string, shared_ptr<CleanerBase>> cleaners;
-    map<string, shared_ptr<StrategyBase>> strategies;
-    map<string, shared_ptr<BrokerBase>> brokers;
-    map<string, shared_ptr<RiskManagerBase>> risk_managers;
-    map<string, shared_ptr<RecorderBase>> recorders;
+    ModuleMap<ReaderBase> readers;
+    ModuleMap<BarBase> feeds;
+    ModuleMap<BarBase> cleaners_feeds;
+    ModuleMap<CleanerBase> cleaners;
+    ModuleMap<StrategyBase> strategies;
+    ModuleMap<BrokerBase> brokers;
+    ModuleMap<RiskManagerBase> risk_managers;
+    ModuleMap<RecorderBase> recorders;
+
     shared_ptr<RecorderBase> recorder = nullptr; // type: op.RecorderBase
 
-    //vector<shared_ptr<Signal>> signals_normal;  // 保存最原始的所有信号
-    //vector<shared_ptr<Signal>> signals_trigger; // 保存最原始的所有挂单信号
-    //vector<shared_ptr<Signal>> signals_cancel;  // 保存最原始的所有挂单信号
-    //vector< > orders_mkt_original ;    // 保存最原始的所有订单信号
-    //vector< > orders_cancel_original ; // 保存最原始的所有订单信号
+    //SignalBox<Signal> signals_normal;  // 保存最原始的所有信号
+    //SignalBox<SignalByTrigger> signals_trigger; // 保存最原始的所有挂单信号
+    //SignalBox<SignalCancelTST> signals_cancel_tst;  // 保存最原始的所有挂单信号
+    //SignalBox<SignalCancelPending> signals_cancel_pending;  // 保存最原始的所有挂单信号
+    //OrderBox<OrderBase> orders_mkt_original ;    // 保存最原始的所有订单信号
+    //OrderBox<OrderBase> orders_cancel_original ; // 保存最原始的所有订单信号
 
-    vector<shared_ptr<Signal>> signals_normal_cur;                      // 动态地临时信号，会不断刷新
-    vector<shared_ptr<SignalForPending>> signals_pending_cur;           // 动态地临时信号，会不断刷新
-    vector<shared_ptr<SignalByTrigger>> signals_trigger_cur;            // 动态地临时信号，会不断刷新
-    vector<shared_ptr<SignalCancelTST>> signals_cancel_tst_cur;         // 动态地临时信号，会不断刷新
-    vector<shared_ptr<SignalCancelPending>> signals_cancel_pending_cur; // 动态地临时信号，会不断刷新
+    SignalBox<Signal> signals_normal_cur;                      // 动态地临时信号，会不断刷新
+    SignalBox<SignalForPending> signals_pending_cur;           // 动态地临时信号，会不断刷新
+    SignalBox<SignalByTrigger> signals_trigger_cur;            // 动态地临时信号，会不断刷新
+    SignalBox<SignalCancelTST> signals_cancel_tst_cur;         // 动态地临时信号，会不断刷新
+    SignalBox<SignalCancelPending> signals_cancel_pending_cur; // 动态地临时信号，会不断刷新
 
-    vector<shared_ptr<OrderBase>> orders_mkt_normal_cur;              // 动态地保存当前订单, 会不断刷新
     map<int, vector<shared_ptr<OrderBase>>> orders_child_of_mkt_dict; // 动态地保存跟随市价单的挂单
-    vector<shared_ptr<OrderBase>> orders_mkt_absolute_cur;            // 动态地保存触发的挂单并成交信息，会不断刷新
-    vector<shared_ptr<OrderBase>> orders_mkt_submitted_cur;           // 动态地保存成交单，会不断刷新
+    OrderBox<OrderBase> orders_mkt_normal_cur;                        // 动态地保存当前订单, 会不断刷新
+    OrderBox<OrderBase> orders_mkt_absolute_cur;                      // 动态地保存触发的挂单并成交信息，会不断刷新
+    OrderBox<OrderBase> orders_mkt_submitted_cur;                     // 动态地保存成交单，会不断刷新
 
-    vector<shared_ptr<PendingOrderBase>> orders_pending; // 动态地保存挂单,触发会删除
+    OrderBox<PendingOrderBase> orders_pending; // 动态地保存挂单,触发会删除
 
-    vector<shared_ptr<CancelOrderBase>> orders_cancel_cur;       // 动态地保存撤单，会不断刷新
-    vector<shared_ptr<CancelOrderBase>> orders_cancel_submitted; // 动态地保存撤单，会不断刷新
+    OrderBox<CancelOrderBase> orders_cancel_cur;       // 动态地保存撤单，会不断刷新
+    OrderBox<CancelOrderBase> orders_cancel_submitted; // 动态地保存撤单，会不断刷新
 
     //string logger = logging.getLogger("OnePy");
-    std::shared_ptr<EventEngine> event_engine; //看看能不能设成会报错的指针
+    shared_ptr<EventEngine> event_engine; //看看能不能设成会报错的指针
     //string event_loop = "";
     //string calendar = "";  // type:op.Calendar
     //string bar_class = ""; // type:op.BarBase

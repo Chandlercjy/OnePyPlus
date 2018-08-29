@@ -16,37 +16,31 @@ class OrderBase;
 class SignalBase {
 
   public:
-    SignalBase(const string &strategy_name,
-               const ActionType &action_type,
-               const double size,
+    SignalBase(const map<string, double> &info,
                const string &ticker,
-               const double price,
-               const double takeprofit,
-               const double takeprofit_pct,
-               const double stoploss,
-               const double stoploss_pct,
-               const double trailingstop,
-               const double trailingstop_pct);
+               const string &strategy_name,
+               const ActionType &action_type);
 
     Environment *env;
 
-    const string strategy_name;
-    const ActionType action_type;
-    const double size;
+    map<string, double> info;
     const string ticker;
 
-    const double price;
-    const double takeprofit;
-    const double takeprofit_pct;
-    const double stoploss;
-    const double stoploss_pct;
-    const double trailingstop;
-    const double trailingstop_pct;
+    const string strategy_name;
+    const ActionType action_type;
+
+    double size;
+    double price;
+    double takeprofit;
+    double takeprofit_pct;
+    double stoploss;
+    double stoploss_pct;
+    double trailingstop;
+    double trailingstop_pct;
 
     const int signal_id;
     const string datetime;
     const string next_datetime;
-    map<string, double> info;
 
   protected:
     static int _counter;
@@ -55,30 +49,17 @@ class SignalBase {
     void _check_conflict(const double obj,
                          const double obj_pct,
                          const string &name);
-    void _record_info(const double &price,
-                      const double &takeprofit,
-                      const double &takeprofit_pct,
-                      const double &stoploss,
-                      const double &stoploss_pct,
-                      const double &trailingstop,
-                      const double &trailingstop_pct);
+    void _record_info(map<string, double> info);
 
     virtual void _save_signals() = 0;
 };
 
 class Signal : public SignalBase {
   public:
-    Signal(const string &strategy_name,
-           const ActionType &action_type,
-           const double size,
+    Signal(const map<string, double> &info,
            const string &ticker,
-           const double price,
-           const double takeprofit,
-           const double takeprofit_pct,
-           const double stoploss,
-           const double stoploss_pct,
-           const double trailingstop,
-           const double trailingstop_pct);
+           const string &strategy_name,
+           const ActionType &action_type);
 
   private:
     void _save_signals() override;
@@ -86,17 +67,10 @@ class Signal : public SignalBase {
 
 class SignalForPending : public SignalBase {
   public:
-    SignalForPending(const string &strategy_name,
-                     const ActionType &action_type,
-                     const double size,
+    SignalForPending(const map<string, double> &info,
                      const string &ticker,
-                     const double price,
-                     const double takeprofit,
-                     const double takeprofit_pct,
-                     const double stoploss,
-                     const double stoploss_pct,
-                     const double trailingstop,
-                     const double trailingstop_pct);
+                     const string &strategy_name,
+                     const ActionType &action_type);
 
   private:
     void _save_signals() override;
@@ -104,24 +78,16 @@ class SignalForPending : public SignalBase {
 
 class SignalByTrigger : public SignalBase {
   public:
-    SignalByTrigger(
-        const OrderType &order_type,
-        const int mkt_id,
-        const string &trigger_key,
-        const double execute_price,
-        const double first_cur_price,
-        const double &parent_order_difference,
-        const string &strategy_name,
-        const ActionType &action_type,
-        const double size,
-        const string &ticker,
-        const double price,
-        const double takeprofit,
-        const double takeprofit_pct,
-        const double stoploss,
-        const double stoploss_pct,
-        const double trailingstop,
-        const double trailingstop_pct);
+    SignalByTrigger(const map<string, double> &info,
+                    const string &ticker,
+                    const string &strategy_name,
+                    const ActionType &action_type,
+                    const OrderType &order_type,
+                    const int mkt_id,
+                    const string &trigger_key,
+                    const double execute_price,
+                    const double first_cur_price,
+                    const double parent_order_difference);
 
     const OrderType order_type;
     const int mkt_id;

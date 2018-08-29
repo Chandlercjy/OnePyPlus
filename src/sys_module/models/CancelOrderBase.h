@@ -31,7 +31,7 @@ class CancelOrderBase {
     const OrderStatus get_status() const;
 
     virtual const bool is_target(const string &trigger_key) = 0;
-    virtual const bool is_target(const double &target_price) = 0;
+    virtual const bool is_target(const double target_price) = 0;
 
   protected:
     virtual void _save_signal_info() = 0;

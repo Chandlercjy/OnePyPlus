@@ -12,6 +12,7 @@
 #include "src/sys_module/RiskManagerBase.cpp"
 #include "src/sys_module/StrategyBase.cpp"
 #include "src/sys_module/components/MarketMaker.cpp"
+#include "src/sys_module/components/OrderChencker.cpp"
 #include "src/sys_module/components/OrderGenerator.cpp"
 #include "src/sys_module/components/SignalGenerator.cpp"
 #include "src/sys_module/components/TriggeredSignalGenerator.cpp"
@@ -21,6 +22,7 @@
 #include "src/sys_module/models/GeneralOrder.cpp"
 #include "src/sys_module/models/OrderBase.cpp"
 #include "src/sys_module/models/PendingOrderBase.cpp"
+#include "src/sys_module/models/SeriesBase.cpp"
 #include "src/sys_module/models/Signal.cpp"
 #include "src/sys_module/models/SignalCancel.cpp"
 #include "src/sys_module/models/TrailingOrderBase.cpp"
@@ -47,6 +49,7 @@ class Luffy : public op::StrategyBase {
     const string get_name() override { return "Luffy"; };
     void handle_bar() override {
         buy(10, "000001", 0, 0, 0, 0, 0, 0, 0, 0.01);
+        buy(10, "000001");
     };
 };
 

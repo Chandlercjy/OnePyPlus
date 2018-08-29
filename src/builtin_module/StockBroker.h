@@ -3,12 +3,16 @@
 #pragma once
 
 namespace sys {
+using std::shared_ptr;
+
+class MarketOrder;
 
 class StockBroker : public BrokerBase {
   public:
-      StockBroker();
+    StockBroker();
+
   private:
-    void _required_cash_func() override{};
+    const double _required_cash_func(const shared_ptr<MarketOrder> &order) override;
 };
 
 } // namespace sys

@@ -37,10 +37,10 @@ const double PendingOrderBase::cur_low_cross_target_price() {
 const bool PendingOrderBase::is_with_mkt() {
     return trigger_key == "price" ? false : true; //判断是否是跟随市价单的挂单
 };
-const double PendingOrderBase::below_price(const double &diff) {
+const double PendingOrderBase::below_price(const double diff) {
     return _first_cur_price - diff;
 };
-const double PendingOrderBase::above_price(const double &diff) {
+const double PendingOrderBase::above_price(const double diff) {
     return _first_cur_price + diff;
 };
 

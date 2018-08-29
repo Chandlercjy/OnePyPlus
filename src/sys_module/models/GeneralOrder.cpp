@@ -21,27 +21,19 @@ MarketOrder::MarketOrder(const T &signal, const int mkt_id)
 const bool MarketOrder::is_pure() {
     return !utils::is_elem_in_map_key(env->orders_child_of_mkt_dict, mkt_id);
 }
-
-const ActionType MarketOrder::get_action_type() const {
-    return _action_type;
-};
-
-const OrderType MarketOrder::get_order_type() const {
-    return _order_type;
-};
-
+const ActionType MarketOrder::get_action_type() const { return _action_type; };
+const OrderType MarketOrder::get_order_type() const { return _order_type; };
 const string MarketOrder::_set_long_or_short() {
     if (_action_type == ActionType::Buy || _action_type == ActionType::Sell)
         return "long";
     return "short";
 };
 
-template<typename T>
-const int MarketOrder::_set_father_mkt_id(const shared_ptr<T> &signal) {
+template <>
+const int MarketOrder::_set_father_mkt_id(const shared_ptr<Signal> &signal) {
     return -1;
 };
-
-template<>
+template <>
 const int MarketOrder::_set_father_mkt_id(const shared_ptr<SignalByTrigger> &signal) {
     return signal->mkt_id;
 };
@@ -116,7 +108,7 @@ void CancelPendingOrder::_save_signal_info() {
     signal_info["above_price"] = above_price;
 };
 
-const bool CancelPendingOrder::is_target(const double &target_price) {
+const bool CancelPendingOrder::is_target(const double target_price) {
     if (below_price != 0)
         return target_price <= below_price;
     else if (above_price != 0)

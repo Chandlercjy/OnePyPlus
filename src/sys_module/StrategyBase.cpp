@@ -18,16 +18,20 @@ void StrategyBase::buy(const double size,
                        const double trailingstop_pct,
                        const double price,
                        const double price_pct) {
-    _signal_generator->buy_or_short(size,
+    map<string, double> info = {
+        {"size", size},
+        {"takeprofit", takeprofit},
+        {"takeprofit_pct", takeprofit_pct},
+        {"stoploss", stoploss},
+        {"stoploss_pct", stoploss_pct},
+        {"trailingstop", trailingstop},
+        {"trailingstop_pct", trailingstop_pct},
+        {"price", price},
+        {"price_pct", price_pct},
+    };
+
+    _signal_generator->buy_or_short(info,
                                     ticker,
-                                    takeprofit,
-                                    takeprofit_pct,
-                                    stoploss,
-                                    stoploss_pct,
-                                    trailingstop,
-                                    trailingstop_pct,
-                                    price,
-                                    price_pct,
                                     get_name(),
                                     ActionType::Buy);
 };
@@ -36,10 +40,21 @@ void StrategyBase::sell(const double size,
                         const string &ticker,
                         const double price,
                         const double price_pct) {
-    _signal_generator->sell_or_cover(size,
+
+    map<string, double> info = {
+        {"size", size},
+        {"takeprofit", 0},
+        {"takeprofit_pct", 0},
+        {"stoploss", 0},
+        {"stoploss_pct", 0},
+        {"trailingstop", 0},
+        {"trailingstop_pct", 0},
+        {"price", price},
+        {"price_pct", price_pct},
+    };
+
+    _signal_generator->sell_or_cover(info,
                                      ticker,
-                                     price,
-                                     price_pct,
                                      get_name(),
                                      ActionType::Sell);
 };
@@ -54,16 +69,19 @@ void StrategyBase::shortsell(const double size,
                              const double trailingstop_pct,
                              const double price,
                              const double price_pct) {
-    _signal_generator->buy_or_short(size,
+    map<string, double> info = {
+        {"size", size},
+        {"takeprofit", takeprofit},
+        {"takeprofit_pct", takeprofit_pct},
+        {"stoploss", stoploss},
+        {"stoploss_pct", stoploss_pct},
+        {"trailingstop", trailingstop},
+        {"trailingstop_pct", trailingstop_pct},
+        {"price", price},
+        {"price_pct", price_pct},
+    };
+    _signal_generator->buy_or_short(info,
                                     ticker,
-                                    takeprofit,
-                                    takeprofit_pct,
-                                    stoploss,
-                                    stoploss_pct,
-                                    trailingstop,
-                                    trailingstop_pct,
-                                    price,
-                                    price_pct,
                                     get_name(),
                                     ActionType::Short);
 };
@@ -72,10 +90,20 @@ void StrategyBase::cover(const double size,
                          const string &ticker,
                          const double price,
                          const double price_pct) {
-    _signal_generator->sell_or_cover(size,
+
+    map<string, double> info = {
+        {"size", size},
+        {"takeprofit", 0},
+        {"takeprofit_pct", 0},
+        {"stoploss", 0},
+        {"stoploss_pct", 0},
+        {"trailingstop", 0},
+        {"trailingstop_pct", 0},
+        {"price", price},
+        {"price_pct", price_pct},
+    };
+    _signal_generator->sell_or_cover(info,
                                      ticker,
-                                     price,
-                                     price_pct,
                                      get_name(),
                                      ActionType::Cover);
 };
