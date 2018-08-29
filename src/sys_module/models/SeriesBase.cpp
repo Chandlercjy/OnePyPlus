@@ -56,7 +56,8 @@ double SeriesBase::get_barly_cur_price(const string &ticker,
 };
 
 MoneySeries::MoneySeries(const string &name, const double initial_value)
-    : _name(name) { change_initial_value(initial_value); };
+    : env(Environment::get_instance()),
+      _name(name) { _initialize_data(initial_value); };
 
 const string MoneySeries::get_name() { return _name; };
 
@@ -64,8 +65,16 @@ void MoneySeries::change_initial_value(const double value) {
     _data[0].value = value;
 };
 
+inline void MoneySeries::_initialize_data(const double initial_value) {
+    _data.push_back(SeriesStruct{env->fromdate, initial_value});
+}
+
 double MoneySeries::latest() {
     return _data.back().value;
+};
+
+void MoneySeries::push_back(const SeriesStruct &value) {
+    _data.push_back(value);
 };
 
 void PositionSeries::update_order(const string &ticker,

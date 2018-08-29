@@ -107,9 +107,9 @@ shared_ptr<PendingOrderBase> OrderGenerator::_generate_pending_order(const share
     return order;
 };
 void OrderGenerator::submit_mkt_order_with_child(
-    shared_ptr<MarketOrder> mkt_order,
+    shared_ptr<MarketOrder> &mkt_order,
     const vector<shared_ptr<OrderBase>> &orders_basket,
-    vector<shared_ptr<OrderBase>> orders_cur) {
+    vector<shared_ptr<MarketOrder>> &orders_cur) {
     orders_cur.push_back(mkt_order);
     if (orders_basket.size() != 0) {
         env->orders_child_of_mkt_dict[mkt_order->mkt_id] = orders_basket;

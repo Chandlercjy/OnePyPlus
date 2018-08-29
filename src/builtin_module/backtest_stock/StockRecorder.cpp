@@ -13,7 +13,7 @@ StockRecorder::StockRecorder()
 
 shared_ptr<BarBase> StockRecorder::bar_class(const string &ticker,
                                              const string &frequency) {
-    return std::make_shared<BarBase>(ticker, frequency);
+    return make_shared<BarBase>(ticker, frequency);
 };
 
 void StockRecorder::initialize() {

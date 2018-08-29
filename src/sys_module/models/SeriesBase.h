@@ -42,14 +42,17 @@ class SeriesBase {
 class MoneySeries final {
   public:
     MoneySeries(const string &name, const double initial_value);
+    Environment *env;
     const string get_name();
 
     void change_initial_value(const double value);
     double latest();
+    void push_back(const SeriesStruct &value);
 
   private:
     const string _name;
     vector<SeriesStruct> _data;
+    void _initialize_data(const double initial_value);
 };
 
 class PositionSeries : public SeriesBase {

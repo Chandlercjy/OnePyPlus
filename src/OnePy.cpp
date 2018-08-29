@@ -5,6 +5,8 @@
 #include "OnePy.h"
 #include "config.h"
 #include "sys_module//components/MarketMaker.h"
+#include "sys_module/RecorderBase.h"
+#include <iostream>
 
 namespace op {
 
