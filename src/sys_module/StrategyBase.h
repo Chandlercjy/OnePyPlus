@@ -3,6 +3,7 @@
 #include <string>
 
 namespace sys {
+using std::shared_ptr;
 using std::string;
 class Environment;
 class SignalGenerator;
@@ -50,10 +51,10 @@ class StrategyBase {
 
     //protected:
     template <typename T>
-    void save_to_env(const T *self_ptr);
+    void save_to_env(const T *self_ptr, const string &name);
     virtual const string get_name() = 0;
 
   private:
-    std::shared_ptr<SignalGenerator> _signal_generator;
+    shared_ptr<SignalGenerator> _signal_generator;
 };
 } // namespace sys

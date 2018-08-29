@@ -113,7 +113,7 @@ void StrategyBase::run() {
 };
 
 template <typename T>
-void StrategyBase::save_to_env(const T *self_ptr) {
-    env->strategies[get_name()] = std::make_shared<T>(*self_ptr);
+void StrategyBase::save_to_env(const T *self_ptr, const string &name) {
+    env->strategies[name] = std::make_shared<T>(*self_ptr);
 }
 } // namespace sys

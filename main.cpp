@@ -2,8 +2,9 @@
 #include "src/EventEngine.cpp"
 #include "src/OnePy.cpp"
 #include "src/builtin_module/CsvReader.cpp"
-#include "src/builtin_module/StockBroker.cpp"
-#include "src/builtin_module/StockRecorder.cpp"
+#include "src/builtin_module/backtest_stock/StockBroker.cpp"
+#include "src/builtin_module/backtest_stock/StockRecorder.cpp"
+#include "src/builtin_module/backtest_stock/StockSeries.cpp"
 #include "src/config.cpp"
 #include "src/sys_module/BrokerBase.cpp"
 #include "src/sys_module/CleanerBase.cpp"
@@ -42,7 +43,7 @@ void log(const T &str) {
 class Luffy : public op::StrategyBase {
   public:
     Luffy() {
-        save_to_env(this);
+        save_to_env(this, "luffy");
         //env->strategies["luffy"] = std::make_shared<Luffy>(*this);
         //throw 1;
     };
