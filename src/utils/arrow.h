@@ -21,6 +21,10 @@ class arrow {
             throw std::logic_error("Date_str is not accepted");
         }
         unsigned iYear = std::strtoul(pBeginPos, 0, 0);
+
+        if (std::strtoul(pPos + 1, 0, 0) == 0)
+            pPos++;
+
         unsigned iMonth = std::strtoul(pPos + 1, 0, 0);
         pPos = strstr(pPos + 1, "-");
         if (pPos == nullptr) {
