@@ -56,7 +56,7 @@ void MarketMaker::initialize() {
 void MarketMaker::_check_initialize_status() const {
     if (env->recorder == nullptr)
         throw logic_error("Recorder hasn't been not settled!");
-    if (env->readers.size() == 0)
+    if (env->readers.empty())
         throw logic_error("No Readers are settled!");
 }
 

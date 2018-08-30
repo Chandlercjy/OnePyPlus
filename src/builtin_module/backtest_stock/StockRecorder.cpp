@@ -32,5 +32,14 @@ void StockRecorder::initialize() {
 };
 
 void StockRecorder::_update_cash(const string &trading_date){};
+void StockRecorder::set_setting(const double initial_cash_,
+                                const double comm_,
+                                const double comm_pct_,
+                                const double margin_rate_) {
+    initial_cash = initial_cash_;
+    per_comm = comm_;
+    per_comm_pct = comm_pct_;
+    margin_rate = margin_rate_;
+};
 
 } // namespace sys

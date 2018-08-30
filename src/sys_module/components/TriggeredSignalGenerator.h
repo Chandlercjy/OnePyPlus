@@ -10,13 +10,13 @@ class TriggeredSignalGenerator {
     TriggeredSignalGenerator() = delete;
 
     template <typename T>
-    static void generate_bare_signal(const T &order);
+    static void _generate_bare_signal(const T &order);
 
     template <typename T>
-    static void generate_full_signal(const T &order);
+    static void _generate_full_signal(const T &order);
 
     template <typename T>
-    static void generate_triggered_signal(const T &order);
+    static bool generate_triggered_signal(const T &order);
 };
 
 } // namespace sys

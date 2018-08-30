@@ -43,7 +43,7 @@ template <typename T1, typename T2>
 void OrderGenerator::_child_of_mkt(const shared_ptr<T2> &signal,
                                    const int mkt_id,
                                    const string &key,
-                                   vector<shared_ptr<OrderBase>> &orders_basket) {
+                                   vector<shared_ptr<PendingOrderBase>> &orders_basket) {
     if (signal->info[key]) {
         T1 order(signal, mkt_id, key);
         orders_basket.push_back(make_shared<T1>(order));
@@ -56,9 +56,9 @@ shared_ptr<MarketOrder> OrderGenerator::_generate_mkt_order(const shared_ptr<T> 
 };
 
 template <typename T>
-vector<shared_ptr<OrderBase>> OrderGenerator::_generate_child_of_mkt(const int mkt_id,
+vector<shared_ptr<PendingOrderBase>> OrderGenerator::_generate_child_of_mkt(const int mkt_id,
                                                                      const shared_ptr<T> &signal) {
-    vector<shared_ptr<OrderBase>> orders_basket;
+    vector<shared_ptr<PendingOrderBase>> orders_basket;
     if (is_buy(signal)) {
         _child_of_mkt<StopSellOrder>(signal, mkt_id, "stoploss", orders_basket);
         _child_of_mkt<LimitSellOrder>(signal, mkt_id, "takeprofit", orders_basket);
@@ -108,7 +108,7 @@ shared_ptr<PendingOrderBase> OrderGenerator::_generate_pending_order(const share
 };
 void OrderGenerator::submit_mkt_order_with_child(
     shared_ptr<MarketOrder> &mkt_order,
-    const vector<shared_ptr<OrderBase>> &orders_basket,
+    const vector<shared_ptr<PendingOrderBase>> &orders_basket,
     vector<shared_ptr<MarketOrder>> &orders_cur) {
     orders_cur.push_back(mkt_order);
     if (orders_basket.size() != 0) {

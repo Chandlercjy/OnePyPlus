@@ -12,10 +12,6 @@ RecorderBase::RecorderBase()
 
 void RecorderBase::run() {
     _record_order();
-    cout << balance->latest()
-         << ", "
-         << env->sys_date
-         << endl;
 };
 
 void RecorderBase::update(const bool &order_executed) {

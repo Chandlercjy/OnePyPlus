@@ -5,18 +5,22 @@
 #include "OnePy.h"
 #include "config.h"
 #include "sys_module//components/MarketMaker.h"
+#include "sys_module//components/PendingOrderChecker.h"
 #include "sys_module/RecorderBase.h"
 #include <iostream>
 
 namespace op {
+using std::make_shared;
+using std::shared_ptr;
 
 OnePiece::OnePiece()
     : env(sys::Environment::get_instance()),
-      _market_maker(std::make_unique<MarketMaker>()){};
+      _event_loop(sys::EVENT_LOOP),
+      _market_maker(make_shared<MarketMaker>()),
+      _pending_order_checker(make_shared<PendingOrderChecker>()){};
 
 void OnePiece::sunny(const bool &show_summary) {
     initialize_trading_system();
-    //order_checker = PendingOrderChecker();
     while (true) {
         try {
             if (!env->event_engine->is_core_empty()) {
@@ -24,7 +28,7 @@ void OnePiece::sunny(const bool &show_summary) {
                 _run_event_loop(cur_event);
             } else {
                 _market_maker->update_market();
-                //order_checker.run();
+                _pending_order_checker->run();
             };
 
         } catch (except::BacktestFinished &e) {
@@ -46,8 +50,8 @@ void OnePiece::initialize_trading_system() {
     env->recorder->initialize();
 };
 
-void OnePiece::_run_event_loop(const sys::EVENT &event) const {
-    for (auto &single_loop : sys::EVENT_LOOP) {
+void OnePiece::_run_event_loop(const sys::EVENT &event) {
+    for (auto &single_loop : _event_loop) {
         if (_event_is_executed(event, single_loop))
             break;
     };
@@ -65,7 +69,16 @@ bool OnePiece::_event_is_executed(const sys::EVENT &cur_event,
     return false;
 };
 
-void OnePiece::_reset_all_counter() const {};
 void OnePiece::_pre_initialize_trading_system(){};
+
+void OnePiece::set_date(const string &fromdate,
+                        const string &todate,
+                        const string &frequency,
+                        const string &instrument) {
+    env->instrument = instrument;
+    env->fromdate = fromdate;
+    env->todate = todate;
+    env->sys_frequency = frequency;
+};
 
 } // namespace op

@@ -1,6 +1,6 @@
+#include "Constants.h"
 #include "Environment.h"
 #include "config.h"
-#include "Constants.h"
 #include "sys_module/BrokerBase.h"
 #include "sys_module/CleanerBase.h"
 #include "sys_module/ReaderBase.h"
@@ -44,23 +44,23 @@ void SingleLoop::run() {
     };
 }
 
-LoopVector EVENT_LOOP = {SingleLoop(EVENT::Market_updated,
-                                    EVENT::Data_cleaned,
-                                    MODULES::Cleaners),
+vector<SingleLoop> EVENT_LOOP = {SingleLoop(EVENT::Market_updated,
+                                            EVENT::Data_cleaned,
+                                            MODULES::Cleaners),
 
-                         SingleLoop(EVENT::Data_cleaned,
-                                    EVENT::Signal_generated,
-                                    MODULES::Strategies),
+                                 SingleLoop(EVENT::Data_cleaned,
+                                            EVENT::Signal_generated,
+                                            MODULES::Strategies),
 
-                         SingleLoop(EVENT::Signal_generated,
-                                    EVENT::Submit_order,
-                                    MODULES::Risk_managers),
+                                 SingleLoop(EVENT::Signal_generated,
+                                            EVENT::Submit_order,
+                                            MODULES::Risk_managers),
 
-                         SingleLoop(EVENT::Submit_order,
-                                    EVENT::Record_result,
-                                    MODULES::Brokers),
+                                 SingleLoop(EVENT::Submit_order,
+                                            EVENT::Record_result,
+                                            MODULES::Brokers),
 
-                         SingleLoop(EVENT::Record_result,
-                                    EVENT::None,
-                                    MODULES::Recorders)};
+                                 SingleLoop(EVENT::Record_result,
+                                            EVENT::None,
+                                            MODULES::Recorders)};
 } // namespace sys

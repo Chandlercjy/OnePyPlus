@@ -23,5 +23,7 @@ class CleanerBase {
   protected:
     template <typename cleaner_name>
     void save_to_env(const cleaner_name *self_ptr);
+    static int _counter;
 };
+int CleanerBase::_counter = 1;
 } // namespace sys

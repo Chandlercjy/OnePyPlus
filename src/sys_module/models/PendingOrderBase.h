@@ -12,23 +12,23 @@ class PendingOrderBase : public OrderBase {
                      const string &trigger_key);
     virtual const ActionType get_action_type() const override = 0;
     virtual const OrderType get_order_type() const override = 0;
-    virtual const bool target_below()const = 0;
+    virtual const bool target_below() const = 0;
 
     const string trigger_key;
+    virtual const bool is_triggered();
+    const bool is_with_mkt();
+    virtual const double target_price();
+    const double difference();
+
 
   protected:
     const double cur_open() const;
     const double cur_high() const;
     const double cur_low() const;
-    const double difference();
     virtual const double cur_high_cross_target_price();
     virtual const double cur_low_cross_target_price();
-    const bool is_with_mkt();
     const double below_price(const double diff);
     const double above_price(const double diff);
-
-    virtual const double target_price();
-    virtual const bool is_triggered();
 };
 
 } // namespace sys

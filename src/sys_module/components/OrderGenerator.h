@@ -39,20 +39,20 @@ class OrderGenerator {
     void _child_of_mkt(const shared_ptr<T2> &signal,
                        const int mkt_id,
                        const string &key,
-                       vector<shared_ptr<OrderBase>> &orders_basket);
+                       vector<shared_ptr<PendingOrderBase>> &orders_basket);
 
     template <typename T>
     shared_ptr<MarketOrder> _generate_mkt_order(const shared_ptr<T> &signal);
 
     template <typename T>
-    vector<shared_ptr<OrderBase>> _generate_child_of_mkt(const int mkt_id,
-                                                         const shared_ptr<T> &signal);
+    vector<shared_ptr<PendingOrderBase>> _generate_child_of_mkt(const int mkt_id,
+                                                                const shared_ptr<T> &signal);
 
     template <typename T>
     shared_ptr<PendingOrderBase> _generate_pending_order(const shared_ptr<T> &signal);
 
     void submit_mkt_order_with_child(shared_ptr<MarketOrder> &mkt_order,
-                                     const vector<shared_ptr<OrderBase>> &orders_basket,
+                                     const vector<shared_ptr<PendingOrderBase>> &orders_basket,
                                      vector<shared_ptr<MarketOrder>> &orders_cur);
 
     void _process_mkt_signals();

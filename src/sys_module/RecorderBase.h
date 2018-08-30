@@ -45,13 +45,16 @@ class RecorderBase {
     virtual void initialize() = 0;
     void run();
     void update(const bool &order_executed);
+    virtual void set_setting(const double initial_cash,
+                             const double comm,
+                             const double comm_pct,
+                             const double margin_rate) = 0;
 
   protected:
     template <typename T>
     void save_to_env(const T *self_ptr, const string &name);
 
     virtual void _update_cash(const string &trading_date) = 0;
-    //virtual void set_setting(const string &trading_date)=0;
 
   private:
     void _update_balance(const string &trading_date);

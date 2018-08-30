@@ -23,9 +23,11 @@ class SubmitOrderChecker {
 
   private:
     double cur_cash();
-    double cur_position(const shared_ptr<MarketOrder> &order);
+    double cur_position(const string &ticker,
+                        const ActionType &action_type);
     double required_cash(const shared_ptr<MarketOrder> &order);
-    double _acumu_position(const shared_ptr<MarketOrder> &order);
+    double _acumu_position(const string &ticker,
+                                           const ActionType &action_type);
     void order_pass_checker(const shared_ptr<MarketOrder> &order);
     bool _is_partial(const shared_ptr<MarketOrder> &order,
                      const double cur_pos,

@@ -6,6 +6,7 @@
 #include "src/builtin_module/backtest_stock/StockRecorder.cpp"
 #include "src/builtin_module/backtest_stock/StockSeries.cpp"
 #include "src/config.cpp"
+#include "src/custom_module/backtest.cpp"
 #include "src/sys_module/BrokerBase.cpp"
 #include "src/sys_module/CleanerBase.cpp"
 #include "src/sys_module/ReaderBase.cpp"
@@ -13,9 +14,10 @@
 #include "src/sys_module/RiskManagerBase.cpp"
 #include "src/sys_module/StrategyBase.cpp"
 #include "src/sys_module/components/MarketMaker.cpp"
-#include "src/sys_module/components/OrderChencker.cpp"
 #include "src/sys_module/components/OrderGenerator.cpp"
+#include "src/sys_module/components/PendingOrderChecker.cpp"
 #include "src/sys_module/components/SignalGenerator.cpp"
+#include "src/sys_module/components/SubmitOrderChecker.cpp"
 #include "src/sys_module/components/TriggeredSignalGenerator.cpp"
 #include "src/sys_module/models/BarBase.cpp"
 #include "src/sys_module/models/Calendar.cpp"
@@ -51,31 +53,29 @@ class Luffy : public op::StrategyBase {
     void handle_bar() override {
         //buy(10, "000001", 0, 0, 0, 0, 0, 0, 0, 0.01);
         buy(10, "000001");
+        //cout << env->recorder->balance->latest()
+        //<< ", "
+        //<< env->sys_date
+        //<< endl;
     };
 };
 
 int main() {
     sys::CsvReader ggss("./data/",
                         "000001", "000001");
-    op::OnePiece go;
-    //go.env->readers["ggg"] = &ggss;
-    //auto ll = sys::BarBase("ggg", "D");
-    //ll.initialize(8);
-    //log(ll.date());
-    //log(ll.previous_ohlc->date);
 
-    //go.env->event_engine->put(sys::EVENT::Data_cleaned);
-    Luffy gggks;
-    log(gggks.env->instrument);
+    Luffy haha;
 
-    //op::Environment *env = op::Environment::get_instance();
-    //env->strategies["kjkjjkj"] = std::make_shared<Luffy>();
-    //throw 1;
-    sys::StockBroker b;
-    op::StockRecorder a;
+    vector<string> ticker_list = {"000001"};
+
+    auto go = op::stock(ticker_list,
+                        "D",
+                        100000,
+                        "2017-03-01",
+                        "2017-06-01",
+                        "tushare");
+
     go.sunny();
-    //vector<int> test{1, 2, 3, 4, 5};
-    //assert(utils::is_element_in_vector(test, 3) == true);
-
+    cout << (go.env->recorder->balance->latest());
     std::cin.get();
 }

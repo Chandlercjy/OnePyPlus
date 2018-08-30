@@ -1,5 +1,6 @@
-#pragma once
+
 #include <vector>
+#pragma once
 
 // 控制事件发生顺序
 
@@ -22,10 +23,8 @@ struct SingleLoop {
     Environment *_env;
 };
 
-typedef std::vector<SingleLoop> LoopVector;
-extern LoopVector EVENT_LOOP;
+extern vector<SingleLoop> EVENT_LOOP;
 
 template <typename T>
-inline void run_modules();
+void run_modules();
 }; // namespace sys
-

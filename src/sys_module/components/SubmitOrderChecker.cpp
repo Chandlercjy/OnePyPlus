@@ -4,7 +4,7 @@
 #include "../RecorderBase.h"
 #include "../models/GeneralOrder.h"
 #include "../models/SeriesBase.h"
-#include "OrderChencker.h"
+#include "SubmitOrderChecker.h"
 
 namespace sys {
 
@@ -17,11 +17,12 @@ double SubmitOrderChecker::cur_cash() {
     return env->recorder->cash->latest();
 };
 
-double SubmitOrderChecker::cur_position(const shared_ptr<MarketOrder> &order) {
-    if (order->get_action_type() == ActionType::Sell)
-        return env->recorder->position->latest(order->ticker, "long");
-    else if (order->get_action_type() == ActionType::Cover)
-        return env->recorder->position->latest(order->ticker, "short");
+double SubmitOrderChecker::cur_position(const string &ticker,
+                                        const ActionType &action_type) {
+    if (action_type == ActionType::Sell)
+        return env->recorder->position->latest(ticker, "long");
+    else if (action_type == ActionType::Cover)
+        return env->recorder->position->latest(ticker, "short");
     else
         throw std::logic_error("Never Raised");
 };
@@ -30,11 +31,12 @@ double SubmitOrderChecker::required_cash(const shared_ptr<MarketOrder> &order) {
     return (*required_cash_func)(order);
 };
 
-double SubmitOrderChecker::_acumu_position(const shared_ptr<MarketOrder> &order) {
-    if (order->get_action_type() == ActionType::Sell)
-        return env->recorder->position->latest(order->ticker, "long");
-    else if (order->get_action_type() == ActionType::Cover)
-        return env->recorder->position->latest(order->ticker, "short");
+double SubmitOrderChecker::_acumu_position(const string &ticker,
+                                           const ActionType &action_type) {
+    if (action_type == ActionType::Sell)
+        return env->recorder->position->latest(ticker, "long");
+    else if (action_type == ActionType::Cover)
+        return env->recorder->position->latest(ticker, "short");
     else
         throw std::logic_error("Never Raised");
 };
@@ -102,6 +104,7 @@ void SubmitOrderChecker::_make_position_cumu_full(const shared_ptr<MarketOrder> 
 
 void SubmitOrderChecker::_check(const OrderBox<MarketOrder> order_list) {
     for (auto &order : order_list) {
+        const auto &ticker = order->ticker;
         const auto &action_type = order->get_action_type();
 
         if (action_type == ActionType::Buy || action_type == ActionType::Short) {
@@ -120,8 +123,8 @@ void SubmitOrderChecker::_check(const OrderBox<MarketOrder> order_list) {
         } else if (action_type == ActionType::Sell || action_type == ActionType::Cover) {
             _add_to_position_cumu(order);
 
-            auto cur_pos = cur_position(order);
-            auto acumu_position = _acumu_position(order);
+            auto cur_pos = cur_position(ticker, action_type);
+            auto acumu_position = _acumu_position(ticker, action_type);
 
             if (_lack_of_position(cur_pos, acumu_position)) {
                 if (_is_partial(order, cur_pos, acumu_position)) {

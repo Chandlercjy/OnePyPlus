@@ -29,12 +29,12 @@ class CancelOrderBase;
 
 class Environment {
   public:
-    string instrument = "A_shares";
-    string sys_date = "2017-02-09";
-    string sys_frequency = "D";
+    string instrument;
+    string sys_date;
+    string sys_frequency;
 
-    const string fromdate = "2017-02-10";
-    const string todate = "2018-01-01";
+    string fromdate;
+    string todate;
     const vector<string> tickers;
     vector<string> cur_suspended_tickers;
     map<const string, vector<string>> suspended_tickers_record;
@@ -48,14 +48,7 @@ class Environment {
     ModuleMap<RiskManagerBase> risk_managers;
     ModuleMap<RecorderBase> recorders;
 
-    shared_ptr<RecorderBase> recorder = nullptr; // type: op.RecorderBase
-
-    //SignalBox<Signal> signals_normal;  // 保存最原始的所有信号
-    //SignalBox<SignalByTrigger> signals_trigger; // 保存最原始的所有挂单信号
-    //SignalBox<SignalCancelTST> signals_cancel_tst;  // 保存最原始的所有挂单信号
-    //SignalBox<SignalCancelPending> signals_cancel_pending;  // 保存最原始的所有挂单信号
-    //OrderBox<OrderBase> orders_mkt_original ;    // 保存最原始的所有订单信号
-    //OrderBox<OrderBase> orders_cancel_original ; // 保存最原始的所有订单信号
+    shared_ptr<RecorderBase> recorder; // type: op.RecorderBase
 
     SignalBox<Signal> signals_normal_cur;                      // 动态地临时信号，会不断刷新
     SignalBox<SignalForPending> signals_pending_cur;           // 动态地临时信号，会不断刷新
@@ -63,10 +56,10 @@ class Environment {
     SignalBox<SignalCancelTST> signals_cancel_tst_cur;         // 动态地临时信号，会不断刷新
     SignalBox<SignalCancelPending> signals_cancel_pending_cur; // 动态地临时信号，会不断刷新
 
-    map<int, vector<shared_ptr<OrderBase>>> orders_child_of_mkt_dict; // 动态地保存跟随市价单的挂单
-    OrderBox<MarketOrder> orders_mkt_normal_cur;                      // 动态地保存当前订单, 会不断刷新
-    OrderBox<MarketOrder> orders_mkt_absolute_cur;                    // 动态地保存触发的挂单并成交信息，会不断刷新
-    OrderBox<MarketOrder> orders_mkt_submitted_cur;                   // 动态地保存成交单，会不断刷新
+    map<int, vector<shared_ptr<PendingOrderBase>>> orders_child_of_mkt_dict; // 动态地保存跟随市价单的挂单
+    OrderBox<MarketOrder> orders_mkt_normal_cur;                             // 动态地保存当前订单, 会不断刷新
+    OrderBox<MarketOrder> orders_mkt_absolute_cur;                           // 动态地保存触发的挂单并成交信息，会不断刷新
+    OrderBox<MarketOrder> orders_mkt_submitted_cur;                          // 动态地保存成交单，会不断刷新
 
     OrderBox<PendingOrderBase> orders_pending; // 动态地保存挂单,触发会删除
 
@@ -75,7 +68,6 @@ class Environment {
 
     //string logger = logging.getLogger("OnePy");
     shared_ptr<EventEngine> event_engine; //看看能不能设成会报错的指针
-    //string event_loop = "";
     //string calendar = "";  // type:op.Calendar
     //string bar_class = ""; // type:op.BarBase
     //string cache = {};

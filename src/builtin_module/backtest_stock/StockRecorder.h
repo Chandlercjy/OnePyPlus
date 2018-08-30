@@ -16,6 +16,10 @@ class StockRecorder : public RecorderBase {
                                   const string &frequency) override;
     void initialize() override;
     void _update_cash(const string &trading_date) override;
+    void set_setting(const double initial_cash,
+                     const double comm,
+                     const double comm_pct,
+                     const double margin_rate) override;
 };
 
 } // namespace sys
