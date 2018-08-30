@@ -30,11 +30,11 @@ class CancelOrderBase;
 class Environment {
   public:
     string instrument = "A_shares";
-    string sys_date = "2018-01-11";
+    string sys_date = "2017-02-09";
     string sys_frequency = "D";
 
-    const string fromdate = "2018-01-12";
-    const string todate = "2018-03-19";
+    const string fromdate = "2017-02-10";
+    const string todate = "2018-01-01";
     const vector<string> tickers;
     vector<string> cur_suspended_tickers;
     map<const string, vector<string>> suspended_tickers_record;

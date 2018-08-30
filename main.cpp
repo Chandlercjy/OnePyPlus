@@ -49,7 +49,7 @@ class Luffy : public op::StrategyBase {
     };
     const string get_name() override { return "Luffy"; };
     void handle_bar() override {
-        buy(10, "000001", 0, 0, 0, 0, 0, 0, 0, 0.01);
+        //buy(10, "000001", 0, 0, 0, 0, 0, 0, 0, 0.01);
         buy(10, "000001");
     };
 };

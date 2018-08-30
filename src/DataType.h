@@ -10,6 +10,8 @@ using std::shared_ptr;
 using std::string;
 using std::vector;
 
+class MarketOrder;
+
 struct OhlcStruct {
     OhlcStruct(const string &date, const double open, const double high,
                const double low, const double close, const double volume)
@@ -45,5 +47,7 @@ using SignalBox = vector<shared_ptr<T>>;
 
 template <typename T>
 using OrderBox = vector<shared_ptr<T>>;
+
+using Cash_func_ptr_type = double (*)(const shared_ptr<MarketOrder> &order);
 
 } // namespace sys

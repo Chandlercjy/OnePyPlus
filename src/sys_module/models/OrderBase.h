@@ -25,7 +25,7 @@ class OrderBase {
 
     const string strategy_name;
     const string ticker;
-    const double size;
+    double size;
     const string trading_date;
 
     const int order_id;

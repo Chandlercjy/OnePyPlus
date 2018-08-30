@@ -12,6 +12,10 @@ RecorderBase::RecorderBase()
 
 void RecorderBase::run() {
     _record_order();
+    cout << balance->latest()
+         << ", "
+         << env->sys_date
+         << endl;
 };
 
 void RecorderBase::update(const bool &order_executed) {
@@ -70,7 +74,6 @@ void RecorderBase::_record_order() {
                                    long_or_short);
         margin->update_order(ticker, long_or_short);
         //match_engine.match_order(order)
-
         update(true);
     }
 };

@@ -1,3 +1,4 @@
+#include "../DataType.h"
 #include <functional>
 
 #pragma once
@@ -5,10 +6,12 @@
 namespace sys {
 
 using std::shared_ptr;
+using std::unique_ptr;
 
 class OrderGenerator;
 class MarketOrder;
 class Environment;
+class SubmitOrderChecker;
 
 class BrokerBase {
   public:
@@ -20,11 +23,13 @@ class BrokerBase {
   protected:
     template <typename broker_name>
     void save_to_env(const broker_name *self_ptr);
-    virtual const double _required_cash_func(const shared_ptr<MarketOrder> &order) = 0;
+    double _required_cash_func(const shared_ptr<MarketOrder> &order);
+
+    virtual Cash_func_ptr_type cash_func() = 0;
+    shared_ptr<SubmitOrderChecker> _checker;
 
   private:
-    //make_shared _checker(); //TODO：返回SubmitOrderChencker
-    const shared_ptr<OrderGenerator> _order_generator;
+    shared_ptr<OrderGenerator> _order_generator;
     void _clear_submitted_order();
     void _generate_order();
     void _check_order();

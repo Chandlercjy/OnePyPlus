@@ -54,6 +54,7 @@ void SignalBase::_check_conflict(const double obj,
 };
 
 void SignalBase::_record_info(map<string, double> info) {
+    size = info["size"];
     price = info["price"];
     takeprofit = info["takeprofit"];
     takeprofit_pct = info["takeprofit_pct"];

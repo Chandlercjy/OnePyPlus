@@ -39,7 +39,6 @@ class BarBase {
 
     bool is_suspended();
     void move_next_ohlc_to_cur_ohlc();
-    virtual ~BarBase() = default;
 
     bool is_bar_series_end() const;
 

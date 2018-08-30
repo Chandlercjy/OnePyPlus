@@ -1,16 +1,18 @@
 #include "../Environment.h"
 #include "BrokerBase.h"
+#include "components/OrderChencker.h"
 #include "components/OrderGenerator.h"
 
 namespace sys {
+using std::make_shared;
 
 BrokerBase::BrokerBase()
     : env(Environment::get_instance()),
-      _order_generator(std::make_shared<OrderGenerator>()){};
+      _order_generator(make_shared<OrderGenerator>()){};
 
 template <typename broker_name>
 void BrokerBase::save_to_env(const broker_name *self_ptr) {
-    env->brokers["Broker"] = std::make_shared<broker_name>(*self_ptr); //TODO:设置名字
+    env->brokers["Broker"] = make_shared<broker_name>(*self_ptr); //TODO:设置名字
 }
 
 void BrokerBase::_clear_submitted_order() {
@@ -22,8 +24,8 @@ void BrokerBase::_generate_order() {
     _order_generator->run();
 };
 
-void BrokerBase::_check_order(){
-    //_checker->run();
+void BrokerBase::_check_order() {
+    _checker->run();
 };
 
 void BrokerBase::_submit_order() {
