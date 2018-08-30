@@ -3,9 +3,11 @@
 #include "StockBroker.h"
 
 namespace sys {
+using std::make_shared;
+
 StockBroker::StockBroker() {
     _checker = make_shared<SubmitOrderChecker>(cash_func());
-    save_to_env(this);
+    save_to_env(this, "StockBroker");
 }
 
 //const double StockBroker::_required_cash_func(const shared_ptr<MarketOrder> &order) {

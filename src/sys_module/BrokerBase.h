@@ -8,6 +8,7 @@ namespace sys {
 using std::shared_ptr;
 using std::unique_ptr;
 
+enum class ActionType;
 class OrderGenerator;
 class MarketOrder;
 class Environment;
@@ -21,8 +22,8 @@ class BrokerBase {
     void run();
 
   protected:
-    template <typename broker_name>
-    void save_to_env(const broker_name *self_ptr);
+    template <typename T>
+    void save_to_env(const T *self_ptr, const string &name);
     double _required_cash_func(const shared_ptr<MarketOrder> &order);
 
     virtual Cash_func_ptr_type cash_func() = 0;
@@ -34,7 +35,8 @@ class BrokerBase {
     void _generate_order();
     void _check_order();
     void _submit_order();
-    void _judge_long_or_short();
-    void _process_cancel_order();
+    const string _judge_long_or_short(const ActionType &action_type);
+    void _process_cancel_tst_order();
+    void _process_cancel_pending_order();
 };
 } // namespace sys

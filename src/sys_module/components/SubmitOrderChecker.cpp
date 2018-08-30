@@ -93,11 +93,12 @@ void SubmitOrderChecker::_delete_from_position_cumu(const shared_ptr<MarketOrder
         throw std::logic_error("Never Raised");
 };
 
-void SubmitOrderChecker::_make_position_cumu_full(const shared_ptr<MarketOrder> &order) {
-    if (order->get_action_type() == ActionType::Sell)
-        plong_acumu[order->ticker] = cur_position(order);
-    else if (order->get_action_type() == ActionType::Cover)
-        pshort_acumu[order->ticker] = cur_position(order);
+void SubmitOrderChecker::_make_position_cumu_full(const string &ticker,
+                                                  const ActionType &action_type) {
+    if (action_type == ActionType::Sell)
+        plong_acumu[ticker] = cur_position(ticker, action_type);
+    else if (action_type == ActionType::Cover)
+        pshort_acumu[ticker] = cur_position(ticker, action_type);
     else
         throw std::logic_error("Never Raised");
 };
@@ -128,7 +129,7 @@ void SubmitOrderChecker::_check(const OrderBox<MarketOrder> order_list) {
 
             if (_lack_of_position(cur_pos, acumu_position)) {
                 if (_is_partial(order, cur_pos, acumu_position)) {
-                    _make_position_cumu_full(order);
+                    _make_position_cumu_full(ticker, action_type);
                 } else {
                     order->set_status(OrderStatus::Rejected);
                     _delete_from_position_cumu(order);
@@ -153,14 +154,19 @@ void SubmitOrderChecker::_check_market_order() {
 void SubmitOrderChecker::_check_pending_order(){};
 
 void SubmitOrderChecker::_check_cancel_order() {
-    for (auto &order : env->orders_cancel_cur)
+    for (auto &order : env->orders_cancel_tst_cur)
         order->set_status(OrderStatus::Submitted);
-    env->orders_cancel_submitted = env->orders_cancel_cur;
+    env->orders_cancel_tst_submitted = env->orders_cancel_tst_cur;
+
+    for (auto &order : env->orders_cancel_pending_cur)
+        order->set_status(OrderStatus::Submitted);
+    env->orders_cancel_pending_submitted = env->orders_cancel_pending_cur;
 };
 void SubmitOrderChecker::_clear_all_cur_order() {
     env->orders_mkt_absolute_cur.clear();
     env->orders_mkt_normal_cur.clear();
-    env->orders_cancel_cur.clear();
+    env->orders_cancel_tst_cur.clear();
+    env->orders_cancel_pending_cur.clear();
 };
 
 void SubmitOrderChecker::run() {

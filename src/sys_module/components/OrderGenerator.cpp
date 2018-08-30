@@ -57,7 +57,7 @@ shared_ptr<MarketOrder> OrderGenerator::_generate_mkt_order(const shared_ptr<T> 
 
 template <typename T>
 vector<shared_ptr<PendingOrderBase>> OrderGenerator::_generate_child_of_mkt(const int mkt_id,
-                                                                     const shared_ptr<T> &signal) {
+                                                                            const shared_ptr<T> &signal) {
     vector<shared_ptr<PendingOrderBase>> orders_basket;
     if (is_buy(signal)) {
         _child_of_mkt<StopSellOrder>(signal, mkt_id, "stoploss", orders_basket);
@@ -143,9 +143,9 @@ void OrderGenerator::_process_pending_signals() {
 
 void OrderGenerator::_process_cancel_signals() {
     for (auto &signal : env->signals_cancel_tst_cur)
-        env->orders_cancel_cur.push_back(make_shared<CancelTSTOrder>(signal));
+        env->orders_cancel_tst_cur.push_back(make_shared<CancelTSTOrder>(signal));
     for (auto &signal : env->signals_cancel_pending_cur)
-        env->orders_cancel_cur.push_back(make_shared<CancelPendingOrder>(signal));
+        env->orders_cancel_pending_cur.push_back(make_shared<CancelPendingOrder>(signal));
 };
 
 void OrderGenerator::_clear_current_signals_memory() {

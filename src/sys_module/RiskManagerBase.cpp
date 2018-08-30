@@ -8,8 +8,8 @@ RiskManagerBase::RiskManagerBase()
 
 void RiskManagerBase::run(){};
 
-template <typename risk_manager_name>
-void RiskManagerBase::save_to_env(const risk_manager_name *self_ptr) {
-    env->risk_managers[get_name()] = std::make_shared<risk_manager_name>(*self_ptr); //TODO:设置名字
+template <typename T>
+void RiskManagerBase::save_to_env(const T *self_ptr, const string &name) {
+    env->risk_managers[name] = std::make_shared<T>(*self_ptr); //TODO:设置名字
 }
 } // namespace sys

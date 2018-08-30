@@ -25,7 +25,8 @@ class SignalCancelPending;
 class OrderBase;
 class MarketOrder;
 class PendingOrderBase;
-class CancelOrderBase;
+class CancelTSTOrder;
+class CancelPendingOrder;
 
 class Environment {
   public:
@@ -63,8 +64,10 @@ class Environment {
 
     OrderBox<PendingOrderBase> orders_pending; // 动态地保存挂单,触发会删除
 
-    OrderBox<CancelOrderBase> orders_cancel_cur;       // 动态地保存撤单，会不断刷新
-    OrderBox<CancelOrderBase> orders_cancel_submitted; // 动态地保存撤单，会不断刷新
+    OrderBox<CancelTSTOrder> orders_cancel_tst_cur;               // 动态地保存撤单，会不断刷新
+    OrderBox<CancelPendingOrder> orders_cancel_pending_cur;       // 动态地保存撤单，会不断刷新
+    OrderBox<CancelTSTOrder> orders_cancel_tst_submitted;         // 动态地保存撤单，会不断刷新
+    OrderBox<CancelPendingOrder> orders_cancel_pending_submitted; // 动态地保存撤单，会不断刷新
 
     //string logger = logging.getLogger("OnePy");
     shared_ptr<EventEngine> event_engine; //看看能不能设成会报错的指针

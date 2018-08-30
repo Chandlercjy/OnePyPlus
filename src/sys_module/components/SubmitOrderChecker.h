@@ -27,7 +27,7 @@ class SubmitOrderChecker {
                         const ActionType &action_type);
     double required_cash(const shared_ptr<MarketOrder> &order);
     double _acumu_position(const string &ticker,
-                                           const ActionType &action_type);
+                           const ActionType &action_type);
     void order_pass_checker(const shared_ptr<MarketOrder> &order);
     bool _is_partial(const shared_ptr<MarketOrder> &order,
                      const double cur_pos,
@@ -39,7 +39,8 @@ class SubmitOrderChecker {
     void _add_to_position_cumu(const shared_ptr<MarketOrder> &order);
     void _delete_from_cash_cumu(const shared_ptr<MarketOrder> &order);
     void _delete_from_position_cumu(const shared_ptr<MarketOrder> &order);
-    void _make_position_cumu_full(const shared_ptr<MarketOrder> &order);
+    void _make_position_cumu_full(const string &ticker,
+                                  const ActionType &action_type);
 
     void _check(const OrderBox<MarketOrder> order_list);
     void _check_market_order();

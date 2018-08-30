@@ -21,8 +21,8 @@ class CleanerBase {
     void initialize_buffer_data(const string &ticker, int &bufferday);
 
   protected:
-    template <typename cleaner_name>
-    void save_to_env(const cleaner_name *self_ptr);
+    template <typename T>
+    void save_to_env(const T *self_ptr, const string &name);
     static int _counter;
 };
 int CleanerBase::_counter = 1;

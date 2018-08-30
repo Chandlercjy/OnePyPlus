@@ -14,7 +14,7 @@ class RiskManagerBase {
     void run();
 
   protected:
-    template <typename risk_manager_name>
-    void save_to_env(const risk_manager_name *self_ptr);
+    template <typename T>
+    void save_to_env(const T *self_ptr, const string &name);
 };
 } // namespace sys
