@@ -122,7 +122,7 @@ void handle_error(const string &file, const int &line, const string &msg) {
 }
 
 template <typename T>
-const bool is_elem_in_vector(const vector<T> &vec, const T &value) {
+const bool is_elem_in_vector(const vector<string> &vec, const T &value) {
     auto it = find(vec.cbegin(), vec.cend(), value);
     if (it != vec.cend())
         return true;

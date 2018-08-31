@@ -1,10 +1,12 @@
-#include "../src/environment.h"
+#include "Environment.h"
 #include <gtest/gtest.h>
+
+using namespace sys;
 
 class EnvironmentTest : public ::testing::Test {
   public:
-    Environment *first = Environment::getInstance();
-    Environment *second = Environment::getInstance();
+    Environment *first = Environment::get_instance();
+    Environment *second = Environment::get_instance();
 };
 
 TEST_F(EnvironmentTest, Singleton) {

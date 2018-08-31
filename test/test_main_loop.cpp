@@ -1,5 +1,7 @@
-#include "../src/OnePy.h"
+#include "OnePy.h"
 #include <gtest/gtest.h>
+
+using namespace op;
 
 class OnePySunnyTest : public ::testing::Test {
   public:

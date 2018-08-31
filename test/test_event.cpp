@@ -1,5 +1,8 @@
-#include "../src/EventEngine.h"
+#include "Constants.h"
+#include "EventEngine.h"
 #include <gtest/gtest.h>
+
+using namespace sys;
 
 class EventEngineTest : public ::testing::Test {
   public:

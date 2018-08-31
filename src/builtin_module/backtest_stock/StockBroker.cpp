@@ -1,5 +1,6 @@
 #include "DataType.h"
 #include "builtin_module/backtest_stock/StockBroker.h"
+#include "sys_module/BrokerBase.h"
 #include "sys_module/components/SubmitOrderChecker.h"
 #include "sys_module/models/GeneralOrder.h"
 
@@ -8,6 +9,7 @@ using std::make_shared;
 
 StockBroker::StockBroker() {
     _checker = make_shared<SubmitOrderChecker>(cash_func());
+
     save_to_env(this, "StockBroker");
 }
 
