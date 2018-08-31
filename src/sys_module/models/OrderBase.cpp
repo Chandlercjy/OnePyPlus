@@ -1,6 +1,7 @@
 #include "Constants.h"
 #include "Environment.h"
 #include "sys_module/models/BarBase.h"
+#include "sys_module/models/Counter.h"
 #include "sys_module/models/OrderBase.h"
 #include "sys_module/models/Signal.h"
 
@@ -14,7 +15,7 @@ OrderBase::OrderBase(const shared_ptr<T> &signal,
       ticker(signal->ticker),
       size(signal->size),
       trading_date(signal->datetime),
-      order_id(_counter++),
+      order_id(Counter::update_order_id()),
       mkt_id(mkt_id)
 
 {
@@ -63,4 +64,3 @@ void OrderBase::_save_signal_info(const T &signal) {
 };
 
 } // namespace op
-

@@ -2,11 +2,13 @@
 #include "Environment.h"
 #include "sys_module/StrategyBase.h"
 #include "sys_module/components/SignalGenerator.h"
+#include <iostream>
 
 namespace op {
 StrategyBase::StrategyBase()
     : env(Environment::get_instance()),
       _signal_generator(std::make_shared<SignalGenerator>()){};
+
 
 void StrategyBase::buy(const double size,
                        const string &ticker,
@@ -117,4 +119,3 @@ void StrategyBase::save_to_env(const T *self_ptr, const string &name) {
     env->strategies[name] = std::make_shared<T>(*self_ptr);
 }
 } // namespace op
-

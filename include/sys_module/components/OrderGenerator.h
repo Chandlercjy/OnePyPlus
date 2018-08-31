@@ -62,9 +62,6 @@ class OrderGenerator {
     void _process_pending_signals();
     void _process_cancel_signals();
     void _clear_current_signals_memory();
-    static int _counter;
 };
 
-int OrderGenerator::_counter = 1;
 } // namespace op
-

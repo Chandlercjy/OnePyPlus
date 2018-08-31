@@ -34,7 +34,10 @@ AUX_SOURCE_DIRECTORY("${source_dir}/utils" onepy_utils)
 
 
 
-add_executable(demo_OnePy ${PROJECT_SOURCE_DIR}/main.cpp)
+add_executable(demo_OnePy 
+    ${PROJECT_SOURCE_DIR}/main.cpp
+    ${PROJECT_SOURCE_DIR}/src/All.cpp
+    )
 
 #SET(total_files ${source_dir}/All.cpp)
 #ADD_LIBRARY(demo_lib SHARED ${total_files})

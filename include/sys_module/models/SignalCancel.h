@@ -26,7 +26,6 @@ class SignalCancelBase {
 
     const string datetime;
     const int signal_id;
-    static int _counter;
 
   protected:
     virtual void _check_conflict() = 0;
@@ -69,6 +68,4 @@ class SignalCancelPending : public SignalCancelBase {
     void _save_signals() override;
 };
 
-int SignalCancelBase::_counter = 1;
 } // namespace op
-

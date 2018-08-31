@@ -1,5 +1,6 @@
 #include "sys_module/models/BarBase.h"
 #include "sys_module/models/CancelOrderBase.h"
+#include "sys_module/models/Counter.h"
 
 namespace op {
 class Environment;
@@ -11,7 +12,7 @@ CancelOrderBase::CancelOrderBase(const shared_ptr<T> &signal)
       ticker(signal->ticker),
       trading_date(signal->datetime),
       long_or_short(signal->long_or_short),
-      order_id(_counter++) {
+      order_id(Counter::update_order_id()) {
     set_status(OrderStatus::Created);
     set_first_cur_price_and_signal_type(signal);
 };
@@ -30,4 +31,3 @@ inline const OrderStatus CancelOrderBase::get_status() const {
 };
 
 } // namespace op
-

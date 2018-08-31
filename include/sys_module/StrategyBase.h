@@ -13,7 +13,6 @@ class StrategyBase {
   public:
     StrategyBase();
     Environment *env;
-
     void buy(const double size,
              const string &ticker,
              const double takeprofit = 0,
@@ -58,4 +57,3 @@ class StrategyBase {
     shared_ptr<SignalGenerator> _signal_generator;
 };
 } // namespace op
-

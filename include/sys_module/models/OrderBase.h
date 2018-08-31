@@ -45,7 +45,6 @@ class OrderBase {
     const string get_signal_type() const;
 
   protected:
-    static int _counter;
     OrderStatus _status;
 
     string _signal_type;
@@ -55,6 +54,4 @@ class OrderBase {
     void _save_signal_info(const T &signal);
 };
 
-int OrderBase::_counter = 1;
 } // namespace op
-

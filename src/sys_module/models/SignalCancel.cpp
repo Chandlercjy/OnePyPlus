@@ -1,4 +1,5 @@
 #include "Environment.h"
+#include "sys_module/models/Counter.h"
 #include "sys_module/models/SignalCancel.h"
 
 namespace op {
@@ -13,7 +14,7 @@ SignalCancelBase::SignalCancelBase(
       ticker(ticker),
       long_or_short(long_or_short),
       datetime(env->sys_date),
-      signal_id(_counter++){};
+      signal_id(Counter::update_signal_cancel_id()){};
 
 SignalCancelTST::SignalCancelTST(
     const string &strategy_name,
@@ -49,4 +50,3 @@ void SignalCancelPending::_save_signals() {
 }
 
 } // namespace op
-

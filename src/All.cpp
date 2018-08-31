@@ -22,6 +22,7 @@
 #include "sys_module/models/BarBase.cpp"
 #include "sys_module/models/Calendar.cpp"
 #include "sys_module/models/CancelOrderBase.cpp"
+#include "sys_module/models/Counter.cpp"
 #include "sys_module/models/GeneralOrder.cpp"
 #include "sys_module/models/OrderBase.cpp"
 #include "sys_module/models/PendingOrderBase.cpp"

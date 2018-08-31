@@ -1,5 +1,6 @@
 #include "Constants.h"
 #include "sys_module/components/OrderGenerator.h"
+#include "sys_module/models/Counter.h"
 #include "sys_module/models/GeneralOrder.h"
 #include "sys_module/models/OrderBase.h"
 #include "sys_module/models/Signal.h"
@@ -52,7 +53,7 @@ void OrderGenerator::_child_of_mkt(const shared_ptr<T2> &signal,
 
 template <typename T>
 shared_ptr<MarketOrder> OrderGenerator::_generate_mkt_order(const shared_ptr<T> &signal) {
-    return make_shared<MarketOrder>(signal, _counter++);
+    return make_shared<MarketOrder>(signal, Counter::update_mkt_id());
 };
 
 template <typename T>
@@ -165,4 +166,3 @@ void OrderGenerator::run() {
 };
 
 } // namespace op
-

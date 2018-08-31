@@ -37,12 +37,8 @@ class CancelOrderBase {
     virtual void _save_signal_info() = 0;
 
   private:
-    static int _counter;
-
     double _first_cur_price;
     OrderStatus _status;
 };
 
-int CancelOrderBase::_counter = 1;
 } // namespace op
-

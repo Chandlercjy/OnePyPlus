@@ -1,6 +1,7 @@
 #include "Environment.h"
 #include "Exceptions.h"
 #include "sys_module/models/BarBase.h"
+#include "sys_module/models/Counter.h"
 #include "sys_module/models/Signal.h"
 
 namespace op {
@@ -16,7 +17,6 @@ SignalBase::SignalBase(
       ticker(ticker),
       strategy_name(strategy_name),
       action_type(action_type),
-      signal_id(_counter++),
       datetime(env->sys_date),
       next_datetime(env->feeds[ticker]->next_ohlc->date) {
     _record_info(info);
@@ -69,8 +69,8 @@ Signal::Signal(const map<string, double> &info,
                const string &strategy_name,
                const ActionType &action_type)
 
-    : SignalBase(info, ticker, strategy_name, action_type) {
-
+    : SignalBase(info, ticker, strategy_name, action_type),
+      signal_id(Counter::update_signal_id()) {
     _save_signals();
 };
 
@@ -84,8 +84,8 @@ SignalForPending::SignalForPending(
     const string &strategy_name,
     const ActionType &action_type)
 
-    : SignalBase(info, ticker, strategy_name, action_type) {
-
+    : SignalBase(info, ticker, strategy_name, action_type),
+      signal_id(Counter::update_signal_id()) {
     _save_signals();
 };
 
@@ -112,7 +112,7 @@ SignalByTrigger::SignalByTrigger(
       execute_price(execute_price),
       first_cur_price(first_cur_price),
       parent_order_difference(parent_order_difference),
-      signal_id(_counter++) {
+      signal_id(Counter::update_signal_by_trigger_id()) {
     _save_signals();
 };
 
@@ -121,4 +121,3 @@ void SignalByTrigger::_save_signals() {
 }
 
 } // namespace op
-
