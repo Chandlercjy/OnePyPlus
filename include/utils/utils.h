@@ -102,16 +102,16 @@ inline void log_time(void (*func)(), int iter_times) { // func不需要返回运
     cout << 1;
 }
 
-void print(sys::EVENT &event_type) {
-    if (event_type == sys::EVENT::Market_updated) {
+void print(op::EVENT &event_type) {
+    if (event_type == op::EVENT::Market_updated) {
         cout << "Market_updated" << endl;
-    } else if (event_type == sys::EVENT::Data_cleaned) {
+    } else if (event_type == op::EVENT::Data_cleaned) {
         cout << "Data_cleaned" << endl;
-    } else if (event_type == sys::EVENT::Signal_generated) {
+    } else if (event_type == op::EVENT::Signal_generated) {
         cout << "Signal_generated" << endl;
-    } else if (event_type == sys::EVENT::Submit_order) {
+    } else if (event_type == op::EVENT::Submit_order) {
         cout << "Submit_order" << endl;
-    } else if (event_type == sys::EVENT::Record_result) {
+    } else if (event_type == op::EVENT::Record_result) {
         cout << "Record_result" << endl;
     }
 };

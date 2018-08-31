@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace sys {
+namespace op {
 using std::shared_ptr;
 using std::string;
 class Environment;
@@ -57,4 +57,5 @@ class StrategyBase {
   private:
     shared_ptr<SignalGenerator> _signal_generator;
 };
-} // namespace sys
+} // namespace op
+

@@ -5,7 +5,7 @@
 
 #pragma once
 
-namespace sys {
+namespace op {
 using std::map;
 using std::string;
 using std::vector;
@@ -143,4 +143,5 @@ class MarginSeriesBase : public SeriesBase {
     const string get_name() override { return "margin"; };
 };
 
-} // namespace sys
+} // namespace op
+

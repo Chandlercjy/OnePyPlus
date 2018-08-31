@@ -3,7 +3,7 @@
 
 #pragma once
 
-namespace sys {
+namespace op {
 
 class TrailingOrderBase : public PendingOrderBase {
   public:
@@ -25,4 +25,5 @@ class TrailingOrderBase : public PendingOrderBase {
     void _initialize_latest_target_price();
 };
 
-} // namespace sys
+} // namespace op
+

@@ -3,7 +3,7 @@
 #include <map>
 #include <string>
 
-namespace sys {
+namespace op {
 
 using std::map;
 using std::shared_ptr;
@@ -50,4 +50,5 @@ using OrderBox = vector<shared_ptr<T>>;
 
 using Cash_func_ptr_type = double (*)(const shared_ptr<MarketOrder> &order);
 
-} // namespace sys
+} // namespace op
+

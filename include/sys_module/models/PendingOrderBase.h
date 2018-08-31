@@ -2,7 +2,7 @@
 
 #pragma once
 
-namespace sys {
+namespace op {
 
 class PendingOrderBase : public OrderBase {
   public:
@@ -31,4 +31,5 @@ class PendingOrderBase : public OrderBase {
     const double above_price(const double diff);
 };
 
-} // namespace sys
+} // namespace op
+

@@ -2,7 +2,7 @@
 #include <string>
 #pragma once
 
-namespace sys {
+namespace op {
 using std::shared_ptr;
 using std::string;
 
@@ -22,4 +22,5 @@ class StockRecorder : public RecorderBase {
                      const double margin_rate) override;
 };
 
-} // namespace sys
+} // namespace op
+

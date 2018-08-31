@@ -3,7 +3,7 @@
 #include "builtin_module/backtest_stock/StockSeries.h"
 #include "sys_module/RecorderBase.h"
 
-namespace sys {
+namespace op {
 
 void RealizedPnlSeries::update_order(const string &ticker,
                                      const double size,
@@ -115,4 +115,5 @@ void MarginSeries::update_barly() {
             update_order(ticker, long_or_short);
 }
 
-} // namespace sys
+} // namespace op
+

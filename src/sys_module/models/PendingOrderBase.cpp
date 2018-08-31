@@ -2,7 +2,7 @@
 #include "sys_module/models/BarBase.h"
 #include "sys_module/models/PendingOrderBase.h"
 
-namespace sys {
+namespace op {
 
 template <typename T>
 PendingOrderBase::PendingOrderBase(const T &signal,
@@ -58,4 +58,5 @@ const bool PendingOrderBase::is_triggered() {
     return cur_high_cross_target_price();
 };
 
-} // namespace sys
+} // namespace op
+

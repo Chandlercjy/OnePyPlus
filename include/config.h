@@ -5,7 +5,7 @@
 
 // 控制事件发生顺序
 
-namespace sys {
+namespace op {
 using std::vector;
 
 enum class EVENT;
@@ -29,4 +29,5 @@ extern vector<SingleLoop> EVENT_LOOP;
 
 template <typename T>
 void run_modules();
-}; // namespace sys
+}; // namespace op
+

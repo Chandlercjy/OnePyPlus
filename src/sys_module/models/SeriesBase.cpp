@@ -4,7 +4,7 @@
 #include "sys_module/models/BarBase.h"
 #include "sys_module/models/SeriesBase.h"
 
-namespace sys {
+namespace op {
 
 SeriesBase::SeriesBase()
     : env(Environment::get_instance()) { _initialize_data(); }
@@ -112,4 +112,5 @@ void AvgPriceSeries::update_order(const string &ticker,
     _append_value(ticker, new_value, long_or_short);
 };
 
-} // namespace sys
+} // namespace op
+

@@ -2,7 +2,7 @@
 
 #pragma once
 
-namespace sys {
+namespace op {
 using std::string;
 
 class TriggeredSignalGenerator {
@@ -19,4 +19,5 @@ class TriggeredSignalGenerator {
     static bool generate_triggered_signal(const T &order);
 };
 
-} // namespace sys
+} // namespace op
+

@@ -2,7 +2,7 @@
 
 #pragma once
 
-namespace sys {
+namespace op {
 
 class RealizedPnlSeries : public RealizedPnlSeriesBase {
   public:
@@ -56,4 +56,5 @@ class MarginSeries : public MarginSeriesBase {
 
     void update_barly() override;
 };
-} // namespace sys
+} // namespace op
+

@@ -8,7 +8,7 @@
 #include "sys_module/RiskManagerBase.h"
 #include "sys_module/StrategyBase.h"
 
-namespace sys {
+namespace op {
 
 template <typename T>
 void run_modules(T &modules) {
@@ -63,4 +63,5 @@ vector<SingleLoop> EVENT_LOOP = {SingleLoop(EVENT::Market_updated,
                                  SingleLoop(EVENT::Record_result,
                                             EVENT::None,
                                             MODULES::Recorders)};
-} // namespace sys
+} // namespace op
+

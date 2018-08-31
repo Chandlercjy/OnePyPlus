@@ -5,7 +5,7 @@
 
 #pragma once
 
-namespace sys {
+namespace op {
 using std::string;
 using std::unique_ptr;
 
@@ -31,4 +31,5 @@ class MarketMaker {
     void _update_bar();
     std::shared_ptr<BarBase> get_bar(const string &ticker, const string &frequency);
 };
-} // namespace sys
+} // namespace op
+

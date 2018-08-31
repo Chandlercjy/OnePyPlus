@@ -2,7 +2,7 @@
 
 #pragma once
 
-namespace sys {
+namespace op {
 using std::string;
 class Environment;
 class RiskManagerBase {
@@ -17,4 +17,5 @@ class RiskManagerBase {
     template <typename T>
     void save_to_env(const T *self_ptr, const string &name);
 };
-} // namespace sys
+} // namespace op
+

@@ -1,7 +1,7 @@
 #include "Environment.h"
 #include "sys_module/models/SignalCancel.h"
 
-namespace sys {
+namespace op {
 using std::make_shared;
 
 SignalCancelBase::SignalCancelBase(
@@ -48,4 +48,5 @@ void SignalCancelPending::_save_signals() {
     env->signals_cancel_pending_cur.push_back(make_shared<SignalCancelPending>(*this));
 }
 
-} // namespace sys
+} // namespace op
+

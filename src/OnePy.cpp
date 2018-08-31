@@ -14,17 +14,17 @@ using std::make_shared;
 using std::shared_ptr;
 
 OnePiece::OnePiece()
-    : env(sys::Environment::get_instance()),
-      _event_loop(sys::EVENT_LOOP),
-      _market_maker(make_shared<sys::MarketMaker>()),
-      _pending_order_checker(make_shared<sys::PendingOrderChecker>()){};
+    : env(op::Environment::get_instance()),
+      _event_loop(op::EVENT_LOOP),
+      _market_maker(make_shared<op::MarketMaker>()),
+      _pending_order_checker(make_shared<op::PendingOrderChecker>()){};
 
 void OnePiece::sunny(const bool &show_summary) {
     initialize_trading_system();
     while (true) {
         try {
             if (!env->event_engine->is_core_empty()) {
-                sys::EVENT cur_event = env->event_engine->get();
+                op::EVENT cur_event = env->event_engine->get();
                 _run_event_loop(cur_event);
             } else {
                 _market_maker->update_market();
@@ -50,19 +50,19 @@ void OnePiece::initialize_trading_system() {
     env->recorder->initialize();
 };
 
-void OnePiece::_run_event_loop(const sys::EVENT &event) {
+void OnePiece::_run_event_loop(const op::EVENT &event) {
     for (auto &single_loop : _event_loop) {
         if (_event_is_executed(event, single_loop))
             break;
     };
 };
 
-bool OnePiece::_event_is_executed(const sys::EVENT &cur_event,
-                                  sys::SingleLoop &single_loop) const {
+bool OnePiece::_event_is_executed(const op::EVENT &cur_event,
+                                  op::SingleLoop &single_loop) const {
 
     if (cur_event == single_loop.if_event) {
         single_loop.run();
-        if (single_loop.then_event != sys::EVENT::None)
+        if (single_loop.then_event != op::EVENT::None)
             env->event_engine->put(single_loop.then_event);
         return true;
     };

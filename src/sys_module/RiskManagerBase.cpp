@@ -1,7 +1,7 @@
 #include "Environment.h"
 #include "sys_module/RiskManagerBase.h"
 
-namespace sys {
+namespace op {
 
 RiskManagerBase::RiskManagerBase()
     : env(Environment::get_instance()){};
@@ -12,4 +12,5 @@ template <typename T>
 void RiskManagerBase::save_to_env(const T *self_ptr, const string &name) {
     env->risk_managers[name] = std::make_shared<T>(*self_ptr); //TODO:设置名字
 }
-} // namespace sys
+} // namespace op
+

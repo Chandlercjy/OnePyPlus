@@ -7,7 +7,7 @@
 #include "sys_module/models/TrailingOrderBase.h"
 #include "utils/utils.h"
 
-namespace sys {
+namespace op {
 
 template <typename T>
 MarketOrder::MarketOrder(const T &signal, const int mkt_id)
@@ -117,4 +117,5 @@ const bool CancelPendingOrder::is_target(const double target_price) {
     return false;
 };
 
-} // namespace sys
+} // namespace op
+

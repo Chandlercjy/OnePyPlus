@@ -1,7 +1,7 @@
 #pragma once
 #include <queue>
 
-namespace sys {
+namespace op {
 enum class EVENT;
 
 class EventEngine {
@@ -15,4 +15,5 @@ class EventEngine {
     std::queue<EVENT> _core;
     void _check_core_empty(void) const;
 };
-} // namespace sys
+} // namespace op
+

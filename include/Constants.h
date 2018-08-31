@@ -1,6 +1,6 @@
 #pragma once
 
-namespace sys {
+namespace op {
 enum class ActionType {
     Buy,
     Sell,
@@ -50,4 +50,5 @@ enum class MODULES {
     Brokers,
     Recorders,
 };
-} // namespace sys
+} // namespace op
+

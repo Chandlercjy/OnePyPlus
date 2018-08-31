@@ -6,7 +6,7 @@
 namespace op {
 using std::string;
 using std::vector;
-using namespace sys;
+using namespace op;
 
 OnePiece stock(const vector<string> &ticker_list,
                const string &frequency,

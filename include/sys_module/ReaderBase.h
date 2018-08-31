@@ -4,7 +4,7 @@
 #include <string>
 #include <vector>
 
-namespace sys {
+namespace op {
 using std::shared_ptr;
 using std::string;
 
@@ -35,4 +35,5 @@ class ReaderBase {
     //private:
     //_check_readers_key();
 };
-} // namespace sys
+} // namespace op
+

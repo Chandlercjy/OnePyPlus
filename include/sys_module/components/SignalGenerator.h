@@ -3,7 +3,7 @@
 
 #pragma once
 
-namespace sys {
+namespace op {
 using std::map;
 using std::string;
 
@@ -40,4 +40,5 @@ class SignalGenerator {
                                    const double price_pct);
 };
 
-} // namespace sys
+} // namespace op
+

@@ -7,7 +7,7 @@
 #include <string>
 #include <vector>
 
-namespace sys {
+namespace op {
 using std::ifstream;
 using std::string;
 using std::vector;
@@ -23,4 +23,5 @@ class CsvReader : public ReaderBase {
     const string file_name;
     const string data_path;
 };
-} // namespace sys
+} // namespace op
+

@@ -4,7 +4,7 @@
 #include "sys_module/models/OrderBase.h"
 #include "sys_module/models/Signal.h"
 
-namespace sys {
+namespace op {
 
 template <typename T>
 OrderBase::OrderBase(const shared_ptr<T> &signal,
@@ -62,4 +62,5 @@ void OrderBase::_save_signal_info(const T &signal) {
     signal_info["trailingstop_pct"] = signal->trailingstop_pct;
 };
 
-} // namespace sys
+} // namespace op
+

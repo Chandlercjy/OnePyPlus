@@ -3,7 +3,7 @@
 
 using std::string;
 
-namespace sys {
+namespace op {
 class Environment;
 
 class CleanerBase {
@@ -26,4 +26,5 @@ class CleanerBase {
     static int _counter;
 };
 int CleanerBase::_counter = 1;
-} // namespace sys
+} // namespace op
+

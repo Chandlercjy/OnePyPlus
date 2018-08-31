@@ -2,11 +2,11 @@
 #include "EventEngine.h"
 #include <gtest/gtest.h>
 
-using namespace sys;
+using namespace op;
 
 class EventEngineTest : public ::testing::Test {
   public:
-    sys::EventEngine engine;
+    op::EventEngine engine;
 };
 
 TEST_F(EventEngineTest, put_and_get) {

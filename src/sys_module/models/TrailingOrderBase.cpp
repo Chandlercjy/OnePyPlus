@@ -2,7 +2,7 @@
 #include "sys_module/models/BarBase.h"
 #include "sys_module/models/TrailingOrderBase.h"
 
-namespace sys {
+namespace op {
 
 template <typename T>
 TrailingOrderBase::TrailingOrderBase(const T &signal,
@@ -67,4 +67,5 @@ const double TrailingOrderBase::cur_high_cross_target_price() {
 const double TrailingOrderBase::cur_low_cross_target_price() {
     return _latest_target_price > cur_low() ? true : false;
 };
-} // namespace sys
+} // namespace op
+

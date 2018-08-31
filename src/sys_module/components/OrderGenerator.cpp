@@ -4,7 +4,7 @@
 #include "sys_module/models/OrderBase.h"
 #include "sys_module/models/Signal.h"
 
-namespace sys {
+namespace op {
 using std::make_shared;
 
 OrderGenerator::OrderGenerator()
@@ -164,4 +164,5 @@ void OrderGenerator::run() {
     _clear_current_signals_memory();
 };
 
-} // namespace sys
+} // namespace op
+

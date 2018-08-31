@@ -2,7 +2,7 @@
 #include "sys_module/components/TriggeredSignalGenerator.h"
 #include "utils/utils.h"
 
-namespace sys {
+namespace op {
 
 template <typename T>
 void TriggeredSignalGenerator::_generate_bare_signal(const T &order) {
@@ -48,4 +48,5 @@ bool TriggeredSignalGenerator::generate_triggered_signal(const T &order) {
     return false;
 };
 
-} // namespace sys
+} // namespace op
+

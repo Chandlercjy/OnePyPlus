@@ -4,7 +4,7 @@
 #include <vector>
 
 #pragma once
-namespace sys {
+namespace op {
 
 using std::map;
 using std::shared_ptr;
@@ -105,4 +105,5 @@ class SignalByTrigger : public SignalBase {
 
 int SignalBase::_counter = 1;
 int SignalByTrigger::_counter = 1;
-} // namespace sys
+} // namespace op
+

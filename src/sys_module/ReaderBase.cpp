@@ -1,7 +1,7 @@
 #include "Environment.h"
 #include "sys_module/ReaderBase.h"
 
-namespace sys {
+namespace op {
 
 ReaderBase::ReaderBase(const string &ticker)
     : env(Environment::get_instance()),
@@ -18,4 +18,5 @@ void ReaderBase::save_to_env(const reader_name *self_ptr) {
     env->readers[ticker] = std::make_shared<reader_name>(*self_ptr);
 }
 
-} // namespace sys
+} // namespace op
+

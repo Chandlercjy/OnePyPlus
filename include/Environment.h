@@ -5,7 +5,7 @@
 
 #pragma once
 
-namespace sys {
+namespace op {
 
 class ReaderBase;
 class BarBase;
@@ -99,4 +99,5 @@ class Environment {
     Environment() noexcept;   // ctor hidden
     ~Environment() = default; // dtor hidden
 };
-} // namespace sys
+} // namespace op
+

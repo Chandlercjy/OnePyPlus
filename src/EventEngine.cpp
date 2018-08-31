@@ -3,7 +3,7 @@
 #include "Constants.h"
 #include <iostream>
 
-namespace sys {
+namespace op {
 
 void EventEngine::put(EVENT event) {
     _core.push(event);
@@ -30,4 +30,5 @@ void EventEngine::_check_core_empty(void) const {
 bool EventEngine::is_core_empty(void) const {
     return _core.empty() ? true : false;
 };
-} // namespace sys
+} // namespace op
+
