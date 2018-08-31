@@ -1,10 +1,10 @@
-#include "../../Environment.h"
-#include "../../Exceptions.h"
-#include "../../utils/utils.h"
-#include "../models/BarBase.h"
-#include "../models/Signal.h"
-#include "../models/SignalCancel.h"
-#include "SignalGenerator.h"
+#include "Environment.h"
+#include "Exceptions.h"
+#include "sys_module/components/SignalGenerator.h"
+#include "sys_module/models/BarBase.h"
+#include "sys_module/models/Signal.h"
+#include "sys_module/models/SignalCancel.h"
+#include "utils/utils.h"
 
 namespace sys {
 

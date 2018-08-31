@@ -16,8 +16,8 @@ using std::shared_ptr;
 OnePiece::OnePiece()
     : env(sys::Environment::get_instance()),
       _event_loop(sys::EVENT_LOOP),
-      _market_maker(make_shared<MarketMaker>()),
-      _pending_order_checker(make_shared<PendingOrderChecker>()){};
+      _market_maker(make_shared<sys::MarketMaker>()),
+      _pending_order_checker(make_shared<sys::PendingOrderChecker>()){};
 
 void OnePiece::sunny(const bool &show_summary) {
     initialize_trading_system();

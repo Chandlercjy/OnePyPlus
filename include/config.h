@@ -1,10 +1,12 @@
 
 #include <vector>
+
 #pragma once
 
 // 控制事件发生顺序
 
 namespace sys {
+using std::vector;
 
 enum class EVENT;
 enum class MODULES;

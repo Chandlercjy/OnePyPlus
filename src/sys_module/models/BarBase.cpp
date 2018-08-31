@@ -1,10 +1,10 @@
-#include "../../DataType.h"
-#include "../../Environment.h"
-#include "../../utils/arrow.h"
-#include "../../utils/easy_func.h"
-#include "../../utils/utils.h"
-#include "../ReaderBase.h"
-#include "BarBase.h"
+#include "DataType.h"
+#include "Environment.h"
+#include "sys_module/ReaderBase.h"
+#include "sys_module/models/BarBase.h"
+#include "utils/arrow.h"
+#include "utils/easy_func.h"
+#include "utils/utils.h"
 
 namespace sys {
 using namespace utils;

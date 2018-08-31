@@ -1,6 +1,6 @@
-#include "../../sys_module/models/BarBase.h"
-#include "StockRecorder.h"
-#include "StockSeries.h"
+#include "builtin_module/backtest_stock/StockRecorder.h"
+#include "builtin_module/backtest_stock/StockSeries.h"
+#include "sys_module/models/BarBase.h"
 
 namespace sys {
 using std::make_shared;

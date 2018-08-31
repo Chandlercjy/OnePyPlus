@@ -1,5 +1,5 @@
-#include "../../DataType.h"
-#include "../../sys_module/BrokerBase.h"
+#include "DataType.h"
+#include "sys_module/BrokerBase.h"
 
 #pragma once
 

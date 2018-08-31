@@ -1,21 +1,24 @@
-#pragma once
+#include <string>
+#include <vector>
 
-#include "Environment.h"
+#include "config.h"
+
+#pragma once
 
 namespace sys {
 
 enum class EVENT;
-struct SingleLoop;
 class MarketMaker;
 class PendingOrderChecker;
-struct SingleLoop;
+class Environment;
 
 } // namespace sys
 
 namespace op {
 using std::shared_ptr;
+using std::string;
+using std::vector;
 
-using namespace sys;
 class OnePiece {
   public:
     OnePiece();
@@ -28,9 +31,9 @@ class OnePiece {
                   const string &instrument);
 
   private:
-    vector<SingleLoop> _event_loop;
-    const shared_ptr<MarketMaker> _market_maker;
-    const shared_ptr<PendingOrderChecker> _pending_order_checker;
+    vector<sys::SingleLoop> _event_loop;
+    const shared_ptr<sys::MarketMaker> _market_maker;
+    const shared_ptr<sys::PendingOrderChecker> _pending_order_checker;
 
     void output_summary(){};
     void _run_event_loop(const sys::EVENT &event);

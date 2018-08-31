@@ -1,8 +1,10 @@
 #include <string>
 #include <vector>
+
 #pragma once
 
 namespace sys {
+
 class Environment;
 class OrderBase;
 class SignalByTrigger;

@@ -1,7 +1,7 @@
-#include "../../Constants.h"
-#include "../../Environment.h"
-#include "../../sys_module/RecorderBase.h"
-#include "StockSeries.h"
+#include "Constants.h"
+#include "Environment.h"
+#include "builtin_module/backtest_stock/StockSeries.h"
+#include "sys_module/RecorderBase.h"
 
 namespace sys {
 

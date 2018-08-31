@@ -1,7 +1,7 @@
-#include "../Constants.h"
-#include "../Environment.h"
-#include "StrategyBase.h"
-#include "components/SignalGenerator.h"
+#include "Constants.h"
+#include "Environment.h"
+#include "sys_module/StrategyBase.h"
+#include "sys_module/components/SignalGenerator.h"
 
 namespace sys {
 StrategyBase::StrategyBase()

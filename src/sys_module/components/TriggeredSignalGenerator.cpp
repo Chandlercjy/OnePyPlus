@@ -1,6 +1,6 @@
-#include "../../Environment.h"
-#include "../../utils/utils.h"
-#include "TriggeredSignalGenerator.h"
+#include "Environment.h"
+#include "sys_module/components/TriggeredSignalGenerator.h"
+#include "utils/utils.h"
 
 namespace sys {
 

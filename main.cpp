@@ -1,3 +1,5 @@
+#include "OnePy.h"
+#include "builtin_module/CsvReader.h"
 #include "src/Environment.cpp"
 #include "src/EventEngine.cpp"
 #include "src/OnePy.cpp"
@@ -29,27 +31,28 @@
 #include "src/sys_module/models/Signal.cpp"
 #include "src/sys_module/models/SignalCancel.cpp"
 #include "src/sys_module/models/TrailingOrderBase.cpp"
-#include "src/utils/utils.h"
+//#include "src/utils/utils.h"
+#include "sys_module/StrategyBase.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
 
 using namespace std;
-using namespace except;
+using namespace sys;
 
 template <typename T>
 void log(const T &str) {
     cout << str << endl;
 };
 
-class Luffy : public op::StrategyBase {
+class Luffy : public StrategyBase {
   public:
     Luffy() {
         save_to_env(this, "luffy");
         //env->strategies["luffy"] = std::make_shared<Luffy>(*this);
         //throw 1;
     };
-    const string get_name() override { return "Luffy"; };
+    const string get_name() override { return "luffy"; };
     void handle_bar() override {
         //buy(10, "000001", 0, 0, 0, 0, 0, 0, 0, 0.01);
         buy(10, "000001");
@@ -61,8 +64,8 @@ class Luffy : public op::StrategyBase {
 };
 
 int main() {
-    sys::CsvReader ggss("./data/",
-                        "000001", "000001");
+    CsvReader ggss("/Users/chandler/Documents/CLionProjects/OnePyPlus/data/",
+                   "000001", "000001");
 
     Luffy haha;
 
@@ -76,6 +79,6 @@ int main() {
                         "tushare");
 
     go.sunny();
-    cout << (go.env->recorder->balance->latest());
+    //cout << (go.env->recorder->balance->latest());
     std::cin.get();
 }
