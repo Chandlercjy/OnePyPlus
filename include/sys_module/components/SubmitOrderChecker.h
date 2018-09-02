@@ -1,4 +1,4 @@
-#include "../../DataType.h"
+#include "DataType.h"
 
 #pragma once
 
@@ -7,6 +7,7 @@ class MarketOrder;
 class Environment;
 class OrderBase;
 class BrokerBase;
+enum class ActionType;
 
 class SubmitOrderChecker {
 
@@ -50,4 +51,3 @@ class SubmitOrderChecker {
 };
 
 } // namespace op
-

@@ -79,5 +79,5 @@ void RecorderBase::save_to_env(const T *self_ptr, const string &name) {
     env->recorders[name] = make_shared<T>(*self_ptr); //TODO:设置名字
     env->recorder = env->recorders[name];
 }
-} // namespace op
 
+} // namespace op

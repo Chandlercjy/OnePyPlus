@@ -6,18 +6,13 @@
 #pragma once
 
 namespace op {
-
+using std::shared_ptr;
+using std::string;
+using std::vector;
 enum class EVENT;
 class MarketMaker;
 class PendingOrderChecker;
 class Environment;
-
-} // namespace op
-
-namespace op {
-using std::shared_ptr;
-using std::string;
-using std::vector;
 
 class OnePiece {
   public:

@@ -27,6 +27,15 @@ AUX_SOURCE_DIRECTORY("${source_dir}/builtin_module/backtest_stock" onepy_stock)
 AUX_SOURCE_DIRECTORY("${source_dir}/custom_module" onepy_custom)
 AUX_SOURCE_DIRECTORY("${source_dir}/utils" onepy_utils)
 
+SET(OnePy_src  
+ ${onepy_src}
+ ${onepy_sys}
+ ${onepy_models}
+ ${onepy_components}
+ ${onepy_built}
+ ${onepy_stock}
+ ${onepy_custom}
+ ${onepy_utils})
 
 
 #LINK_DIRECTORIES("${PROJECT_SOURCE_DIR}/lib")
@@ -36,7 +45,9 @@ AUX_SOURCE_DIRECTORY("${source_dir}/utils" onepy_utils)
 
 add_executable(demo_OnePy 
     ${PROJECT_SOURCE_DIR}/main.cpp
-    ${PROJECT_SOURCE_DIR}/src/All.cpp
+    ${PROJECT_SOURCE_DIR}/Luffy.hpp
+    #${PROJECT_SOURCE_DIR}/src/All.cpp
+ ${OnePy_src}
     )
 
 #SET(total_files ${source_dir}/All.cpp)
@@ -47,7 +58,7 @@ SET(test_dir "${PROJECT_SOURCE_DIR}/test/")
 AUX_SOURCE_DIRECTORY("${test_dir}" test_files)
 ADD_EXECUTABLE(test_OnePy 
     ${test_files} 
-    ${source_dir}/All.cpp
+    ${OnePy_src}
     )
 TARGET_LINK_LIBRARIES(test_OnePy gtest)
 

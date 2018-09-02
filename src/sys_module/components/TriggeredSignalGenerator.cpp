@@ -1,11 +1,11 @@
 #include "Environment.h"
 #include "sys_module/components/TriggeredSignalGenerator.h"
+#include "sys_module/models/PendingOrderBase.h"
 #include "utils/utils.h"
 
 namespace op {
 
-template <typename T>
-void TriggeredSignalGenerator::_generate_bare_signal(const T &order) {
+void TriggeredSignalGenerator::_generate_bare_signal(const shared_ptr<PendingOrderBase> &order) {
     static map<string, double> info;
     info["size"] = order->size;
     SignalByTrigger(
@@ -21,8 +21,7 @@ void TriggeredSignalGenerator::_generate_bare_signal(const T &order) {
         order->difference());
 };
 
-template <typename T>
-void TriggeredSignalGenerator::_generate_full_signal(const T &order) {
+void TriggeredSignalGenerator::_generate_full_signal(const shared_ptr<PendingOrderBase> &order) {
     SignalByTrigger(order->signal_info,
                     order->ticker,
                     order->strategy_name,
@@ -35,10 +34,9 @@ void TriggeredSignalGenerator::_generate_full_signal(const T &order) {
                     order->difference());
 };
 
-template <typename T>
-bool TriggeredSignalGenerator::generate_triggered_signal(const T &order) {
+bool TriggeredSignalGenerator::generate_triggered_signal(const shared_ptr<PendingOrderBase> &order) {
     static Environment *env = Environment::get_instance();
-    if (!utils::is_elem_in_vector(env->cur_suspended_tickers, order->ticker))
+    if (!utils::Stl::is_elem_in_vector(env->cur_suspended_tickers, order->ticker))
         if (order->is_triggered()) {
             if (order->is_with_mkt())
                 TriggeredSignalGenerator::_generate_bare_signal(order);
@@ -49,4 +47,3 @@ bool TriggeredSignalGenerator::generate_triggered_signal(const T &order) {
 };
 
 } // namespace op
-

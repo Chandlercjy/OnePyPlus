@@ -82,6 +82,19 @@ class Environment {
 
     void initialize_env();
 
+    void save_module(const string &name,
+                     const shared_ptr<ReaderBase> &value);
+    void save_module(const string &name,
+                     const shared_ptr<CleanerBase> &value);
+    void save_module(const string &name,
+                     const shared_ptr<StrategyBase> &value);
+    void save_module(const string &name,
+                     const shared_ptr<RiskManagerBase> &value);
+    void save_module(const string &name,
+                     const shared_ptr<BrokerBase> &value);
+    void save_module(const string &name,
+                     const shared_ptr<RecorderBase> &value);
+
   public:
     static Environment *get_instance() noexcept {
 
@@ -100,4 +113,3 @@ class Environment {
     ~Environment() = default; // dtor hidden
 };
 } // namespace op
-

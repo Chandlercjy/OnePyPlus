@@ -6,11 +6,11 @@
 
 namespace op {
 using std::string;
+class SignalCancelBase;
 
 class CancelOrderBase {
   public:
-    template <typename T>
-    explicit CancelOrderBase(const shared_ptr<T> &signal);
+    explicit CancelOrderBase(const shared_ptr<SignalCancelBase> &signal);
 
     Environment *env;
 
@@ -23,8 +23,7 @@ class CancelOrderBase {
 
     map<string, double> signal_info;
 
-    template <typename T>
-    void set_first_cur_price_and_signal_type(const shared_ptr<T> &signal);
+    void set_first_cur_price_and_signal_type();
 
     void set_status(const OrderStatus &value);
     const ActionType get_action_type() const;

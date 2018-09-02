@@ -9,6 +9,7 @@ namespace op {
 using namespace utils;
 using std::ifstream;
 using std::ios;
+using std::make_shared;
 using std::shared_ptr;
 using std::string;
 using std::stringstream;
@@ -98,7 +99,9 @@ CsvReader::CsvReader(const string &data_path,
                      const string &ticker)
     : ReaderBase(ticker),
       file_name(file_name),
-      data_path(data_path) { save_to_env(this); };
+      data_path(data_path) {
+    env->save_module(ticker, make_shared<CsvReader>(*this));
+};
 
 shared_ptr<OhlcVector> CsvReader::load(const string &fromdate,
                                        const string &todate,
@@ -118,4 +121,3 @@ shared_ptr<OhlcVector> CsvReader::load(const string &fromdate,
     return result;
 }
 } // namespace op
-

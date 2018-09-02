@@ -70,7 +70,7 @@ bool BarBase::initialize(int buffer_day) {
 void BarBase::_update_iter_data(const string &start, const string &end) {
     static auto reader = env->readers[ticker];
     if (!reader) {
-        utils::handle_error(__FILE__, __LINE__, "No ticker in readers!");
+        utils::Log::handle_error(__FILE__, __LINE__, "No ticker in readers!");
     }
     _bar_series = reader->load(start, end, frequency);
     previous_ohlc = _bar_series->cbegin();
@@ -113,7 +113,7 @@ void BarBase::move_next_ohlc_to_cur_ohlc() {
     if (todate == next_date) {
         current_ohlc = next_ohlc;
         const_cast<string &>(next_ohlc->date) =
-            arrow::shift_seconds_to_str(todate, get_second_ratio(frequency));
+            arrow::shift_seconds_to_str(todate, Easy::get_second_ratio(frequency));
     } else
         env->cur_suspended_tickers.push_back(ticker);
 }
@@ -123,4 +123,3 @@ bool BarBase::is_bar_series_end() const {
 };
 
 } // namespace op
-

@@ -10,11 +10,13 @@
 namespace op {
 enum class ActionType;
 enum class OrderType;
+class Signal;
+class SignalByTrigger;
 
 class MarketOrder : public OrderBase {
   public:
-    template <typename T>
-    MarketOrder(const T &signal, const int mkt_id);
+    MarketOrder(const shared_ptr<Signal> &signal, const int mkt_id);
+    MarketOrder(const shared_ptr<SignalByTrigger> &signal, const int mkt_id);
 
     const double execute_price;
     const bool father_mkt_id;
@@ -27,8 +29,7 @@ class MarketOrder : public OrderBase {
   private:
     const string _set_long_or_short();
 
-    template <typename T>
-    const int _set_father_mkt_id(const shared_ptr<T> &signal);
+    const int _set_father_mkt_id(const shared_ptr<SignalByTrigger> &signal);
 
     const ActionType _action_type;
     const OrderType _order_type;
@@ -150,4 +151,3 @@ class CancelPendingOrder : public CancelOrderBase {
 };
 
 } // namespace op
-

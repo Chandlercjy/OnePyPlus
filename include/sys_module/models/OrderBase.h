@@ -17,8 +17,7 @@ using std::shared_ptr;
 class OrderBase {
 
   public:
-    template <typename T>
-    OrderBase(const shared_ptr<T> &signal,
+    OrderBase(const shared_ptr<SignalBase> &signal,
               const int mkt_id);
 
     Environment *env;

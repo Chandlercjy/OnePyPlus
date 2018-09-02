@@ -1,11 +1,11 @@
 #include "Environment.h"
 #include "sys_module/models/BarBase.h"
+#include "sys_module/models/Signal.h"
 #include "sys_module/models/TrailingOrderBase.h"
 
 namespace op {
 
-template <typename T>
-TrailingOrderBase::TrailingOrderBase(const T &signal,
+TrailingOrderBase::TrailingOrderBase(const shared_ptr<SignalBase> &signal,
                                      const int mkt_id,
                                      const string &trigger_key)
     : PendingOrderBase(signal, mkt_id, trigger_key) {
@@ -68,4 +68,3 @@ const double TrailingOrderBase::cur_low_cross_target_price() {
     return _latest_target_price > cur_low() ? true : false;
 };
 } // namespace op
-

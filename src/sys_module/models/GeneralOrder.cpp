@@ -9,8 +9,16 @@
 
 namespace op {
 
-template <typename T>
-MarketOrder::MarketOrder(const T &signal, const int mkt_id)
+MarketOrder::MarketOrder(const shared_ptr<Signal> &signal, const int mkt_id)
+    : OrderBase(signal, mkt_id),
+      execute_price(_first_cur_price),
+      father_mkt_id(-1),
+      long_or_short(_set_long_or_short()),
+      _action_type(signal->action_type),
+      _order_type(OrderType::Market){};
+
+MarketOrder::MarketOrder(const shared_ptr<SignalByTrigger> &signal,
+                         const int mkt_id)
     : OrderBase(signal, mkt_id),
       execute_price(_first_cur_price),
       father_mkt_id(_set_father_mkt_id(signal)),
@@ -19,7 +27,7 @@ MarketOrder::MarketOrder(const T &signal, const int mkt_id)
       _order_type(OrderType::Market){};
 
 const bool MarketOrder::is_pure() {
-    return !utils::is_elem_in_map_key(env->orders_child_of_mkt_dict, mkt_id);
+    return !utils::Stl::is_elem_in_map_key(env->orders_child_of_mkt_dict, mkt_id);
 }
 const ActionType MarketOrder::get_action_type() const { return _action_type; };
 const OrderType MarketOrder::get_order_type() const { return _order_type; };
@@ -29,11 +37,6 @@ const string MarketOrder::_set_long_or_short() {
     return "short";
 };
 
-template <>
-const int MarketOrder::_set_father_mkt_id(const shared_ptr<Signal> &signal) {
-    return -1;
-};
-template <>
 const int MarketOrder::_set_father_mkt_id(const shared_ptr<SignalByTrigger> &signal) {
     return signal->mkt_id;
 };
@@ -118,4 +121,3 @@ const bool CancelPendingOrder::is_target(const double target_price) {
 };
 
 } // namespace op
-

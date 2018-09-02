@@ -7,8 +7,7 @@ namespace op {
 
 class TrailingOrderBase : public PendingOrderBase {
   public:
-    template <typename T>
-    TrailingOrderBase(const T &signal,
+    TrailingOrderBase(const shared_ptr<SignalBase> &signal,
                       const int mkt_id,
                       const string &trigger_key);
     virtual const ActionType get_action_type() const override = 0;
@@ -26,4 +25,3 @@ class TrailingOrderBase : public PendingOrderBase {
 };
 
 } // namespace op
-

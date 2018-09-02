@@ -1,80 +1,30 @@
 //#include "src/All.cpp"
+#include "Luffy.hpp"
+
 #include <fstream>
 #include <iostream>
 #include <sstream>
 
-#include "Environment.h"
-#include "EventEngine.h"
-#include "OnePy.h"
-#include "builtin_module/CsvReader.h"
-#include "builtin_module/backtest_stock/StockBroker.h"
-#include "builtin_module/backtest_stock/StockRecorder.h"
-#include "builtin_module/backtest_stock/StockSeries.h"
-#include "config.h"
-#include "custom_module/backtest.h"
-#include "sys_module/BrokerBase.h"
-#include "sys_module/CleanerBase.h"
-#include "sys_module/ReaderBase.h"
-#include "sys_module/RecorderBase.h"
-#include "sys_module/RiskManagerBase.h"
-#include "sys_module/StrategyBase.h"
-#include "sys_module/components/MarketMaker.h"
-#include "sys_module/components/OrderGenerator.h"
-#include "sys_module/components/PendingOrderChecker.h"
-#include "sys_module/components/SignalGenerator.h"
-#include "sys_module/components/SubmitOrderChecker.h"
-#include "sys_module/components/TriggeredSignalGenerator.h"
-#include "sys_module/models/BarBase.h"
-#include "sys_module/models/Calendar.h"
-#include "sys_module/models/CancelOrderBase.h"
-#include "sys_module/models/GeneralOrder.h"
-#include "sys_module/models/OrderBase.h"
-#include "sys_module/models/PendingOrderBase.h"
-#include "sys_module/models/SeriesBase.h"
-#include "sys_module/models/Signal.h"
-#include "sys_module/models/SignalCancel.h"
-#include "sys_module/models/TrailingOrderBase.h"
-
 using namespace std;
 using namespace op;
-
-class Luffy : public StrategyBase {
-  public:
-    Luffy(){
-
-        //save_to_env(this, "luffy");
-        //env->strategies["luffy"] = std::make_shared<Luffy>(*this);
-        //throw 1;
-    };
-    const string get_name() override { return "luffy"; };
-    void handle_bar() override {
-        //buy(10, "000001", 0, 0, 0, 0, 0, 0, 0, 0.01);
-        buy(10, "000001");
-        //cout << env->recorder->balance->latest()
-        //<< ", "
-        //<< env->sys_date
-        //<< endl;
-    };
-};
 
 int main() {
     CsvReader ggss("/Users/chandler/Documents/CLionProjects/OnePyPlus/data/",
                    "000001", "000001");
 
     Luffy haha;
-    //haha.save_to_env(&haha, "Luffy");
-    //haha.hehe();
 
     vector<string> ticker_list = {"000001"};
 
     auto go = op::stock(ticker_list,
                         "D",
                         100000,
-                        "2017-03-01",
-                        "2017-06-01",
+                        "2017-02-01",
+                        "2017-04-01",
                         "tushare");
 
     go.sunny();
     cout << (go.env->recorder->balance->latest());
+    //cout << "hahah";
     std::cin.get();
 }

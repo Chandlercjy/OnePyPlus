@@ -49,4 +49,3 @@ class BarBase {
     inline void _delete_ohlc(const string &msg);
 };
 } // namespace op
-

@@ -1,7 +1,9 @@
-#pragma once
+
 #include "date.h"
 #include <iostream>
 #include <string>
+
+#pragma once
 
 namespace utils {
 

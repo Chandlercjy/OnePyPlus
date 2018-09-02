@@ -1,3 +1,4 @@
+#include "Environment.h"
 #include "builtin_module/backtest_stock/StockRecorder.h"
 #include "builtin_module/backtest_stock/StockSeries.h"
 #include "sys_module/models/BarBase.h"
@@ -8,7 +9,7 @@ using std::shared_ptr;
 
 StockRecorder::StockRecorder()
     : RecorderBase::RecorderBase() {
-    save_to_env<StockRecorder>(this, "StockRecorder");
+    env->save_module("StockRecorder", make_shared<StockRecorder>(*this));
 };
 
 shared_ptr<BarBase> StockRecorder::bar_class(const string &ticker,
@@ -43,4 +44,3 @@ void StockRecorder::set_setting(const double initial_cash_,
 };
 
 } // namespace op
-

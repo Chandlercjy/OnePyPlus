@@ -10,3 +10,4 @@ test_OnePy
 main.dSYM
 .mypy_cache
 build/*
+bin/demo_OnePy

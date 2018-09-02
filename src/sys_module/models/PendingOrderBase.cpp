@@ -1,11 +1,11 @@
 #include "Environment.h"
 #include "sys_module/models/BarBase.h"
 #include "sys_module/models/PendingOrderBase.h"
+#include "sys_module/models/Signal.h"
 
 namespace op {
 
-template <typename T>
-PendingOrderBase::PendingOrderBase(const T &signal,
+PendingOrderBase::PendingOrderBase(const shared_ptr<SignalBase> &signal,
                                    const int mkt_id,
                                    const string &trigger_key)
     : OrderBase(signal, mkt_id),
@@ -59,4 +59,3 @@ const bool PendingOrderBase::is_triggered() {
 };
 
 } // namespace op
-

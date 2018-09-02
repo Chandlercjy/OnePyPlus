@@ -3,6 +3,7 @@
 #include "sys_module/models/Calendar.h"
 #include "utils/arrow.h"
 #include "utils/easy_func.h"
+#include <iostream>
 #include <string>
 
 namespace op {
@@ -66,7 +67,7 @@ void Calendar::update_calendar() {
         do {
             _check_todate();
             env->sys_date = arrow::shift_seconds_to_str(
-                env->sys_date, get_second_ratio(env->sys_frequency));
+                env->sys_date, Easy::get_second_ratio(env->sys_frequency));
         } while (!(this->*_is_trading_time)(env->sys_date));
     };
 }; // namespace op
@@ -76,4 +77,3 @@ void Calendar::_check_todate() {
         throw except::BacktestFinished();
 };
 } // namespace op
-

@@ -9,7 +9,6 @@ StrategyBase::StrategyBase()
     : env(Environment::get_instance()),
       _signal_generator(std::make_shared<SignalGenerator>()){};
 
-
 void StrategyBase::buy(const double size,
                        const string &ticker,
                        const double takeprofit,

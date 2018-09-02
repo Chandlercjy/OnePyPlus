@@ -30,7 +30,7 @@ void SignalGenerator::buy_or_short(map<string, double> &info,
         info["price"] = exact_price;
         info["price_pct"] = 0;
         SignalForPending signal{info, ticker, strategy_name, action_type};
-    } else if (utils::is_elem_in_vector(env->cur_suspended_tickers, ticker)) {
+    } else if (utils::Stl::is_elem_in_vector(env->cur_suspended_tickers, ticker)) {
     } else {
         Signal signal{info, ticker, strategy_name, action_type};
     }
@@ -45,7 +45,7 @@ void SignalGenerator::sell_or_cover(map<string, double> &info,
         info["price"] = exact_price;
         info["price_pct"] = 0;
         SignalForPending signal{info, ticker, strategy_name, action_type};
-    } else if (utils::is_elem_in_vector(env->cur_suspended_tickers, ticker)) {
+    } else if (utils::Stl::is_elem_in_vector(env->cur_suspended_tickers, ticker)) {
     } else {
         Signal signal{info, ticker, strategy_name, action_type};
     }
@@ -85,4 +85,3 @@ void SignalGenerator::cancel_pending(const string &strategy_name,
 }
 
 } // namespace op
-

@@ -14,9 +14,6 @@ class ReaderBase {
   public:
     ReaderBase(const string &ticker);
 
-    ReaderBase(const ReaderBase &) = default;
-    ReaderBase &operator=(const ReaderBase &) = default;
-
     Environment *env;
     const string ticker;
 
@@ -27,7 +24,6 @@ class ReaderBase {
     shared_ptr<OhlcVector> load_by_cleaner(const string &fromdate,
                                            const string &todate,
                                            const string &frequency);
-    virtual ~ReaderBase() = default;
 
   protected:
     template <typename reader_name>
@@ -36,4 +32,3 @@ class ReaderBase {
     //_check_readers_key();
 };
 } // namespace op
-

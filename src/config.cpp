@@ -64,4 +64,3 @@ vector<SingleLoop> EVENT_LOOP = {SingleLoop(EVENT::Market_updated,
                                             EVENT::None,
                                             MODULES::Recorders)};
 } // namespace op
-

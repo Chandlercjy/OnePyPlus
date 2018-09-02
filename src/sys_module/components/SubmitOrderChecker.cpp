@@ -116,7 +116,7 @@ void SubmitOrderChecker::_check(const OrderBox<MarketOrder> order_list) {
                 order->set_status(OrderStatus::Rejected);
                 _delete_from_cash_cumu(order);
 
-                if (utils::is_elem_in_map_key(env->orders_child_of_mkt_dict, order->mkt_id))
+                if (utils::Stl::is_elem_in_map_key(env->orders_child_of_mkt_dict, order->mkt_id))
                     env->orders_child_of_mkt_dict.erase(order->mkt_id);
 
                 continue;
@@ -177,4 +177,3 @@ void SubmitOrderChecker::run() {
 };
 
 } // namespace op
-

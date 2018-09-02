@@ -1,11 +1,11 @@
-#pragma once
-
-#include "../sys_module/ReaderBase.h"
+#include "sys_module/ReaderBase.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
 #include <string>
 #include <vector>
+
+#pragma once
 
 namespace op {
 using std::ifstream;
@@ -14,7 +14,9 @@ using std::vector;
 
 class CsvReader : public ReaderBase {
   public:
-    CsvReader(const string &data_path, const string &file_name, const string &ticker);
+    CsvReader(const string &data_path,
+              const string &file_name,
+              const string &ticker);
 
     std::shared_ptr<OhlcVector> load(const string &fromdate,
                                      const string &todate,
@@ -24,4 +26,3 @@ class CsvReader : public ReaderBase {
     const string data_path;
 };
 } // namespace op
-

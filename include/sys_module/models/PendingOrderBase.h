@@ -4,10 +4,11 @@
 
 namespace op {
 
+class SignalBase;
+
 class PendingOrderBase : public OrderBase {
   public:
-    template <typename T>
-    PendingOrderBase(const T &signal,
+    PendingOrderBase(const shared_ptr<SignalBase> &signal,
                      const int mkt_id,
                      const string &trigger_key);
     virtual const ActionType get_action_type() const override = 0;
@@ -20,7 +21,6 @@ class PendingOrderBase : public OrderBase {
     virtual const double target_price();
     const double difference();
 
-
   protected:
     const double cur_open() const;
     const double cur_high() const;
@@ -32,4 +32,3 @@ class PendingOrderBase : public OrderBase {
 };
 
 } // namespace op
-

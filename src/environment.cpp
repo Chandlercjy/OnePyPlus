@@ -1,12 +1,5 @@
 #include "Environment.h"
 #include "EventEngine.h"
-#include "sys_module/BrokerBase.h"
-#include "sys_module/CleanerBase.h"
-#include "sys_module/ReaderBase.h"
-#include "sys_module/RecorderBase.h"
-#include "sys_module/RiskManagerBase.h"
-#include "sys_module/StrategyBase.h"
-#include "sys_module/models/BarBase.h"
 #include "utils/arrow.h"
 #include "utils/easy_func.h"
 #include <map>
@@ -25,7 +18,6 @@ Environment::Environment() noexcept
       is_show_today_signals(false){};
 
 void Environment::initialize_env() {
-
     const vector<string> *ticker_ptr_const;
     ticker_ptr_const = &tickers;
     auto ticker_ptr = const_cast<vector<string> *>(ticker_ptr_const);
@@ -49,9 +41,38 @@ void Environment::initialize_env() {
     orders_cancel_tst_submitted.clear();     // 动态地保存撤单，会不断刷新
     orders_cancel_pending_submitted.clear(); // 动态地保存撤单，会不断刷新
     if (!is_live_trading) {
-        auto shift_ratio = utils::get_second_ratio(sys_frequency);
+        auto shift_ratio = utils::Easy::get_second_ratio(sys_frequency);
         sys_date = utils::arrow::shift_seconds_to_str(fromdate, shift_ratio);
     }
 };
+
+void Environment::save_module(const string &name,
+                              const shared_ptr<ReaderBase> &value) {
+    readers[name] = value;
+}
+
+void Environment::save_module(const string &name,
+                              const shared_ptr<CleanerBase> &value) {
+    cleaners[name] = value;
+}
+
+void Environment::save_module(const string &name,
+                              const shared_ptr<StrategyBase> &value) {
+    strategies[name] = value;
+}
+
+void Environment::save_module(const string &name,
+                              const shared_ptr<RiskManagerBase> &value) {
+    risk_managers[name] = value;
+}
+void Environment::save_module(const string &name,
+                              const shared_ptr<BrokerBase> &value) {
+    brokers[name] = value;
+}
+void Environment::save_module(const string &name,
+                              const shared_ptr<RecorderBase> &value) {
+    recorders[name] = value;
+    recorder = value;
+}
 
 } // namespace op
