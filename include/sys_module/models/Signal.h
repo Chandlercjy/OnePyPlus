@@ -39,7 +39,6 @@ class SignalBase {
     double trailingstop_pct;
 
     const string datetime;
-    const string next_datetime;
 
   protected:
     void _check_all_conflict();

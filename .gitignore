@@ -11,3 +11,4 @@ main.dSYM
 .mypy_cache
 build/*
 bin/demo_OnePy
+cmake-build-debug/*

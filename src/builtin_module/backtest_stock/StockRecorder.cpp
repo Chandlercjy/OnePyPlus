@@ -9,7 +9,8 @@ using std::shared_ptr;
 
 StockRecorder::StockRecorder()
     : RecorderBase::RecorderBase() {
-    env->save_module("StockRecorder", make_shared<StockRecorder>(*this));
+    auto module = make_shared<StockRecorder>(*this);
+    env->save_module("StockRecorder", module);
 };
 
 shared_ptr<BarBase> StockRecorder::bar_class(const string &ticker,

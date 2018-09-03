@@ -37,7 +37,8 @@
 class Luffy : public op::StrategyBase {
   public:
     Luffy() {
-        env->save_module("Luffy", std::make_shared<Luffy>(*this));
+        auto module = std::make_shared<Luffy>(*this);
+        env->save_module("Luffy", module);
 
         //save_to_env(this, "luffy");
         //env->strategies["luffy"] = std::make_shared<Luffy>(*this);

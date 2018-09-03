@@ -100,7 +100,8 @@ CsvReader::CsvReader(const string &data_path,
     : ReaderBase(ticker),
       file_name(file_name),
       data_path(data_path) {
-    env->save_module(ticker, make_shared<CsvReader>(*this));
+    auto module = make_shared<CsvReader>(*this);
+    env->save_module(ticker, module);
 };
 
 shared_ptr<OhlcVector> CsvReader::load(const string &fromdate,

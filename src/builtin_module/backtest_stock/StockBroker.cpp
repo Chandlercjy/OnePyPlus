@@ -9,7 +9,8 @@ using std::make_shared;
 
 StockBroker::StockBroker() {
     _checker = make_shared<SubmitOrderChecker>(cash_func());
-    env->save_module("StockBroker", make_shared<StockBroker>(*this));
+    auto module = make_shared<StockBroker>(*this);
+    env->save_module("StockBroker", module);
 }
 
 //const double StockBroker::_required_cash_func(const shared_ptr<MarketOrder> &order) {

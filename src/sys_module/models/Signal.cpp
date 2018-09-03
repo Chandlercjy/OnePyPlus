@@ -17,8 +17,7 @@ SignalBase::SignalBase(
       ticker(ticker),
       strategy_name(strategy_name),
       action_type(action_type),
-      datetime(env->sys_date),
-      next_datetime(env->feeds[ticker]->next_ohlc->date) {
+      datetime(env->sys_date) {
     _record_info(info);
     _check_all_conflict();
 };
