@@ -1,8 +1,9 @@
-#include "../../sys_module/models/SeriesBase.h"
+#include "OP_DECLARE.h"
+#include "sys_module/models/SeriesBase.h"
 
 #pragma once
 
-namespace op {
+OP_NAMESPACE_START
 
 class RealizedPnlSeries : public RealizedPnlSeriesBase {
   public:
@@ -56,5 +57,5 @@ class MarginSeries : public MarginSeriesBase {
 
     void update_barly() override;
 };
-} // namespace op
 
+OP_NAMESPACE_END

@@ -1,15 +1,10 @@
-#include "../../Constants.h"
-#include <map>
-#include <string>
-#include <vector>
+#include "Constants.h"
+#include "OP_DECLARE.h"
 
 #pragma once
-namespace op {
 
-using std::map;
-using std::shared_ptr;
-using std::string;
-using std::vector;
+OP_NAMESPACE_START
+
 class Environment;
 class OrderBase;
 
@@ -103,4 +98,4 @@ class SignalByTrigger : public SignalBase {
     void _save_signals() override;
 };
 
-} // namespace op
+OP_NAMESPACE_END

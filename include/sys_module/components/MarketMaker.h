@@ -1,13 +1,9 @@
+#include "OP_DECLARE.h"
 #include "sys_module/models/Calendar.h"
-#include <map>
-#include <string>
-#include <vector>
 
 #pragma once
 
-namespace op {
-using std::string;
-using std::unique_ptr;
+OP_NAMESPACE_START
 
 class Calendar;
 class Environment;
@@ -31,5 +27,5 @@ class MarketMaker {
     void _update_bar();
     std::shared_ptr<BarBase> get_bar(const string &ticker, const string &frequency);
 };
-} // namespace op
 
+OP_NAMESPACE_END

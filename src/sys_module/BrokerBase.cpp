@@ -5,7 +5,7 @@
 #include "sys_module/components/SubmitOrderChecker.h"
 #include "sys_module/models/GeneralOrder.h"
 
-namespace op {
+OP_NAMESPACE_START
 using std::make_shared;
 
 BrokerBase::BrokerBase()
@@ -90,5 +90,6 @@ void BrokerBase::run() {
     _submit_order();
 };
 
-} // namespace op
+OP_NAMESPACE_END
+
 

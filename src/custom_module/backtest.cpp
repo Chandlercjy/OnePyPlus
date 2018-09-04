@@ -3,7 +3,7 @@
 #include "builtin_module/backtest_stock/StockBroker.h"
 #include "builtin_module/backtest_stock/StockRecorder.h"
 
-namespace op {
+OP_NAMESPACE_START
 using std::string;
 using std::vector;
 using namespace op;
@@ -24,4 +24,5 @@ OnePiece stock(const vector<string> &ticker_list,
     return go;
 };
 
-} // namespace op
+OP_NAMESPACE_END
+

@@ -1,12 +1,9 @@
+#include "DataType.h"
+#include "OP_DECLARE.h"
+
 #pragma once
 
-#include "../DataType.h"
-#include <string>
-#include <vector>
-
-namespace op {
-using std::shared_ptr;
-using std::string;
+OP_NAMESPACE_START
 
 class Environment;
 
@@ -31,4 +28,5 @@ class ReaderBase {
     //private:
     //_check_readers_key();
 };
-} // namespace op
+
+OP_NAMESPACE_END

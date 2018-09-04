@@ -1,10 +1,9 @@
-#include "../../sys_module/RecorderBase.h"
-#include <string>
+#include "OP_DECLARE.h"
+#include "sys_module/RecorderBase.h"
+
 #pragma once
 
-namespace op {
-using std::shared_ptr;
-using std::string;
+OP_NAMESPACE_START
 
 class Environment;
 class BarBase;
@@ -22,5 +21,4 @@ class StockRecorder : public RecorderBase {
                      const double margin_rate) override;
 };
 
-} // namespace op
-
+OP_NAMESPACE_END

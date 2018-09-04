@@ -1,6 +1,9 @@
+#include "OP_DECLARE.h"
+
 #pragma once
 
-namespace op {
+OP_NAMESPACE_START
+
 class Counter {
   public:
     static int update_signal_id();
@@ -22,4 +25,5 @@ class Counter {
 //int Counter::signal_cancel_id = 1;
 //int Counter::order_id = 1;
 //int Counter::mkt_id = 1;
-} // namespace op
+
+OP_NAMESPACE_END

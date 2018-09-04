@@ -1,8 +1,10 @@
+#include "OP_DECLARE.h"
 
 #include <queue>
 #pragma once
 
-namespace op {
+OP_NAMESPACE_START
+
 enum class EVENT;
 
 class EventEngine {
@@ -16,4 +18,5 @@ class EventEngine {
     std::queue<EVENT> _core;
     void _check_core_empty(void) const;
 };
-} // namespace op
+
+OP_NAMESPACE_END

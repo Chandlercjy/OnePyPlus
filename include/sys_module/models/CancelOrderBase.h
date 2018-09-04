@@ -1,11 +1,11 @@
-#include "../../Constants.h"
-#include "../../Environment.h"
-#include <string>
+#include "OP_DECLARE.h"
+#include "Constants.h"
+#include "Environment.h"
 
 #pragma once
 
-namespace op {
-using std::string;
+OP_NAMESPACE_START
+
 class SignalCancelBase;
 
 class CancelOrderBase {
@@ -40,4 +40,5 @@ class CancelOrderBase {
     OrderStatus _status;
 };
 
-} // namespace op
+OP_NAMESPACE_END
+

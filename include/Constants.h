@@ -1,6 +1,9 @@
+#include "OP_DECLARE.h"
+
 #pragma once
 
-namespace op {
+OP_NAMESPACE_START
+
 enum class ActionType {
     Buy,
     Sell,
@@ -50,4 +53,5 @@ enum class MODULES {
     Brokers,
     Recorders,
 };
-} // namespace op
+
+OP_NAMESPACE_END

@@ -1,9 +1,9 @@
-#include <string>
+#include "OP_DECLARE.h"
+
 #pragma once
 
-namespace op {
-using std::shared_ptr;
-using std::string;
+OP_NAMESPACE_START
+
 class Environment;
 class BarBase;
 
@@ -60,5 +60,5 @@ class RecorderBase {
     void _update_balance(const string &trading_date);
     void _record_order();
 };
-} // namespace op
 
+OP_NAMESPACE_END

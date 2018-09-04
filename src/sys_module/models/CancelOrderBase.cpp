@@ -3,7 +3,7 @@
 #include "sys_module/models/Counter.h"
 #include "sys_module/models/SignalCancel.h"
 
-namespace op {
+OP_NAMESPACE_START
 class Environment;
 
 CancelOrderBase::CancelOrderBase(const shared_ptr<SignalCancelBase> &signal)
@@ -29,4 +29,5 @@ inline const OrderStatus CancelOrderBase::get_status() const {
     return _status;
 };
 
-} // namespace op
+OP_NAMESPACE_END
+

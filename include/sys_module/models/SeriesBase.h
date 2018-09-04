@@ -1,14 +1,9 @@
-#include "../../DataType.h"
-#include <map>
-#include <string>
-#include <vector>
+#include "DataType.h"
 
 #pragma once
 
-namespace op {
-using std::map;
-using std::string;
-using std::vector;
+OP_NAMESPACE_START
+
 class Environment;
 enum class ActionType;
 
@@ -143,5 +138,4 @@ class MarginSeriesBase : public SeriesBase {
     const string get_name() override { return "margin"; };
 };
 
-} // namespace op
-
+OP_NAMESPACE_END

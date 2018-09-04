@@ -1,11 +1,8 @@
-#include <string>
-#include <vector>
+#include "OP_DECLARE.h"
 
 #pragma once
 
-namespace op {
-using std::string;
-using std::vector;
+OP_NAMESPACE_START
 
 class OnePiece;
 
@@ -16,4 +13,4 @@ OnePiece stock(const vector<string> &ticker_list,
                const string &end,
                const string &broker_name);
 
-} // namespace op
+OP_NAMESPACE_END

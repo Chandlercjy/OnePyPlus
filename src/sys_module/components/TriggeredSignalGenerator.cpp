@@ -3,7 +3,7 @@
 #include "sys_module/models/PendingOrderBase.h"
 #include "utils/utils.h"
 
-namespace op {
+OP_NAMESPACE_START
 
 void TriggeredSignalGenerator::_generate_bare_signal(const shared_ptr<PendingOrderBase> &order) {
     static map<string, double> info;
@@ -46,4 +46,5 @@ bool TriggeredSignalGenerator::generate_triggered_signal(const shared_ptr<Pendin
     return false;
 };
 
-} // namespace op
+OP_NAMESPACE_END
+

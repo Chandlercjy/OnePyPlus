@@ -7,7 +7,7 @@
 #include "sys_module/models/TrailingOrderBase.h"
 #include "utils/utils.h"
 
-namespace op {
+OP_NAMESPACE_START
 
 MarketOrder::MarketOrder(const shared_ptr<Signal> &signal, const int mkt_id)
     : OrderBase(signal, mkt_id),
@@ -120,4 +120,5 @@ const bool CancelPendingOrder::is_target(const double target_price) {
     return false;
 };
 
-} // namespace op
+OP_NAMESPACE_END
+

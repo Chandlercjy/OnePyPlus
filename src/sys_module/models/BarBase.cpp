@@ -6,7 +6,7 @@
 #include "utils/easy_func.h"
 #include "utils/utils.h"
 
-namespace op {
+OP_NAMESPACE_START
 using namespace utils;
 
 BarBase::BarBase(const string &ticker, const string &frequency)
@@ -122,4 +122,5 @@ bool BarBase::is_bar_series_end() const {
     return next_ohlc == _bar_series->cend() ? true : false;
 };
 
-} // namespace op
+OP_NAMESPACE_END
+

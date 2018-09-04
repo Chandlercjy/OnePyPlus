@@ -1,6 +1,6 @@
 #include "sys_module/models/Counter.h"
 
-namespace op {
+OP_NAMESPACE_START
 
 int Counter::update_signal_id() {
     static int signal_id = 1;
@@ -27,4 +27,5 @@ int Counter::update_mkt_id() {
     return mkt_id++;
 };
 
-} // namespace op
+OP_NAMESPACE_END
+

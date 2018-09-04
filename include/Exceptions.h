@@ -1,9 +1,8 @@
-
+#include "OP_DECLARE.h"
 #include <exception>
-#include <string>
+
 #pragma once
 
-using std::string;
 namespace except {
 
 using std::exception;
@@ -28,7 +27,6 @@ class OrderConflictError : public exception {
         return "$ and pct can't be set together";
     }
 };
-
 
 class PctRangeError : public exception {
   public:

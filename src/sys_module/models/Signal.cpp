@@ -4,7 +4,7 @@
 #include "sys_module/models/Counter.h"
 #include "sys_module/models/Signal.h"
 
-namespace op {
+OP_NAMESPACE_START
 using std::make_shared;
 
 SignalBase::SignalBase(
@@ -119,4 +119,5 @@ void SignalByTrigger::_save_signals() {
     env->signals_trigger_cur.push_back(make_shared<SignalByTrigger>(*this));
 }
 
-} // namespace op
+OP_NAMESPACE_END
+

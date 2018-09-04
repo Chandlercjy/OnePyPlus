@@ -1,11 +1,9 @@
+#include "OP_DECLARE.h"
 #include "Signal.h"
-#include <map>
-#include <string>
-#include <vector>
 
 #pragma once
 
-namespace op {
+OP_NAMESPACE_START
 
 enum class ActionType;
 enum class OrderType;
@@ -53,4 +51,4 @@ class OrderBase {
     void _save_signal_info(const T &signal);
 };
 
-} // namespace op
+OP_NAMESPACE_END

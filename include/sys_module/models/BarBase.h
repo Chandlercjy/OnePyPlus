@@ -1,12 +1,12 @@
-#include "../../DataType.h"
+#include "DataType.h"
+#include "OP_DECLARE.h"
 #include <string>
 #include <vector>
 
 #pragma once
 
-namespace op {
-using std::string;
-using std::vector;
+OP_NAMESPACE_START
+
 class Environment;
 
 class BarBase {
@@ -44,8 +44,9 @@ class BarBase {
 
   private:
     OhlcVector::const_iterator _iter_data;
-    std::shared_ptr<OhlcVector> _bar_series = nullptr;
+    shared_ptr<OhlcVector> _bar_series = nullptr;
     inline void _update_iter_data(const string &start, const string &end);
     inline void _delete_ohlc(const string &msg);
 };
-} // namespace op
+
+OP_NAMESPACE_END

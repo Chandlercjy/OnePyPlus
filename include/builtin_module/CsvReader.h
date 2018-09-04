@@ -1,16 +1,14 @@
+#include "OP_DECLARE.h"
 #include "sys_module/ReaderBase.h"
 #include <fstream>
 #include <iostream>
 #include <sstream>
-#include <string>
-#include <vector>
 
 #pragma once
 
-namespace op {
+OP_NAMESPACE_START
+
 using std::ifstream;
-using std::string;
-using std::vector;
 
 class CsvReader : public ReaderBase {
   public:
@@ -25,4 +23,5 @@ class CsvReader : public ReaderBase {
     const string file_name;
     const string data_path;
 };
-} // namespace op
+OP_NAMESPACE_END
+

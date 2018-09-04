@@ -6,7 +6,7 @@
 #include <iostream>
 #include <string>
 
-namespace op {
+OP_NAMESPACE_START
 using namespace utils;
 using std::string;
 
@@ -76,4 +76,5 @@ void Calendar::_check_todate() {
     if (arrow::str_to_sec(env->sys_date) >= todate)
         throw except::BacktestFinished();
 };
-} // namespace op
+OP_NAMESPACE_END
+

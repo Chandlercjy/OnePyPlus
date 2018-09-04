@@ -1,9 +1,9 @@
-#include <string>
+#include "OP_DECLARE.h"
+
 #pragma once
 
-using std::string;
+OP_NAMESPACE_START
 
-namespace op {
 class Environment;
 
 class CleanerBase {
@@ -24,4 +24,5 @@ class CleanerBase {
     template <typename T>
     void save_to_env(const T *self_ptr, const string &name);
 };
-} // namespace op
+
+OP_NAMESPACE_END

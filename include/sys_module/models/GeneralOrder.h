@@ -1,5 +1,6 @@
 #include "BarBase.h"
 #include "CancelOrderBase.h"
+#include "OP_DECLARE.h"
 #include "OrderBase.h"
 #include "PendingOrderBase.h"
 #include "TrailingOrderBase.h"
@@ -7,7 +8,8 @@
 
 #pragma once
 
-namespace op {
+OP_NAMESPACE_START
+
 enum class ActionType;
 enum class OrderType;
 class Signal;
@@ -150,4 +152,4 @@ class CancelPendingOrder : public CancelOrderBase {
     void _save_signal_info() override;
 };
 
-} // namespace op
+OP_NAMESPACE_END

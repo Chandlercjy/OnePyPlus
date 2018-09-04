@@ -1,11 +1,8 @@
-#include <map>
-#include <string>
+#include "OP_DECLARE.h"
 
 #pragma once
 
-namespace op {
-using std::map;
-using std::string;
+OP_NAMESPACE_START
 
 enum class ActionType;
 class SignalBase;
@@ -40,5 +37,4 @@ class SignalGenerator {
                                    const double price_pct);
 };
 
-} // namespace op
-
+OP_NAMESPACE_END

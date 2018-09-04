@@ -1,12 +1,9 @@
-#include "../DataType.h"
-#include <functional>
+#include "DataType.h"
+#include "OP_DECLARE.h"
 
 #pragma once
 
-namespace op {
-
-using std::shared_ptr;
-using std::unique_ptr;
+OP_NAMESPACE_START
 
 enum class ActionType;
 class OrderGenerator;
@@ -39,5 +36,5 @@ class BrokerBase {
     void _process_cancel_tst_order();
     void _process_cancel_pending_order();
 };
-} // namespace op
 
+OP_NAMESPACE_END

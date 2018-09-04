@@ -1,14 +1,10 @@
-#include <string>
-#include <vector>
-
 #include "config.h"
+#include "OP_DECLARE.h"
 
 #pragma once
 
-namespace op {
-using std::shared_ptr;
-using std::string;
-using std::vector;
+OP_NAMESPACE_START
+
 enum class EVENT;
 class MarketMaker;
 class PendingOrderChecker;
@@ -37,4 +33,5 @@ class OnePiece {
     void _reset_all_counter() const;
     void _pre_initialize_trading_system();
 };
-} // namespace op
+
+OP_NAMESPACE_END

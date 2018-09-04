@@ -4,7 +4,7 @@
 #include "sys_module/components/SubmitOrderChecker.h"
 #include "sys_module/models/GeneralOrder.h"
 
-namespace op {
+OP_NAMESPACE_START
 using std::make_shared;
 
 StockBroker::StockBroker() {
@@ -25,4 +25,5 @@ Cash_func_ptr_type StockBroker::cash_func() {
     return &stock_cash_func;
 };
 
-} // namespace op
+OP_NAMESPACE_END
+

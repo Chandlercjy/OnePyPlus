@@ -13,7 +13,7 @@
 #include <iostream>
 #include <string>
 
-namespace op {
+OP_NAMESPACE_START
 
 using namespace utils;
 using std::logic_error;
@@ -119,4 +119,5 @@ shared_ptr<BarBase> MarketMaker::get_bar(const string &ticker,
                                          const string &frequency) {
     return env->recorder->bar_class(ticker, frequency);
 };
-} // namespace op
+OP_NAMESPACE_END
+

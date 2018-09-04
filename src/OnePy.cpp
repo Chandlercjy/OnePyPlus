@@ -1,15 +1,15 @@
+#include "config.h"
 #include "Constants.h"
 #include "Environment.h"
 #include "EventEngine.h"
 #include "Exceptions.h"
 #include "OnePy.h"
-#include "config.h"
 #include "sys_module//components/MarketMaker.h"
 #include "sys_module//components/PendingOrderChecker.h"
 #include "sys_module/RecorderBase.h"
 #include <iostream>
 
-namespace op {
+OP_NAMESPACE_START
 using std::make_shared;
 using std::shared_ptr;
 
@@ -81,4 +81,5 @@ void OnePiece::set_date(const string &fromdate,
     env->sys_frequency = frequency;
 };
 
-} // namespace op
+OP_NAMESPACE_END
+

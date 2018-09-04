@@ -2,7 +2,7 @@
 #include "sys_module/models/Counter.h"
 #include "sys_module/models/SignalCancel.h"
 
-namespace op {
+OP_NAMESPACE_START
 using std::make_shared;
 
 SignalCancelBase::SignalCancelBase(
@@ -49,4 +49,5 @@ void SignalCancelPending::_save_signals() {
     env->signals_cancel_pending_cur.push_back(make_shared<SignalCancelPending>(*this));
 }
 
-} // namespace op
+OP_NAMESPACE_END
+

@@ -1,11 +1,11 @@
-
-#include <vector>
+#include "OP_DECLARE.h"
 
 #pragma once
 
 // 控制事件发生顺序
 
-namespace op {
+OP_NAMESPACE_START
+
 using std::vector;
 
 enum class EVENT;
@@ -29,5 +29,5 @@ extern vector<SingleLoop> EVENT_LOOP;
 
 template <typename T>
 void run_modules();
-}; // namespace op
 
+OP_NAMESPACE_END

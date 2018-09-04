@@ -3,7 +3,7 @@
 #include "sys_module/models/PendingOrderBase.h"
 #include "sys_module/models/Signal.h"
 
-namespace op {
+OP_NAMESPACE_START
 
 PendingOrderBase::PendingOrderBase(const shared_ptr<SignalBase> &signal,
                                    const int mkt_id,
@@ -58,4 +58,5 @@ const bool PendingOrderBase::is_triggered() {
     return cur_high_cross_target_price();
 };
 
-} // namespace op
+OP_NAMESPACE_END
+

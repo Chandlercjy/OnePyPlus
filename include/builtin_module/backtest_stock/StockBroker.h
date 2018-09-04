@@ -1,10 +1,10 @@
 #include "DataType.h"
+#include "OP_DECLARE.h"
 #include "sys_module/BrokerBase.h"
 
 #pragma once
 
-namespace op {
-using std::shared_ptr;
+OP_NAMESPACE_START
 
 class MarketOrder;
 
@@ -17,5 +17,4 @@ class StockBroker : public BrokerBase {
     Cash_func_ptr_type cash_func() override;
 };
 
-} // namespace op
-
+OP_NAMESPACE_END

@@ -6,7 +6,7 @@
 #include "sys_module/models/SignalCancel.h"
 #include "utils/utils.h"
 
-namespace op {
+OP_NAMESPACE_START
 
 SignalGenerator::SignalGenerator() : env(Environment::get_instance()){};
 
@@ -84,4 +84,5 @@ void SignalGenerator::cancel_pending(const string &strategy_name,
                                above_price};
 }
 
-} // namespace op
+OP_NAMESPACE_END
+

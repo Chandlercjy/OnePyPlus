@@ -1,11 +1,9 @@
 #include "DataType.h"
-#include <map>
-#include <string>
-#include <vector>
+#include "OP_DECLARE.h"
 
 #pragma once
 
-namespace op {
+OP_NAMESPACE_START
 
 class ReaderBase;
 class BarBase;
@@ -112,4 +110,5 @@ class Environment {
     Environment() noexcept;   // ctor hidden
     ~Environment() = default; // dtor hidden
 };
-} // namespace op
+
+OP_NAMESPACE_END

@@ -1,8 +1,10 @@
+#include "OP_DECLARE.h"
 #include "DataType.h"
 
 #pragma once
 
-namespace op {
+OP_NAMESPACE_START
+
 class MarketOrder;
 class Environment;
 class OrderBase;
@@ -50,4 +52,5 @@ class SubmitOrderChecker {
     void _clear_all_cur_order();
 };
 
-} // namespace op
+OP_NAMESPACE_END
+

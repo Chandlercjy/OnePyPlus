@@ -1,8 +1,9 @@
+#include "OP_DECLARE.h"
 #include "OrderBase.h"
 
 #pragma once
 
-namespace op {
+OP_NAMESPACE_START
 
 class SignalBase;
 
@@ -31,4 +32,4 @@ class PendingOrderBase : public OrderBase {
     const double above_price(const double diff);
 };
 
-} // namespace op
+OP_NAMESPACE_END

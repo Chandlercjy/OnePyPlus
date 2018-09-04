@@ -3,7 +3,7 @@
 #include "builtin_module/backtest_stock/StockSeries.h"
 #include "sys_module/models/BarBase.h"
 
-namespace op {
+OP_NAMESPACE_START
 using std::make_shared;
 using std::shared_ptr;
 
@@ -44,4 +44,5 @@ void StockRecorder::set_setting(const double initial_cash_,
     margin_rate = margin_rate_;
 };
 
-} // namespace op
+OP_NAMESPACE_END
+

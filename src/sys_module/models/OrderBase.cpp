@@ -5,7 +5,7 @@
 #include "sys_module/models/OrderBase.h"
 #include "sys_module/models/Signal.h"
 
-namespace op {
+OP_NAMESPACE_START
 
 OrderBase::OrderBase(const shared_ptr<SignalBase> &signal,
                      const int mkt_id)
@@ -62,4 +62,5 @@ void OrderBase::_save_signal_info(const T &signal) {
     signal_info["trailingstop_pct"] = signal->trailingstop_pct;
 };
 
-} // namespace op
+OP_NAMESPACE_END
+

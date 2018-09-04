@@ -1,6 +1,7 @@
+#include "config.h"
 #include "Constants.h"
 #include "Environment.h"
-#include "config.h"
+#include "OP_DECLARE.h"
 #include "sys_module/BrokerBase.h"
 #include "sys_module/CleanerBase.h"
 #include "sys_module/ReaderBase.h"
@@ -8,7 +9,7 @@
 #include "sys_module/RiskManagerBase.h"
 #include "sys_module/StrategyBase.h"
 
-namespace op {
+OP_NAMESPACE_START
 
 template <typename T>
 void run_modules(T &modules) {
@@ -63,4 +64,5 @@ vector<SingleLoop> EVENT_LOOP = {SingleLoop(EVENT::Market_updated,
                                  SingleLoop(EVENT::Record_result,
                                             EVENT::None,
                                             MODULES::Recorders)};
-} // namespace op
+
+OP_NAMESPACE_END

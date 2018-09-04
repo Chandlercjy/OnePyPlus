@@ -1,9 +1,9 @@
-
+#include "OP_DECLARE.h"
 #include "PendingOrderBase.h"
 
 #pragma once
 
-namespace op {
+OP_NAMESPACE_START
 
 class TrailingOrderBase : public PendingOrderBase {
   public:
@@ -24,4 +24,4 @@ class TrailingOrderBase : public PendingOrderBase {
     void _initialize_latest_target_price();
 };
 
-} // namespace op
+OP_NAMESPACE_END

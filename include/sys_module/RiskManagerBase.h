@@ -1,9 +1,9 @@
-#include <string>
+#include "OP_DECLARE.h"
 
 #pragma once
 
-namespace op {
-using std::string;
+OP_NAMESPACE_START
+
 class Environment;
 class RiskManagerBase {
   public:
@@ -17,5 +17,5 @@ class RiskManagerBase {
     template <typename T>
     void save_to_env(const T *self_ptr, const string &name);
 };
-} // namespace op
 
+OP_NAMESPACE_END

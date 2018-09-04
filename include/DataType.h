@@ -1,16 +1,11 @@
+#include "OP_DECLARE.h"
+
 #pragma once
 
-#include <map>
-#include <string>
-
-namespace op {
-
-using std::map;
-using std::shared_ptr;
-using std::string;
-using std::vector;
+OP_NAMESPACE_START
 
 class MarketOrder;
+enum class ActionType;
 
 struct OhlcStruct {
     OhlcStruct(const string &date, const double open, const double high,
@@ -50,5 +45,4 @@ using OrderBox = vector<shared_ptr<T>>;
 
 using Cash_func_ptr_type = double (*)(const shared_ptr<MarketOrder> &order);
 
-} // namespace op
-
+OP_NAMESPACE_END

@@ -3,7 +3,7 @@
 #include "sys_module/models/Signal.h"
 #include "sys_module/models/TrailingOrderBase.h"
 
-namespace op {
+OP_NAMESPACE_START
 
 TrailingOrderBase::TrailingOrderBase(const shared_ptr<SignalBase> &signal,
                                      const int mkt_id,
@@ -67,4 +67,5 @@ const double TrailingOrderBase::cur_high_cross_target_price() {
 const double TrailingOrderBase::cur_low_cross_target_price() {
     return _latest_target_price > cur_low() ? true : false;
 };
-} // namespace op
+OP_NAMESPACE_END
+

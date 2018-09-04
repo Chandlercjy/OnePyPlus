@@ -4,7 +4,7 @@
 #include "utils/arrow.h"
 #include "utils/utils.h"
 
-namespace op {
+OP_NAMESPACE_START
 
 using namespace utils;
 using std::ifstream;
@@ -121,4 +121,5 @@ shared_ptr<OhlcVector> CsvReader::load(const string &fromdate,
     };
     return result;
 }
-} // namespace op
+OP_NAMESPACE_END
+

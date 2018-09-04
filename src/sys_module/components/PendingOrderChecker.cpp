@@ -4,7 +4,7 @@
 #include "sys_module/components/TriggeredSignalGenerator.h"
 #include "sys_module/models/PendingOrderBase.h"
 
-namespace op {
+OP_NAMESPACE_START
 
 PendingOrderChecker::PendingOrderChecker()
     : env(Environment::get_instance()){};
@@ -42,5 +42,6 @@ void PendingOrderChecker::run() {
     _check_orders_pending();
     _check_orders_pending_with_mkt();
 };
-} // namespace op
+OP_NAMESPACE_END
+
 

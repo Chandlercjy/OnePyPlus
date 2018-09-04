@@ -1,10 +1,9 @@
-#include <string>
+#include "OP_DECLARE.h"
 
 #pragma once
 
-namespace op {
-using std::shared_ptr;
-using std::string;
+OP_NAMESPACE_START
+
 class PendingOrderBase;
 
 class TriggeredSignalGenerator {
@@ -18,4 +17,5 @@ class TriggeredSignalGenerator {
     static bool generate_triggered_signal(const shared_ptr<PendingOrderBase> &order);
 };
 
-} // namespace op
+OP_NAMESPACE_END
+

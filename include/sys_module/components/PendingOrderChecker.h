@@ -1,6 +1,9 @@
+#include "OP_DECLARE.h"
+
 #pragma once
 
-namespace op {
+OP_NAMESPACE_START
+
 class Environment;
 
 class PendingOrderChecker {
@@ -15,5 +18,4 @@ class PendingOrderChecker {
     void _check_orders_pending_with_mkt();
 };
 
-} // namespace op
-
+OP_NAMESPACE_END

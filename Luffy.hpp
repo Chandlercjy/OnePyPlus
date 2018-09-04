@@ -1,4 +1,5 @@
 
+#include "config.h"
 #include "Environment.h"
 #include "EventEngine.h"
 #include "OnePy.h"
@@ -6,7 +7,6 @@
 #include "builtin_module/backtest_stock/StockBroker.h"
 #include "builtin_module/backtest_stock/StockRecorder.h"
 #include "builtin_module/backtest_stock/StockSeries.h"
-#include "config.h"
 #include "custom_module/backtest.h"
 #include "sys_module/BrokerBase.h"
 #include "sys_module/CleanerBase.h"

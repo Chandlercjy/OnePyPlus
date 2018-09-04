@@ -5,7 +5,7 @@
 #include <map>
 #include <string>
 
-namespace op {
+OP_NAMESPACE_START
 using std::make_shared;
 using std::map;
 using std::string;
@@ -75,4 +75,5 @@ void Environment::save_module(const string &name,
     recorder = value;
 }
 
-} // namespace op
+OP_NAMESPACE_END
+

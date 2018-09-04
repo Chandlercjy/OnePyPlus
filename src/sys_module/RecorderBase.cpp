@@ -4,7 +4,7 @@
 #include "sys_module/models/OrderBase.h"
 #include "sys_module/models/SeriesBase.h"
 
-namespace op {
+OP_NAMESPACE_START
 using std::make_shared;
 
 RecorderBase::RecorderBase()
@@ -80,4 +80,5 @@ void RecorderBase::save_to_env(const T *self_ptr, const string &name) {
     env->recorder = env->recorders[name];
 }
 
-} // namespace op
+OP_NAMESPACE_END
+

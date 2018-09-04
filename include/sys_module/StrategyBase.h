@@ -1,10 +1,9 @@
+#include "OP_DECLARE.h"
+
 #pragma once
 
-#include <string>
+OP_NAMESPACE_START
 
-namespace op {
-using std::shared_ptr;
-using std::string;
 class Environment;
 class SignalGenerator;
 
@@ -56,4 +55,5 @@ class StrategyBase {
   private:
     shared_ptr<SignalGenerator> _signal_generator;
 };
-} // namespace op
+
+OP_NAMESPACE_END
