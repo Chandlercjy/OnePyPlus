@@ -6,7 +6,6 @@
 #include "sys_module/models/Signal.h"
 
 OP_NAMESPACE_START
-using std::make_shared;
 
 OrderGenerator::OrderGenerator()
     : env(Environment::get_instance()){};

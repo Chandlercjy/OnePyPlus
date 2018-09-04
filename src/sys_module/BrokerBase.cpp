@@ -6,7 +6,6 @@
 #include "sys_module/models/GeneralOrder.h"
 
 OP_NAMESPACE_START
-using std::make_shared;
 
 BrokerBase::BrokerBase()
     : env(Environment::get_instance()),

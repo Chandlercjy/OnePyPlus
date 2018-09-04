@@ -5,7 +5,6 @@
 #include "sys_module/models/Signal.h"
 
 OP_NAMESPACE_START
-using std::make_shared;
 
 SignalBase::SignalBase(
     const map<string, double> &info,
@@ -120,4 +119,3 @@ void SignalByTrigger::_save_signals() {
 }
 
 OP_NAMESPACE_END
-

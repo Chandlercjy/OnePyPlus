@@ -79,7 +79,7 @@ shared_ptr<OhlcVector> load_raw_data(const string &data_path,
                                      const string &frequency) {
     string true_data_path = data_path + file_name + "_" + frequency + ".csv";
 
-    auto bar_series = std::make_shared<OhlcVector>();
+    auto bar_series = make_shared<OhlcVector>();
     ifstream in_file(true_data_path, ios::in);
     check_is_file_exist(in_file, true_data_path); // 判断文件是否存在
 
@@ -110,7 +110,7 @@ shared_ptr<OhlcVector> CsvReader::load(const string &fromdate,
     shared_ptr<OhlcVector> bar_series = load_raw_data(data_path,
                                                       file_name,
                                                       frequency);
-    shared_ptr<OhlcVector> result = std::make_shared<OhlcVector>();
+    shared_ptr<OhlcVector> result = make_shared<OhlcVector>();
 
     for (auto &bar : *bar_series) {
         if (arrow::is_gt(bar.date, todate))

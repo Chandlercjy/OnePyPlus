@@ -3,7 +3,6 @@
 #include "sys_module/models/SignalCancel.h"
 
 OP_NAMESPACE_START
-using std::make_shared;
 
 SignalCancelBase::SignalCancelBase(
     const string &strategy_name,

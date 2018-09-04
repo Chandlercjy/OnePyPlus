@@ -17,12 +17,10 @@ OP_NAMESPACE_START
 
 using namespace utils;
 using std::logic_error;
-using std::string;
-using std::unique_ptr;
 
 MarketMaker::MarketMaker()
     : env(Environment::get_instance()),
-      calendar(std::make_unique<Calendar>()){};
+      calendar(make_unique<Calendar>()){};
 
 void MarketMaker::update_market() {
     try {

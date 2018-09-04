@@ -6,8 +6,6 @@
 
 OP_NAMESPACE_START
 
-using std::vector;
-
 enum class EVENT;
 enum class MODULES;
 class Environment;

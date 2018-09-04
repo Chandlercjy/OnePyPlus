@@ -5,7 +5,6 @@
 #include "sys_module/models/SeriesBase.h"
 
 OP_NAMESPACE_START
-using std::make_shared;
 
 RecorderBase::RecorderBase()
     : env(Environment::get_instance()){};

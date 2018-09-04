@@ -7,7 +7,7 @@
 OP_NAMESPACE_START
 StrategyBase::StrategyBase()
     : env(Environment::get_instance()),
-      _signal_generator(std::make_shared<SignalGenerator>()){};
+      _signal_generator(make_shared<SignalGenerator>()){};
 
 void StrategyBase::buy(const double size,
                        const string &ticker,
@@ -115,7 +115,7 @@ void StrategyBase::run() {
 
 template <typename T>
 void StrategyBase::save_to_env(const T *self_ptr, const string &name) {
-    env->strategies[name] = std::make_shared<T>(*self_ptr);
+    env->strategies[name] = make_shared<T>(*self_ptr);
 }
 OP_NAMESPACE_END
 

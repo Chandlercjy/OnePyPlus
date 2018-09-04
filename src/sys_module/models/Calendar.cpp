@@ -8,7 +8,6 @@
 
 OP_NAMESPACE_START
 using namespace utils;
-using std::string;
 
 Calendar::Calendar()
     : env(Environment::get_instance()){};
@@ -77,4 +76,3 @@ void Calendar::_check_todate() {
         throw except::BacktestFinished();
 };
 OP_NAMESPACE_END
-
