@@ -122,4 +122,3 @@ shared_ptr<OhlcVector> CsvReader::load(const string &fromdate,
     return result;
 }
 OP_NAMESPACE_END
-

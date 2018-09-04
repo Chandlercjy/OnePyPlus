@@ -36,14 +36,7 @@ class SignalBase {
     const string datetime;
 
   protected:
-    void _check_all_conflict();
-    void _check_size();
-    void _check_conflict(const double obj,
-                         const double obj_pct,
-                         const string &name);
     void _record_info(map<string, double> info);
-
-    virtual void _save_signals() = 0;
 };
 
 class Signal : public SignalBase {
@@ -54,9 +47,6 @@ class Signal : public SignalBase {
            const ActionType &action_type);
 
     const int signal_id;
-
-  private:
-    void _save_signals() override;
 };
 
 class SignalForPending : public SignalBase {
@@ -67,9 +57,6 @@ class SignalForPending : public SignalBase {
                      const ActionType &action_type);
 
     const int signal_id;
-
-  private:
-    void _save_signals() override;
 };
 
 class SignalByTrigger : public SignalBase {
@@ -93,9 +80,6 @@ class SignalByTrigger : public SignalBase {
     const double parent_order_difference;
 
     const int signal_id; // 触发信号重新计数
-
-  private:
-    void _save_signals() override;
 };
 
 OP_NAMESPACE_END

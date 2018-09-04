@@ -13,11 +13,11 @@ StockBroker::StockBroker() {
     env->save_module("StockBroker", module);
 }
 
-//const double StockBroker::_required_cash_func(const shared_ptr<MarketOrder> &order) {
+//const double StockBroker::_required_cash_func(const MarketOrderPtr &order) {
 //return order->size * order->execute_price;
 //};
 
-double stock_cash_func(const shared_ptr<MarketOrder> &order) {
+double stock_cash_func(const MarketOrderPtr &order) {
     return order->size * order->execute_price;
 }
 

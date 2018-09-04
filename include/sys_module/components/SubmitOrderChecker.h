@@ -1,5 +1,5 @@
-#include "OP_DECLARE.h"
 #include "DataType.h"
+#include "OP_DECLARE.h"
 
 #pragma once
 
@@ -28,24 +28,24 @@ class SubmitOrderChecker {
     double cur_cash();
     double cur_position(const string &ticker,
                         const ActionType &action_type);
-    double required_cash(const shared_ptr<MarketOrder> &order);
+    double required_cash(const MarketOrderPtr &order);
     double _acumu_position(const string &ticker,
                            const ActionType &action_type);
-    void order_pass_checker(const shared_ptr<MarketOrder> &order);
-    bool _is_partial(const shared_ptr<MarketOrder> &order,
+    void order_pass_checker(const MarketOrderPtr &order);
+    bool _is_partial(const MarketOrderPtr &order,
                      const double cur_pos,
                      const double acumu_pos);
     bool _lack_of_cash();
     bool _lack_of_position(const double cur_pos, const double acumu_pos);
 
-    void _add_to_cash_cumu(const shared_ptr<MarketOrder> &order);
-    void _add_to_position_cumu(const shared_ptr<MarketOrder> &order);
-    void _delete_from_cash_cumu(const shared_ptr<MarketOrder> &order);
-    void _delete_from_position_cumu(const shared_ptr<MarketOrder> &order);
+    void _add_to_cash_cumu(const MarketOrderPtr &order);
+    void _add_to_position_cumu(const MarketOrderPtr &order);
+    void _delete_from_cash_cumu(const MarketOrderPtr &order);
+    void _delete_from_position_cumu(const MarketOrderPtr &order);
     void _make_position_cumu_full(const string &ticker,
                                   const ActionType &action_type);
 
-    void _check(const OrderBox<MarketOrder> order_list);
+    void _check(const PtrBox<MarketOrderPtr> order_list);
     void _check_market_order();
     void _check_pending_order();
     void _check_cancel_order();
@@ -53,4 +53,3 @@ class SubmitOrderChecker {
 };
 
 OP_NAMESPACE_END
-

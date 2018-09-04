@@ -123,4 +123,3 @@ bool BarBase::is_bar_series_end() const {
 };
 
 OP_NAMESPACE_END
-

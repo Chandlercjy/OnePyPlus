@@ -1,5 +1,5 @@
-#include "config.h"
 #include "OP_DECLARE.h"
+#include "config.h"
 
 #pragma once
 
@@ -23,13 +23,13 @@ class OnePiece {
 
   private:
     vector<op::SingleLoop> _event_loop;
-    const shared_ptr<op::MarketMaker> _market_maker;
-    const shared_ptr<op::PendingOrderChecker> _pending_order_checker;
+    const shared_ptr<MarketMaker> _market_maker;
+    const shared_ptr<PendingOrderChecker> _pending_order_checker;
 
     void output_summary(){};
-    void _run_event_loop(const op::EVENT &event);
-    bool _event_is_executed(const op::EVENT &cur_event,
-                            op::SingleLoop &single_loop) const;
+    void _run_event_loop(const EVENT &event);
+    bool _event_is_executed(const EVENT &cur_event,
+                            SingleLoop &single_loop) const;
     void _reset_all_counter() const;
     void _pre_initialize_trading_system();
 };

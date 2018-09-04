@@ -4,6 +4,7 @@
 
 OP_NAMESPACE_START
 
+class SignalChecker;
 enum class ActionType;
 class SignalBase;
 class Environment;
@@ -35,6 +36,10 @@ class SignalGenerator {
     const double _settle_price_pct(const string &ticker,
                                    double price,
                                    const double price_pct);
+    shared_ptr<SignalChecker> _signal_checker;
+
+    template <typename T>
+    void _generate_signal(const T &signal);
 };
 
 OP_NAMESPACE_END

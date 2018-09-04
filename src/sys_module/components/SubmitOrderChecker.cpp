@@ -8,7 +8,7 @@
 
 OP_NAMESPACE_START
 
-using Cash_func_ptr_type = double (*)(const shared_ptr<MarketOrder> &order);
+using Cash_func_ptr_type = double (*)(const MarketOrderPtr &order);
 SubmitOrderChecker::SubmitOrderChecker(Cash_func_ptr_type cash_func_ptr)
     : env(Environment::get_instance()),
       required_cash_func(cash_func_ptr){};
@@ -27,7 +27,7 @@ double SubmitOrderChecker::cur_position(const string &ticker,
         throw std::logic_error("Never Raised");
 };
 
-double SubmitOrderChecker::required_cash(const shared_ptr<MarketOrder> &order) {
+double SubmitOrderChecker::required_cash(const MarketOrderPtr &order) {
     return (*required_cash_func)(order);
 };
 
@@ -41,12 +41,12 @@ double SubmitOrderChecker::_acumu_position(const string &ticker,
         throw std::logic_error("Never Raised");
 };
 
-void SubmitOrderChecker::order_pass_checker(const shared_ptr<MarketOrder> &order) {
+void SubmitOrderChecker::order_pass_checker(const MarketOrderPtr &order) {
     order->set_status(OrderStatus::Submitted);
     env->orders_mkt_submitted_cur.push_back(order);
 };
 
-bool SubmitOrderChecker::_is_partial(const shared_ptr<MarketOrder> &order,
+bool SubmitOrderChecker::_is_partial(const MarketOrderPtr &order,
                                      const double cur_pos,
                                      const double acumu_pos) {
 
@@ -70,10 +70,10 @@ bool SubmitOrderChecker::_lack_of_position(const double cur_pos, const double ac
     return false;
 };
 
-void SubmitOrderChecker::_add_to_cash_cumu(const shared_ptr<MarketOrder> &order) {
+void SubmitOrderChecker::_add_to_cash_cumu(const MarketOrderPtr &order) {
     cash_acumu += required_cash(order);
 };
-void SubmitOrderChecker::_add_to_position_cumu(const shared_ptr<MarketOrder> &order) {
+void SubmitOrderChecker::_add_to_position_cumu(const MarketOrderPtr &order) {
     if (order->get_action_type() == ActionType::Sell)
         plong_acumu[order->ticker] += order->size;
     else if (order->get_action_type() == ActionType::Cover)
@@ -81,10 +81,10 @@ void SubmitOrderChecker::_add_to_position_cumu(const shared_ptr<MarketOrder> &or
     else
         throw std::logic_error("Never Raised");
 };
-void SubmitOrderChecker::_delete_from_cash_cumu(const shared_ptr<MarketOrder> &order) {
+void SubmitOrderChecker::_delete_from_cash_cumu(const MarketOrderPtr &order) {
     cash_acumu -= required_cash(order);
 };
-void SubmitOrderChecker::_delete_from_position_cumu(const shared_ptr<MarketOrder> &order) {
+void SubmitOrderChecker::_delete_from_position_cumu(const MarketOrderPtr &order) {
     if (order->get_action_type() == ActionType::Sell)
         plong_acumu[order->ticker] -= order->size;
     else if (order->get_action_type() == ActionType::Cover)
@@ -103,7 +103,7 @@ void SubmitOrderChecker::_make_position_cumu_full(const string &ticker,
         throw std::logic_error("Never Raised");
 };
 
-void SubmitOrderChecker::_check(const OrderBox<MarketOrder> order_list) {
+void SubmitOrderChecker::_check(const PtrBox<MarketOrderPtr> order_list) {
     for (auto &order : order_list) {
         const auto &ticker = order->ticker;
         const auto &action_type = order->get_action_type();
@@ -177,4 +177,3 @@ void SubmitOrderChecker::run() {
 };
 
 OP_NAMESPACE_END
-

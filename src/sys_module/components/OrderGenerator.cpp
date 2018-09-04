@@ -1,4 +1,5 @@
 #include "Constants.h"
+#include "DataType.h"
 #include "sys_module/components/OrderGenerator.h"
 #include "sys_module/models/Counter.h"
 #include "sys_module/models/GeneralOrder.h"
@@ -51,7 +52,7 @@ void OrderGenerator::_child_of_mkt(const shared_ptr<T2> &signal,
 };
 
 template <typename T>
-shared_ptr<MarketOrder> OrderGenerator::_generate_mkt_order(const shared_ptr<T> &signal) {
+MarketOrderPtr OrderGenerator::_generate_mkt_order(const shared_ptr<T> &signal) {
     return make_shared<MarketOrder>(signal, Counter::update_mkt_id());
 };
 
@@ -107,9 +108,9 @@ shared_ptr<PendingOrderBase> OrderGenerator::_generate_pending_order(const share
     return order;
 };
 void OrderGenerator::submit_mkt_order_with_child(
-    shared_ptr<MarketOrder> &mkt_order,
+    MarketOrderPtr &mkt_order,
     const vector<shared_ptr<PendingOrderBase>> &orders_basket,
-    vector<shared_ptr<MarketOrder>> &orders_cur) {
+    vector<MarketOrderPtr> &orders_cur) {
     orders_cur.push_back(mkt_order);
     if (orders_basket.size() != 0) {
         env->orders_child_of_mkt_dict[mkt_order->mkt_id] = orders_basket;
@@ -165,4 +166,3 @@ void OrderGenerator::run() {
 };
 
 OP_NAMESPACE_END
-

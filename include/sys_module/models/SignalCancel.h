@@ -22,10 +22,6 @@ class SignalCancelBase {
 
     const string datetime;
     const int signal_id;
-
-  protected:
-    virtual void _check_conflict() = 0;
-    virtual void _save_signals() = 0;
 };
 
 class SignalCancelTST : public SignalCancelBase {
@@ -41,10 +37,6 @@ class SignalCancelTST : public SignalCancelBase {
     const double takeprofit;
     const double stoploss;
     const double trailingstop;
-
-  private:
-    void _check_conflict() override;
-    void _save_signals() override;
 };
 
 class SignalCancelPending : public SignalCancelBase {
@@ -58,10 +50,6 @@ class SignalCancelPending : public SignalCancelBase {
 
     const double below_price;
     const double above_price;
-
-  private:
-    void _check_conflict() override;
-    void _save_signals() override;
 };
 
 OP_NAMESPACE_END

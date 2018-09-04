@@ -5,27 +5,6 @@
 
 OP_NAMESPACE_START
 
-class ReaderBase;
-class BarBase;
-class BarBase;
-class CleanerBase;
-class StrategyBase;
-class BrokerBase;
-class RiskManagerBase;
-class RecorderBase;
-class EventEngine;
-class Signal;
-class SignalForPending;
-class SignalByTrigger;
-class SignalCancel;
-class SignalCancelTST;
-class SignalCancelPending;
-class OrderBase;
-class MarketOrder;
-class PendingOrderBase;
-class CancelTSTOrder;
-class CancelPendingOrder;
-
 class Environment {
   public:
     string instrument;
@@ -49,23 +28,23 @@ class Environment {
 
     shared_ptr<RecorderBase> recorder; // type: op.RecorderBase
 
-    SignalBox<Signal> signals_normal_cur;                      // 动态地临时信号，会不断刷新
-    SignalBox<SignalForPending> signals_pending_cur;           // 动态地临时信号，会不断刷新
-    SignalBox<SignalByTrigger> signals_trigger_cur;            // 动态地临时信号，会不断刷新
-    SignalBox<SignalCancelTST> signals_cancel_tst_cur;         // 动态地临时信号，会不断刷新
-    SignalBox<SignalCancelPending> signals_cancel_pending_cur; // 动态地临时信号，会不断刷新
+    PtrBox<SignalPtr> signals_normal_cur;                      // 动态地临时信号，会不断刷新
+    PtrBox<SignalForPendingPtr> signals_pending_cur;           // 动态地临时信号，会不断刷新
+    PtrBox<SignalByTriggerPtr> signals_trigger_cur;            // 动态地临时信号，会不断刷新
+    PtrBox<SignalCancelTSTPtr> signals_cancel_tst_cur;         // 动态地临时信号，会不断刷新
+    PtrBox<SignalCancelPendingPtr> signals_cancel_pending_cur; // 动态地临时信号，会不断刷新
 
-    map<int, vector<shared_ptr<PendingOrderBase>>> orders_child_of_mkt_dict; // 动态地保存跟随市价单的挂单
-    OrderBox<MarketOrder> orders_mkt_normal_cur;                             // 动态地保存当前订单, 会不断刷新
-    OrderBox<MarketOrder> orders_mkt_absolute_cur;                           // 动态地保存触发的挂单并成交信息，会不断刷新
-    OrderBox<MarketOrder> orders_mkt_submitted_cur;                          // 动态地保存成交单，会不断刷新
+    map<int, vector<PendingOrderBasePtr>> orders_child_of_mkt_dict; // 动态地保存跟随市价单的挂单
+    PtrBox<MarketOrderPtr> orders_mkt_normal_cur;                            // 动态地保存当前订单, 会不断刷新
+    PtrBox<MarketOrderPtr> orders_mkt_absolute_cur;                          // 动态地保存触发的挂单并成交信息，会不断刷新
+    PtrBox<MarketOrderPtr> orders_mkt_submitted_cur;                         // 动态地保存成交单，会不断刷新
 
-    OrderBox<PendingOrderBase> orders_pending; // 动态地保存挂单,触发会删除
+    PtrBox<PendingOrderBasePtr> orders_pending; // 动态地保存挂单,触发会删除
 
-    OrderBox<CancelTSTOrder> orders_cancel_tst_cur;               // 动态地保存撤单，会不断刷新
-    OrderBox<CancelPendingOrder> orders_cancel_pending_cur;       // 动态地保存撤单，会不断刷新
-    OrderBox<CancelTSTOrder> orders_cancel_tst_submitted;         // 动态地保存撤单，会不断刷新
-    OrderBox<CancelPendingOrder> orders_cancel_pending_submitted; // 动态地保存撤单，会不断刷新
+    PtrBox<CancelTSTOrderPtr> orders_cancel_tst_cur;               // 动态地保存撤单，会不断刷新
+    PtrBox<CancelPendingOrderPtr> orders_cancel_pending_cur;       // 动态地保存撤单，会不断刷新
+    PtrBox<CancelTSTOrderPtr> orders_cancel_tst_submitted;         // 动态地保存撤单，会不断刷新
+    PtrBox<CancelPendingOrderPtr> orders_cancel_pending_submitted; // 动态地保存撤单，会不断刷新
 
     //string logger = logging.getLogger("OnePy");
     shared_ptr<EventEngine> event_engine; //看看能不能设成会报错的指针

@@ -18,37 +18,6 @@ SignalBase::SignalBase(
       action_type(action_type),
       datetime(env->sys_date) {
     _record_info(info);
-    _check_all_conflict();
-};
-
-void SignalBase::_check_all_conflict() {
-
-    _check_size();
-    _check_conflict(takeprofit, takeprofit_pct, "takeprofit");
-    _check_conflict(stoploss, stoploss_pct, "stoploss");
-    _check_conflict(trailingstop, trailingstop_pct, "trailingstop");
-};
-
-void SignalBase::_check_size() {
-    if (size < 0)
-        throw std::logic_error("size should be Positive");
-};
-
-void SignalBase::_check_conflict(const double obj,
-                                 const double obj_pct,
-                                 const string &name) {
-    if (obj != 0 && obj_pct != 0)
-        throw except::OrderConflictError(); //TODO
-
-    if (obj_pct != 0 && (obj_pct <= -1 || obj_pct >= 1))
-        throw except::PctRangeError(); //TODO
-
-    if (name != "price") {
-        if (obj < 0)
-            throw std::logic_error("{name.upper()} should be Positive");
-        else if (obj_pct < 0)
-            throw std::logic_error("{name.upper()} should be Positive");
-    }
 };
 
 void SignalBase::_record_info(map<string, double> info) {
@@ -68,13 +37,7 @@ Signal::Signal(const map<string, double> &info,
                const ActionType &action_type)
 
     : SignalBase(info, ticker, strategy_name, action_type),
-      signal_id(Counter::update_signal_id()) {
-    _save_signals();
-};
-
-void Signal::_save_signals() {
-    env->signals_normal_cur.push_back(make_shared<Signal>(*this));
-}
+      signal_id(Counter::update_signal_id()){};
 
 SignalForPending::SignalForPending(
     const map<string, double> &info,
@@ -83,13 +46,7 @@ SignalForPending::SignalForPending(
     const ActionType &action_type)
 
     : SignalBase(info, ticker, strategy_name, action_type),
-      signal_id(Counter::update_signal_id()) {
-    _save_signals();
-};
-
-void SignalForPending::_save_signals() {
-    env->signals_pending_cur.push_back(make_shared<SignalForPending>(*this));
-}
+      signal_id(Counter::update_signal_id()){};
 
 SignalByTrigger::SignalByTrigger(
     const map<string, double> &info,
@@ -110,12 +67,6 @@ SignalByTrigger::SignalByTrigger(
       execute_price(execute_price),
       first_cur_price(first_cur_price),
       parent_order_difference(parent_order_difference),
-      signal_id(Counter::update_signal_by_trigger_id()) {
-    _save_signals();
-};
-
-void SignalByTrigger::_save_signals() {
-    env->signals_trigger_cur.push_back(make_shared<SignalByTrigger>(*this));
-}
+      signal_id(Counter::update_signal_by_trigger_id()){};
 
 OP_NAMESPACE_END
