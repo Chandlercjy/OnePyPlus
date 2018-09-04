@@ -8,15 +8,6 @@ class MarketOrder;
 enum class ActionType;
 
 struct OhlcStruct {
-    OhlcStruct(const string &date, const double open, const double high,
-               const double low, const double close, const double volume)
-        : date(date),
-          open(open),
-          high(high),
-          low(low),
-          close(close),
-          volume(volume){};
-
     const string date;
     const double open;
     const double high;
@@ -26,8 +17,6 @@ struct OhlcStruct {
 };
 
 struct SeriesStruct {
-    SeriesStruct(const string &date, const double value)
-        : date(date), value(value){};
     const string date;
     double value;
 };

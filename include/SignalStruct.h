@@ -2,9 +2,10 @@
 
 #pragma once
 
-enum class ActionType;
-
 OP_NAMESPACE_START
+
+enum class OrderType;
+enum class ActionType;
 
 struct SignalNormalStruct {
     const int id;
