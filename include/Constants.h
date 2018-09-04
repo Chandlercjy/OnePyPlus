@@ -14,7 +14,6 @@ enum class ActionType {
 };
 
 enum class OrderType {
-
     Market,
     Limit,
     Stop,
@@ -25,7 +24,6 @@ enum class OrderType {
 };
 
 enum class OrderStatus {
-
     Created,
     Submitted,
     Partial,

@@ -1,6 +1,6 @@
-#include "OP_DECLARE.h"
 #include "Constants.h"
 #include "Environment.h"
+#include "OP_DECLARE.h"
 
 #pragma once
 
@@ -41,4 +41,3 @@ class CancelOrderBase {
 };
 
 OP_NAMESPACE_END
-

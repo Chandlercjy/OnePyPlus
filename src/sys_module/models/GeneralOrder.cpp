@@ -121,4 +121,3 @@ const bool CancelPendingOrder::is_target(const double target_price) {
 };
 
 OP_NAMESPACE_END
-
