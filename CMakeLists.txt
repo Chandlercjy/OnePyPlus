@@ -45,12 +45,12 @@ SET(OnePy_src
 
 
 
-add_executable(demo_OnePy 
-    ${PROJECT_SOURCE_DIR}/main.cpp
-    ${PROJECT_SOURCE_DIR}/Luffy.hpp
-    #${PROJECT_SOURCE_DIR}/src/All.cpp
- ${OnePy_src}
-    )
+#add_executable(demo_OnePy
+#    ${PROJECT_SOURCE_DIR}/main.cpp
+#    ${PROJECT_SOURCE_DIR}/Luffy.hpp
+#    #${PROJECT_SOURCE_DIR}/src/All.cpp
+# ${OnePy_src}
+#    )
 
 #SET(total_files ${source_dir}/All.cpp)
 #ADD_LIBRARY(demo_lib SHARED ${total_files})

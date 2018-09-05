@@ -13,17 +13,17 @@ class Environment;
 class OnePiece {
   public:
     OnePiece();
-    op::Environment *env;
+    Environment *env;
     void sunny(const bool &show_summary = true); // 主循环
     void initialize_trading_system();
     void set_date(const string &fromdate,
                   const string &todate,
                   const string &frequency,
                   const string &instrument);
+    const shared_ptr<MarketMaker> market_maker;
 
   private:
-    vector<op::SingleLoop> _event_loop;
-    const shared_ptr<MarketMaker> _market_maker;
+    vector<SingleLoop> _event_loop;
     const shared_ptr<PendingOrderChecker> _pending_order_checker;
 
     void output_summary(){};

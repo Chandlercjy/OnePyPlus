@@ -24,19 +24,16 @@ class SignalBase {
     const string strategy_name;
     const ActionType action_type;
 
-    double size;
-    double price;
-    double takeprofit;
-    double takeprofit_pct;
-    double stoploss;
-    double stoploss_pct;
-    double trailingstop;
-    double trailingstop_pct;
+    double size();
+    double price();
+    double takeprofit();
+    double takeprofit_pct();
+    double stoploss();
+    double stoploss_pct();
+    double trailingstop();
+    double trailingstop_pct();
 
     const string datetime;
-
-  protected:
-    void _record_info(map<string, double> info);
 };
 
 class Signal : public SignalBase {

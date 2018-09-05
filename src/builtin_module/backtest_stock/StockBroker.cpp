@@ -8,14 +8,10 @@ OP_NAMESPACE_START
 using std::make_shared;
 
 StockBroker::StockBroker() {
-    _checker = make_shared<SubmitOrderChecker>(cash_func());
+    checker = make_shared<SubmitOrderChecker>(cash_func());
     auto module = make_shared<StockBroker>(*this);
     env->save_module("StockBroker", module);
 }
-
-//const double StockBroker::_required_cash_func(const MarketOrderPtr &order) {
-//return order->size * order->execute_price;
-//};
 
 double stock_cash_func(const MarketOrderPtr &order) {
     return order->size * order->execute_price;
@@ -26,4 +22,3 @@ Cash_func_ptr_type StockBroker::cash_func() {
 };
 
 OP_NAMESPACE_END
-

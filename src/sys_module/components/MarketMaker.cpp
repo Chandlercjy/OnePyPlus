@@ -118,4 +118,3 @@ shared_ptr<BarBase> MarketMaker::get_bar(const string &ticker,
     return env->recorder->bar_class(ticker, frequency);
 };
 OP_NAMESPACE_END
-

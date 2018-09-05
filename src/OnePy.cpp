@@ -1,9 +1,9 @@
-#include "config.h"
 #include "Constants.h"
 #include "Environment.h"
 #include "EventEngine.h"
 #include "Exceptions.h"
 #include "OnePy.h"
+#include "config.h"
 #include "sys_module//components/MarketMaker.h"
 #include "sys_module//components/PendingOrderChecker.h"
 #include "sys_module/RecorderBase.h"
@@ -15,8 +15,8 @@ using std::shared_ptr;
 
 OnePiece::OnePiece()
     : env(op::Environment::get_instance()),
+      market_maker(make_shared<op::MarketMaker>()),
       _event_loop(op::EVENT_LOOP),
-      _market_maker(make_shared<op::MarketMaker>()),
       _pending_order_checker(make_shared<op::PendingOrderChecker>()){};
 
 void OnePiece::sunny(const bool &show_summary) {
@@ -27,7 +27,7 @@ void OnePiece::sunny(const bool &show_summary) {
                 op::EVENT cur_event = env->event_engine->get();
                 _run_event_loop(cur_event);
             } else {
-                _market_maker->update_market();
+                market_maker->update_market();
                 _pending_order_checker->run();
             };
 
@@ -46,7 +46,7 @@ void OnePiece::sunny(const bool &show_summary) {
 void OnePiece::initialize_trading_system() {
     _pre_initialize_trading_system();
     env->initialize_env();
-    _market_maker->initialize();
+    market_maker->initialize();
     env->recorder->initialize();
 };
 
@@ -82,4 +82,3 @@ void OnePiece::set_date(const string &fromdate,
 };
 
 OP_NAMESPACE_END
-

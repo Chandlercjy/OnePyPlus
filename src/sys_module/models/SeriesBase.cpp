@@ -11,27 +11,27 @@ SeriesBase::SeriesBase()
 
 inline void SeriesBase::_initialize_data() {
     for (auto &ticker : env->tickers) {
-        _data[ticker + "_long"].push_back(SeriesStruct{env->fromdate, 0});
-        _data[ticker + "_short"].push_back(SeriesStruct{env->fromdate, 0});
+        data[ticker + "_long"].push_back(SeriesStruct{env->fromdate, 0});
+        data[ticker + "_short"].push_back(SeriesStruct{env->fromdate, 0});
     }
 }
 
 void SeriesBase::change_initial_value(const string &ticker,
                                       const double value,
                                       const string &long_or_short) {
-    _data[ticker + "_" + long_or_short][0].value = value;
+    data[ticker + "_" + long_or_short][0].value = value;
 };
 
 double SeriesBase::latest(const string &ticker,
                           const string &long_or_short) {
     const string key = ticker + "_" + long_or_short;
-    int index = _data[key].size() - 1;
-    return _data[key][index].value;
+    int index = data[key].size() - 1;
+    return data[key][index].value;
 }
 
 double SeriesBase::total_value() {
     double total = 0;
-    for (auto &per_pair : _data) {
+    for (auto &per_pair : data) {
         auto final_value = per_pair.second.back();
         total += final_value.value;
     }
@@ -42,10 +42,10 @@ void SeriesBase::_append_value(const string &ticker,
                                const double value,
                                const string &long_or_short) {
     const string key = ticker + "_" + long_or_short;
-    if (_data[key].back().date == env->sys_date)
-        _data[key].back().value = value;
+    if (data[key].back().date == env->sys_date)
+        data[key].back().value = value;
     else
-        _data[key].push_back(SeriesStruct{env->sys_date, value});
+        data[key].push_back(SeriesStruct{env->sys_date, value});
 };
 double SeriesBase::get_barly_cur_price(const string &ticker,
                                        const bool order_executed) {
@@ -62,19 +62,19 @@ MoneySeries::MoneySeries(const string &name, const double initial_value)
 const string MoneySeries::get_name() { return _name; };
 
 void MoneySeries::change_initial_value(const double value) {
-    _data[0].value = value;
+    data[0].value = value;
 };
 
 inline void MoneySeries::_initialize_data(const double initial_value) {
-    _data.push_back(SeriesStruct{env->fromdate, initial_value});
+    data.push_back(SeriesStruct{env->fromdate, initial_value});
 }
 
 double MoneySeries::latest() {
-    return _data.back().value;
+    return data.back().value;
 };
 
 void MoneySeries::push_back(const SeriesStruct &value) {
-    _data.push_back(value);
+    data.push_back(value);
 };
 
 void PositionSeries::update_order(const string &ticker,
@@ -113,5 +113,3 @@ void AvgPriceSeries::update_order(const string &ticker,
 };
 
 OP_NAMESPACE_END
-
-

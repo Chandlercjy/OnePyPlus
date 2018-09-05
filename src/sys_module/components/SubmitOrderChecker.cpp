@@ -34,9 +34,9 @@ double SubmitOrderChecker::required_cash(const MarketOrderPtr &order) {
 double SubmitOrderChecker::_acumu_position(const string &ticker,
                                            const ActionType &action_type) {
     if (action_type == ActionType::Sell)
-        return env->recorder->position->latest(ticker, "long");
+        return plong_acumu[ticker];
     else if (action_type == ActionType::Cover)
-        return env->recorder->position->latest(ticker, "short");
+        return pshort_acumu[ticker];
     else
         throw std::logic_error("Never Raised");
 };
@@ -49,8 +49,7 @@ void SubmitOrderChecker::order_pass_checker(const MarketOrderPtr &order) {
 bool SubmitOrderChecker::_is_partial(const MarketOrderPtr &order,
                                      const double cur_pos,
                                      const double acumu_pos) {
-
-    const auto &diff = cur_pos - (acumu_pos - order->size);
+    const auto diff = cur_pos - (acumu_pos - order->size);
 
     if (diff > 0) {
         order->size = diff;

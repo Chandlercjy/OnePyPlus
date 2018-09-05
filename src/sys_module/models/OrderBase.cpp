@@ -12,15 +12,15 @@ OrderBase::OrderBase(const shared_ptr<SignalBase> &signal,
     : env(Environment::get_instance()),
       strategy_name(signal->strategy_name),
       ticker(signal->ticker),
-      size(signal->size),
+      size(signal->size()),
       trading_date(signal->datetime),
       order_id(Counter::update_order_id()),
-      mkt_id(mkt_id)
+      mkt_id(mkt_id),
+      signal_info(signal->info)
 
 {
     set_status(OrderStatus::Created);
     set_first_cur_price_and_signal_type(signal);
-    _save_signal_info(signal);
 };
 
 void OrderBase::set_status(const OrderStatus &value) {
@@ -51,16 +51,4 @@ const string OrderBase::get_signal_type() const {
     return _signal_type;
 };
 
-template <typename T>
-void OrderBase::_save_signal_info(const T &signal) {
-    signal_info["price"] = signal->price;
-    signal_info["takeprofit"] = signal->takeprofit;
-    signal_info["takeprofit_pct"] = signal->takeprofit_pct;
-    signal_info["stoploss"] = signal->stoploss;
-    signal_info["stoploss_pct"] = signal->stoploss_pct;
-    signal_info["trailingstop"] = signal->trailingstop;
-    signal_info["trailingstop_pct"] = signal->trailingstop_pct;
-};
-
 OP_NAMESPACE_END
-

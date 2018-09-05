@@ -19,8 +19,8 @@ int main() {
     auto go = op::stock(ticker_list,
                         "D",
                         100000,
-                        "2017-02-01",
-                        "2017-04-01",
+                        "2018-01-05",
+                        "2018-04-01",
                         "tushare");
 
     go.sunny();

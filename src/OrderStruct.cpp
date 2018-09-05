@@ -15,10 +15,10 @@ void StopOrderStruct::set_status(const OrderStatus &value) {
 void TrailingStopOrderStruct::set_status(const OrderStatus &value) {
     _status = value;
 }
-void CancelOrderTSTStruct::set_status(const OrderStatus &value) {
+void CancelTSTOrderStruct::set_status(const OrderStatus &value) {
     _status = value;
 }
-void CancelOrderPendingStruct::set_status(const OrderStatus &value) {
+void CancelPendingOrderStruct::set_status(const OrderStatus &value) {
     _status = value;
 }
 
@@ -26,7 +26,7 @@ OrderStatus MarketOrderStruct::get_status() { return _status; }
 OrderStatus LimitOrderStruct::get_status() { return _status; }
 OrderStatus StopOrderStruct::get_status() { return _status; }
 OrderStatus TrailingStopOrderStruct::get_status() { return _status; }
-OrderStatus CancelOrderTSTStruct::get_status() { return _status; }
-OrderStatus CancelOrderPendingStruct::get_status() { return _status; }
+OrderStatus CancelTSTOrderStruct::get_status() { return _status; }
+OrderStatus CancelPendingOrderStruct::get_status() { return _status; }
 
 OP_NAMESPACE_END

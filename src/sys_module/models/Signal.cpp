@@ -16,20 +16,32 @@ SignalBase::SignalBase(
       ticker(ticker),
       strategy_name(strategy_name),
       action_type(action_type),
-      datetime(env->sys_date) {
-    _record_info(info);
-};
+      datetime(env->sys_date){};
 
-void SignalBase::_record_info(map<string, double> info) {
-    size = info["size"];
-    price = info["price"];
-    takeprofit = info["takeprofit"];
-    takeprofit_pct = info["takeprofit_pct"];
-    stoploss = info["stoploss"];
-    stoploss_pct = info["stoploss_pct"];
-    trailingstop = info["trailingstop"];
-    trailingstop_pct = info["trailingstop_pct"];
-};
+double SignalBase::size() {
+    return info["size"];
+}
+double SignalBase::price() {
+    return info["price"];
+}
+double SignalBase::takeprofit() {
+    return info["takeprofit"];
+}
+double SignalBase::takeprofit_pct() {
+    return info["takeprofit_pct"];
+}
+double SignalBase::stoploss() {
+    return info["stoploss"];
+}
+double SignalBase::stoploss_pct() {
+    return info["stoploss_pct"];
+}
+double SignalBase::trailingstop() {
+    return info["trailingstop"];
+}
+double SignalBase::trailingstop_pct() {
+    return info["trailingstop_pct"];
+}
 
 Signal::Signal(const map<string, double> &info,
                const string &ticker,

@@ -80,4 +80,3 @@ void RecorderBase::save_to_env(const T *self_ptr, const string &name) {
 }
 
 OP_NAMESPACE_END
-

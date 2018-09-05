@@ -1,5 +1,4 @@
 
-#include "config.h"
 #include "Environment.h"
 #include "EventEngine.h"
 #include "OnePy.h"
@@ -7,6 +6,7 @@
 #include "builtin_module/backtest_stock/StockBroker.h"
 #include "builtin_module/backtest_stock/StockRecorder.h"
 #include "builtin_module/backtest_stock/StockSeries.h"
+#include "config.h"
 #include "custom_module/backtest.h"
 #include "sys_module/BrokerBase.h"
 #include "sys_module/CleanerBase.h"
@@ -39,14 +39,10 @@ class Luffy : public op::StrategyBase {
     Luffy() {
         auto module = std::make_shared<Luffy>(*this);
         env->save_module("Luffy", module);
-
-        //save_to_env(this, "luffy");
-        //env->strategies["luffy"] = std::make_shared<Luffy>(*this);
-        //throw 1;
     };
     const string get_name() override { return "luffy"; };
     void handle_bar() override {
-        //buy(10, "000001", 0, 0, 0, 0, 0, 0, 0, 0.01);
+        //buy(20, "000001", 0, 0, 0, 0, 0, 0, 0, 0.01);
         buy(10, "000001");
         //cout << env->recorder->balance->latest()
         //<< ", "

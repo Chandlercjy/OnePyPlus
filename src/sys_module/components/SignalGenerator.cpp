@@ -58,7 +58,6 @@ void SignalGenerator::sell_or_cover(map<string, double> &info,
     if (exact_price != 0) {
         info["price"] = exact_price;
         info["price_pct"] = 0;
-        //SignalForPending signal{info, ticker, strategy_name, action_type};
         auto signal = make_shared<SignalForPending>(info,
                                                     ticker,
                                                     strategy_name,

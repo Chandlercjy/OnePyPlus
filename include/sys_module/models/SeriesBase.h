@@ -20,10 +20,9 @@ class SeriesBase {
     double latest(const string &ticker,
                   const string &long_or_short);
     double total_value();
+    map<string, vector<SeriesStruct>> data;
 
   protected:
-    map<string, vector<SeriesStruct>> _data;
-
     void _append_value(const string &ticker,
                        const double value,
                        const string &long_or_short);
@@ -43,10 +42,10 @@ class MoneySeries final {
     void change_initial_value(const double value);
     double latest();
     void push_back(const SeriesStruct &value);
+    vector<SeriesStruct> data;
 
   private:
     const string _name;
-    vector<SeriesStruct> _data;
     void _initialize_data(const double initial_value);
 };
 

@@ -15,6 +15,7 @@ class MarketMaker {
     Environment *env;
     void update_market();
     void initialize();
+    shared_ptr<BarBase> get_bar(const string &ticker, const string &frequency);
 
   private:
     unique_ptr<Calendar> calendar;
@@ -25,7 +26,6 @@ class MarketMaker {
     void _update_recorder(bool backtest_finished = false);
     void _check_blowup() const;
     void _update_bar();
-    std::shared_ptr<BarBase> get_bar(const string &ticker, const string &frequency);
 };
 
 OP_NAMESPACE_END

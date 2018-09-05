@@ -2,13 +2,8 @@
 #include "EventEngine.h"
 #include "utils/arrow.h"
 #include "utils/easy_func.h"
-#include <map>
-#include <string>
 
 OP_NAMESPACE_START
-using std::make_shared;
-using std::map;
-using std::string;
 
 Environment::Environment() noexcept
     : event_engine(make_shared<EventEngine>()),
@@ -42,7 +37,7 @@ void Environment::initialize_env() {
     orders_cancel_pending_submitted.clear(); // 动态地保存撤单，会不断刷新
     if (!is_live_trading) {
         auto shift_ratio = utils::Easy::get_second_ratio(sys_frequency);
-        sys_date = utils::arrow::shift_seconds_to_str(fromdate, shift_ratio);
+        sys_date = utils::arrow::shift_seconds_to_str(fromdate, -shift_ratio);
     }
 };
 
@@ -76,4 +71,3 @@ void Environment::save_module(const string &name,
 }
 
 OP_NAMESPACE_END
-

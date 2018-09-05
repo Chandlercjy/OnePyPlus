@@ -27,7 +27,7 @@ void BrokerBase::_generate_order() {
 };
 
 void BrokerBase::_check_order() {
-    _checker->run();
+    checker->run();
 };
 
 void BrokerBase::_submit_order() {
@@ -90,5 +90,3 @@ void BrokerBase::run() {
 };
 
 OP_NAMESPACE_END
-
-

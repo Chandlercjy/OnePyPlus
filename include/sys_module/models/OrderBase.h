@@ -46,9 +46,6 @@ class OrderBase {
 
     string _signal_type;
     double _first_cur_price;
-
-    template <typename T>
-    void _save_signal_info(const T &signal);
 };
 
 OP_NAMESPACE_END

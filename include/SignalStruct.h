@@ -61,4 +61,31 @@ struct SignalByTriggerStruct {
     const double parent_order_difference;
 };
 
+struct SignalCancelTST {
+    const int id;
+    const string datetime;
+    const string strategy_name;
+    const ActionType action_type;
+    const string ticker;
+    const string long_or_short;
+
+    const bool takeprofit;
+    const bool stoploss;
+    const bool trailingstop;
+
+};
+
+struct SignalCancelPending {
+    const int id;
+    const string datetime;
+    const string strategy_name;
+    const ActionType action_type;
+    const string ticker;
+    const string long_or_short;
+
+    const double below_price;
+    const double above_price;
+
+};
+
 OP_NAMESPACE_END

@@ -31,10 +31,10 @@ void SignalChecker::_check_size(const int size) {
 };
 
 void SignalChecker::check(const SignalBasePtr &signal) {
-    _check_size(signal->size);
-    _check_conflict(signal->takeprofit, signal->takeprofit_pct, "takeprofit");
-    _check_conflict(signal->stoploss, signal->stoploss_pct, "stoploss");
-    _check_conflict(signal->trailingstop, signal->trailingstop_pct, "trailingstop");
+    _check_size(signal->size());
+    _check_conflict(signal->takeprofit(), signal->takeprofit_pct(), "takeprofit");
+    _check_conflict(signal->stoploss(), signal->stoploss_pct(), "stoploss");
+    _check_conflict(signal->trailingstop(), signal->trailingstop_pct(), "trailingstop");
 };
 
 void SignalChecker::check(const SignalCancelBasePtr &signal){};

@@ -73,6 +73,9 @@ void BarBase::_update_iter_data(const string &start, const string &end) {
         utils::Log::handle_error(__FILE__, __LINE__, "No ticker in readers!");
     }
     _bar_series = reader->load(start, end, frequency);
+    if (_bar_series->empty()) {
+        utils::Log::handle_error(__FILE__, __LINE__, "Load no data in readers!");
+    }
     previous_ohlc = _bar_series->cbegin();
     current_ohlc = ++_bar_series->cbegin();
     next_ohlc = ++++_bar_series->cbegin();
