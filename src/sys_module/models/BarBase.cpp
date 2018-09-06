@@ -68,7 +68,7 @@ bool BarBase::initialize(int buffer_day) {
 }; // namespace op
 
 void BarBase::_update_iter_data(const string &start, const string &end) {
-    static auto reader = env->readers[ticker];
+    auto reader = env->readers[ticker];
     if (!reader) {
         utils::Log::handle_error(__FILE__, __LINE__, "No ticker in readers!");
     }

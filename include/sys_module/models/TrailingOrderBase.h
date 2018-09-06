@@ -8,6 +8,9 @@ OP_NAMESPACE_START
 class TrailingOrderBase : public PendingOrderBase {
   public:
     TrailingOrderBase(const shared_ptr<SignalBase> &signal,
+                     const int mkt_id,
+                     const string &trigger_key);
+    TrailingOrderBase(const SignalByTriggerPtr signal,
                       const int mkt_id,
                       const string &trigger_key);
     virtual const ActionType get_action_type() const override = 0;

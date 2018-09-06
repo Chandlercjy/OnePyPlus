@@ -9,6 +9,7 @@ enum class ActionType;
 enum class OrderType;
 enum class OrderStatus;
 class SignalBase;
+class SignalByTrigger;
 using std::map;
 using std::shared_ptr;
 
@@ -34,8 +35,8 @@ class OrderBase {
     virtual const OrderType get_order_type() const = 0;
     virtual void set_status(const OrderStatus &value);
 
-    template <typename T>
-    void set_first_cur_price_and_signal_type(const shared_ptr<T> &signal);
+    void set_first_cur_price_and_signal_type(const shared_ptr<SignalBase> &signal);
+    //void set_first_cur_price_and_signal_type_trigger(const shared_ptr<SignalBase> &signal);
 
     const OrderStatus get_status() const;
     const double get_first_cur_price() const;

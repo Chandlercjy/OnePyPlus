@@ -12,6 +12,13 @@ TrailingOrderBase::TrailingOrderBase(const shared_ptr<SignalBase> &signal,
     _initialize_latest_target_price();
 };
 
+TrailingOrderBase::TrailingOrderBase(const SignalByTriggerPtr signal,
+                                     const int mkt_id,
+                                     const string &trigger_key)
+    : PendingOrderBase(signal, mkt_id, trigger_key) {
+    _initialize_latest_target_price();
+};
+
 const double TrailingOrderBase::target_price() {
     if (env->instrument == "A_shares") {
         if (target_below() && cur_open() < _latest_target_price)
@@ -68,4 +75,3 @@ const double TrailingOrderBase::cur_low_cross_target_price() {
     return _latest_target_price > cur_low() ? true : false;
 };
 OP_NAMESPACE_END
-

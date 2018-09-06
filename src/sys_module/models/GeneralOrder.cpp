@@ -20,7 +20,7 @@ MarketOrder::MarketOrder(const shared_ptr<Signal> &signal, const int mkt_id)
 MarketOrder::MarketOrder(const shared_ptr<SignalByTrigger> &signal,
                          const int mkt_id)
     : OrderBase(signal, mkt_id),
-      execute_price(_first_cur_price),
+      execute_price(signal->execute_price),
       father_mkt_id(_set_father_mkt_id(signal)),
       long_or_short(_set_long_or_short()),
       _action_type(signal->action_type),

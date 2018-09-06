@@ -5,6 +5,7 @@
 OP_NAMESPACE_START
 
 class Environment;
+class TriggeredSignalGenerator;
 
 class PendingOrderChecker {
   public:
@@ -16,6 +17,7 @@ class PendingOrderChecker {
   private:
     void _check_orders_pending();
     void _check_orders_pending_with_mkt();
+    shared_ptr<TriggeredSignalGenerator> _triggered_signal_generator;
 };
 
 OP_NAMESPACE_END

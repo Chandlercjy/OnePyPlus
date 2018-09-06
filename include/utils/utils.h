@@ -1,12 +1,14 @@
-#pragma once
 #include "../Constants.h"
 #include <algorithm>
+#include <cmath>
 #include <exception>
 #include <functional>
 #include <iostream>
 #include <map>
 #include <string>
 #include <vector>
+
+#pragma once
 
 namespace utils {
 using namespace std::placeholders;
@@ -129,6 +131,14 @@ class Stl {
         }
         return false;
     }
+};
+
+class Math {
+  public:
+    Math() = delete;
+    static double Round(double value, int num) {
+        return std::round(value * (std::pow(10.0, num))) / std::pow(10.0, num);
+    };
 };
 
 } // namespace utils
