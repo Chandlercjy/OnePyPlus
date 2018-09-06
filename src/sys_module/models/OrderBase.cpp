@@ -18,21 +18,21 @@ OrderBase::OrderBase(const shared_ptr<SignalBase> &signal,
       mkt_id(mkt_id),
       signal_info(signal->info),
       _signal_type("normal"),
-      _first_cur_price(env->feeds[ticker]->execute_price())
+      _cur_price_when_generated(env->feeds[ticker]->execute_price())
 
 {
     set_status(OrderStatus::Created);
-    //set_first_cur_price_and_signal_type(signal);
+    //set_cur_price_when_generated_and_signal_type(signal);
 };
 
 
-void OrderBase::set_first_cur_price_and_signal_type(const shared_ptr<SignalBase> &signal) {
-    _first_cur_price = env->feeds[ticker]->execute_price();
+void OrderBase::set_cur_price_when_generated_and_signal_type(const shared_ptr<SignalBase> &signal) {
+    _cur_price_when_generated = env->feeds[ticker]->execute_price();
     _signal_type = "normal";
 };
 
-//void OrderBase::set_first_cur_price_and_signal_type_trigger(const shared_ptr<SignalByTrigger> &signal) {
-//_first_cur_price = signal->execute_price;
+//void OrderBase::set_cur_price_when_generated_and_signal_type_trigger(const shared_ptr<SignalByTrigger> &signal) {
+//_cur_price_when_generated = signal->execute_price;
 //_signal_type = "triggered";
 //};
 //
@@ -44,8 +44,8 @@ const OrderStatus OrderBase::get_status() const {
     return _status;
 };
 
-const double OrderBase::get_first_cur_price() const {
-    return _first_cur_price;
+const double OrderBase::get_cur_price_when_generated() const {
+    return _cur_price_when_generated;
 };
 
 const string OrderBase::get_signal_type() const {

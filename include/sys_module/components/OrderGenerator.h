@@ -1,9 +1,12 @@
+#include "DataType.h"
 #include "OP_DECLARE.h"
 
 #pragma once
 
 OP_NAMESPACE_START
 
+enum class OrderType;
+enum class ActionType;
 class Environment;
 class OrderBase;
 class SignalByTrigger;
@@ -33,8 +36,10 @@ class OrderGenerator {
     template <typename T>
     const bool is_normal_mkt(const T &signal);
 
-    template <typename T1, typename T2>
-    void _child_of_mkt(const shared_ptr<T2> &signal,
+    template <typename T>
+    void _child_of_mkt(const ActionType &action_type,
+                       const OrderType &order_type,
+                       const shared_ptr<T> &signal,
                        const int mkt_id,
                        const string &key,
                        vector<shared_ptr<PendingOrderBase>> &orders_basket);

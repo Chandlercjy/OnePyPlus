@@ -69,7 +69,7 @@ SignalByTrigger::SignalByTrigger(
     const int mkt_id,
     const string &trigger_key,
     const double execute_price,
-    const double first_cur_price,
+    const double cur_price_when_generated,
     const double parent_order_difference)
 
     : SignalBase(info, ticker, strategy_name, action_type),
@@ -77,7 +77,7 @@ SignalByTrigger::SignalByTrigger(
       mkt_id(mkt_id),
       trigger_key(trigger_key),
       execute_price(execute_price),
-      first_cur_price(first_cur_price),
+      cur_price_when_generated(cur_price_when_generated),
       parent_order_difference(parent_order_difference),
       signal_id(Counter::update_signal_by_trigger_id()){};
 

@@ -35,18 +35,18 @@ class OrderBase {
     virtual const OrderType get_order_type() const = 0;
     virtual void set_status(const OrderStatus &value);
 
-    void set_first_cur_price_and_signal_type(const shared_ptr<SignalBase> &signal);
-    //void set_first_cur_price_and_signal_type_trigger(const shared_ptr<SignalBase> &signal);
+    void set_cur_price_when_generated_and_signal_type(const shared_ptr<SignalBase> &signal);
+    //void set_cur_price_when_generated_and_signal_type_trigger(const shared_ptr<SignalBase> &signal);
 
     const OrderStatus get_status() const;
-    const double get_first_cur_price() const;
+    const double get_cur_price_when_generated() const;
     const string get_signal_type() const;
 
   protected:
     OrderStatus _status;
 
     string _signal_type;
-    double _first_cur_price;
+    double _cur_price_when_generated;
 };
 
 OP_NAMESPACE_END

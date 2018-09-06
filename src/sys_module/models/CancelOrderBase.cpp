@@ -14,11 +14,11 @@ CancelOrderBase::CancelOrderBase(const shared_ptr<SignalCancelBase> &signal)
       long_or_short(signal->long_or_short),
       order_id(Counter::update_order_id()) {
     set_status(OrderStatus::Created);
-    set_first_cur_price_and_signal_type();
+    set_cur_price_when_generated_and_signal_type();
 };
 
-void CancelOrderBase::set_first_cur_price_and_signal_type() {
-    _first_cur_price = env->feeds[ticker]->execute_price();
+void CancelOrderBase::set_cur_price_when_generated_and_signal_type() {
+    _cur_price_when_generated = env->feeds[ticker]->execute_price();
 };
 
 void CancelOrderBase::set_status(const OrderStatus &value) {

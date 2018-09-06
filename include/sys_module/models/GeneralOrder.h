@@ -27,102 +27,13 @@ class MarketOrder : public OrderBase {
     const bool is_pure();
     const ActionType get_action_type() const override;
     const OrderType get_order_type() const override;
+    const ActionType action_type;
+    const OrderType order_type;
 
   private:
     const string _set_long_or_short();
 
     const int _set_father_mkt_id(const shared_ptr<SignalByTrigger> &signal);
-
-    const ActionType _action_type;
-    const OrderType _order_type;
-};
-
-class LimitBuyOrder : public PendingOrderBase {
-  public:
-    using PendingOrderBase::PendingOrderBase;
-    const ActionType get_action_type() const override;
-    const OrderType get_order_type() const override;
-    const bool target_below() const override;
-};
-
-class LimitSellOrder : public PendingOrderBase {
-  public:
-    using PendingOrderBase::PendingOrderBase;
-    const ActionType get_action_type() const override;
-    const OrderType get_order_type() const override;
-    const bool target_below() const override;
-};
-
-class StopBuyOrder : public PendingOrderBase {
-  public:
-    using PendingOrderBase::PendingOrderBase;
-    const ActionType get_action_type() const override;
-    const OrderType get_order_type() const override;
-
-    const bool target_below() const override;
-};
-
-class StopSellOrder : public PendingOrderBase {
-  public:
-    using PendingOrderBase::PendingOrderBase;
-    const ActionType get_action_type() const override;
-    const OrderType get_order_type() const override;
-
-    const bool target_below() const override;
-};
-
-class LimitShortOrder : public PendingOrderBase {
-  public:
-    using PendingOrderBase::PendingOrderBase;
-    const ActionType get_action_type() const override;
-    const OrderType get_order_type() const override;
-
-    const bool target_below() const override;
-};
-
-class LimitCoverOrder : public PendingOrderBase {
-  public:
-    using PendingOrderBase::PendingOrderBase;
-    const ActionType get_action_type() const override;
-    const OrderType get_order_type() const override;
-
-    const bool target_below() const override;
-};
-
-class StopShortOrder : public PendingOrderBase {
-  public:
-    using PendingOrderBase::PendingOrderBase;
-    const ActionType get_action_type() const override;
-    const OrderType get_order_type() const override;
-
-    const bool target_below() const override;
-};
-
-class StopCoverOrder : public PendingOrderBase {
-  public:
-    using PendingOrderBase::PendingOrderBase;
-    const ActionType get_action_type() const override;
-    const OrderType get_order_type() const override;
-
-    const bool target_below() const override;
-};
-
-class TrailingStopSellOrder : public TrailingOrderBase {
-  public:
-    using TrailingOrderBase::TrailingOrderBase;
-    const ActionType get_action_type() const override;
-    const OrderType get_order_type() const override;
-
-    const bool target_below() const override;
-};
-
-class TrailingStopCoverOrder : public TrailingOrderBase {
-  public:
-    using TrailingOrderBase::TrailingOrderBase;
-    const ActionType get_action_type() const override;
-    const OrderType get_order_type() const override;
-
-    const bool target_below() const override;
 };
 
 class CancelTSTOrder : public CancelOrderBase {

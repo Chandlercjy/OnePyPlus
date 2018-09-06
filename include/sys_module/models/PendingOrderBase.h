@@ -10,10 +10,14 @@ class SignalBase;
 
 class PendingOrderBase {
   public:
-    PendingOrderBase(const shared_ptr<SignalBase> &signal,
+    PendingOrderBase(const ActionType &action_type,
+                     const OrderType &order_type,
+                     const shared_ptr<SignalBase> &signal,
                      const int mkt_id,
                      const string &trigger_key);
-    PendingOrderBase(const SignalByTriggerPtr &signal,
+    PendingOrderBase(const ActionType &action_type,
+                     const OrderType &order_type,
+                     const SignalByTriggerPtr &signal,
                      const int mkt_id,
                      const string &trigger_key);
 
@@ -29,11 +33,8 @@ class PendingOrderBase {
 
     map<string, double> signal_info;
 
-    virtual const ActionType get_action_type() const = 0;
-    virtual const OrderType get_order_type() const = 0;
     virtual void set_status(const OrderStatus &value);
 
-    virtual const bool target_below() const = 0;
     const string trigger_key;
     virtual const bool is_triggered();
     const bool is_with_mkt();
@@ -41,14 +42,18 @@ class PendingOrderBase {
     const double difference();
 
     const OrderStatus get_status() const;
-    const double get_first_cur_price() const;
+    const double get_cur_price_when_generated() const;
     const string get_signal_type() const;
+
+    const ActionType action_type;
+    const OrderType order_type;
+    const bool target_below;
 
   protected:
     OrderStatus _status;
 
     const string _signal_type;
-    const double _first_cur_price;
+    const double _cur_price_when_generated;
 
     const double cur_open() const;
     const double cur_high() const;
@@ -57,6 +62,9 @@ class PendingOrderBase {
     virtual const double cur_low_cross_target_price();
     const double below_price(const double diff);
     const double above_price(const double diff);
+
+    static const bool set_target_below(const ActionType &action_type,
+                                       const OrderType &order_type);
 };
 
 OP_NAMESPACE_END

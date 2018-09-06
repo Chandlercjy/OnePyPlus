@@ -5,25 +5,29 @@
 
 OP_NAMESPACE_START
 
-TrailingOrderBase::TrailingOrderBase(const shared_ptr<SignalBase> &signal,
+TrailingOrderBase::TrailingOrderBase(const ActionType &action_type,
+                                     const OrderType &order_type,
+                                     const shared_ptr<SignalBase> &signal,
                                      const int mkt_id,
                                      const string &trigger_key)
-    : PendingOrderBase(signal, mkt_id, trigger_key) {
+    : PendingOrderBase(action_type, order_type, signal, mkt_id, trigger_key) {
     _initialize_latest_target_price();
 };
 
-TrailingOrderBase::TrailingOrderBase(const SignalByTriggerPtr signal,
+TrailingOrderBase::TrailingOrderBase(const ActionType &action_type,
+                                     const OrderType &order_type,
+                                     const SignalByTriggerPtr &signal,
                                      const int mkt_id,
                                      const string &trigger_key)
-    : PendingOrderBase(signal, mkt_id, trigger_key) {
+    : PendingOrderBase(action_type, order_type, signal, mkt_id, trigger_key) {
     _initialize_latest_target_price();
 };
 
 const double TrailingOrderBase::target_price() {
     if (env->instrument == "A_shares") {
-        if (target_below() && cur_open() < _latest_target_price)
+        if (target_below && cur_open() < _latest_target_price)
             return cur_open();
-        else if ((!target_below()) && cur_open() > _latest_target_price)
+        else if ((!target_below) && cur_open() > _latest_target_price)
             return cur_open();
     };
     return _latest_target_price;
@@ -31,7 +35,7 @@ const double TrailingOrderBase::target_price() {
 
 const bool TrailingOrderBase::is_triggered() {
 
-    if (target_below()) {
+    if (target_below) {
         if (cur_low_cross_target_price()) {
             return true;
         } else {
@@ -61,10 +65,10 @@ const bool TrailingOrderBase::is_triggered() {
 };
 
 void TrailingOrderBase::_initialize_latest_target_price() {
-    if (target_below())
-        _latest_target_price = _first_cur_price - difference();
+    if (target_below)
+        _latest_target_price = _cur_price_when_generated - difference();
     else
-        _latest_target_price = _first_cur_price + difference();
+        _latest_target_price = _cur_price_when_generated + difference();
 };
 
 const double TrailingOrderBase::cur_high_cross_target_price() {

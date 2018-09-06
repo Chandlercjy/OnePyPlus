@@ -23,7 +23,7 @@ class CancelOrderBase {
 
     map<string, double> signal_info;
 
-    void set_first_cur_price_and_signal_type();
+    void set_cur_price_when_generated_and_signal_type();
 
     void set_status(const OrderStatus &value);
     const ActionType get_action_type() const;
@@ -36,7 +36,7 @@ class CancelOrderBase {
     virtual void _save_signal_info() = 0;
 
   private:
-    double _first_cur_price;
+    double _cur_price_when_generated;
     OrderStatus _status;
 };
 

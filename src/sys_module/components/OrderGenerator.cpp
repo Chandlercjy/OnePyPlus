@@ -40,14 +40,16 @@ const bool OrderGenerator::is_normal_mkt(const T &signal) {
     return signal.price == 0 ? true : false;
 };
 
-template <typename T1, typename T2>
-void OrderGenerator::_child_of_mkt(const shared_ptr<T2> &signal,
+template <typename T>
+void OrderGenerator::_child_of_mkt(const ActionType &action_type,
+                                   const OrderType &order_type,
+                                   const shared_ptr<T> &signal,
                                    const int mkt_id,
                                    const string &key,
                                    vector<shared_ptr<PendingOrderBase>> &orders_basket) {
     if (signal->info[key]) {
-        T1 order(signal, mkt_id, key);
-        orders_basket.push_back(make_shared<T1>(order));
+        PendingOrderBase order(action_type, order_type, signal, mkt_id, key);
+        orders_basket.push_back(make_shared<PendingOrderBase>(order));
     }
 };
 
@@ -61,19 +63,19 @@ vector<shared_ptr<PendingOrderBase>> OrderGenerator::_generate_child_of_mkt(cons
                                                                             const shared_ptr<T> &signal) {
     vector<shared_ptr<PendingOrderBase>> orders_basket;
     if (is_buy(signal)) {
-        _child_of_mkt<StopSellOrder>(signal, mkt_id, "stoploss", orders_basket);
-        _child_of_mkt<LimitSellOrder>(signal, mkt_id, "takeprofit", orders_basket);
-        _child_of_mkt<TrailingStopSellOrder>(signal, mkt_id, "trailingstop", orders_basket);
-        _child_of_mkt<StopSellOrder>(signal, mkt_id, "stoploss_pct", orders_basket);
-        _child_of_mkt<LimitSellOrder>(signal, mkt_id, "takeprofit_pct", orders_basket);
-        _child_of_mkt<TrailingStopSellOrder>(signal, mkt_id, "trailingstop_pct", orders_basket);
+        _child_of_mkt(ActionType::Sell, OrderType::Stop, signal, mkt_id, "stoploss", orders_basket);
+        _child_of_mkt(ActionType::Sell, OrderType::Limit, signal, mkt_id, "takeprofit", orders_basket);
+        _child_of_mkt(ActionType::Sell, OrderType::Trailing_stop, signal, mkt_id, "trailingstop", orders_basket);
+        _child_of_mkt(ActionType::Sell, OrderType::Stop, signal, mkt_id, "stoploss_pct", orders_basket);
+        _child_of_mkt(ActionType::Sell, OrderType::Limit, signal, mkt_id, "takeprofit_pct", orders_basket);
+        _child_of_mkt(ActionType::Sell, OrderType::Trailing_stop, signal, mkt_id, "trailingstop_pct", orders_basket);
     } else {
-        _child_of_mkt<StopCoverOrder>(signal, mkt_id, "stoploss", orders_basket);
-        _child_of_mkt<LimitCoverOrder>(signal, mkt_id, "takeprofit", orders_basket);
-        _child_of_mkt<TrailingStopCoverOrder>(signal, mkt_id, "trailingstop", orders_basket);
-        _child_of_mkt<StopCoverOrder>(signal, mkt_id, "stoploss_pct", orders_basket);
-        _child_of_mkt<LimitCoverOrder>(signal, mkt_id, "takeprofit_pct", orders_basket);
-        _child_of_mkt<TrailingStopCoverOrder>(signal, mkt_id, "trailingstop_pct", orders_basket);
+        _child_of_mkt(ActionType::Cover, OrderType::Stop, signal, mkt_id, "stoploss", orders_basket);
+        _child_of_mkt(ActionType::Cover, OrderType::Limit, signal, mkt_id, "takeprofit", orders_basket);
+        _child_of_mkt(ActionType::Cover, OrderType::Trailing_stop, signal, mkt_id, "trailingstop", orders_basket);
+        _child_of_mkt(ActionType::Cover, OrderType::Stop, signal, mkt_id, "stoploss_pct", orders_basket);
+        _child_of_mkt(ActionType::Cover, OrderType::Limit, signal, mkt_id, "takeprofit_pct", orders_basket);
+        _child_of_mkt(ActionType::Cover, OrderType::Trailing_stop, signal, mkt_id, "trailingstop_pct", orders_basket);
     }
 
     return orders_basket;
@@ -85,23 +87,22 @@ shared_ptr<PendingOrderBase> OrderGenerator::_generate_pending_order(const share
 
     if (signal->info["price"] > cur_price(signal->ticker)) {
         if (is_buy(signal))
-            order = make_shared<StopBuyOrder>(signal, 0, "price");
+            order = make_shared<PendingOrderBase>(ActionType::Buy, OrderType::Stop, signal, 0, "price");
         else if (is_shortcover(signal))
-            order = make_shared<StopCoverOrder>(signal, 0, "price");
+            order = make_shared<PendingOrderBase>(ActionType::Cover, OrderType::Stop, signal, 0, "price");
         else if (is_sell(signal))
-            order = make_shared<LimitSellOrder>(signal, 0, "price");
+            order = make_shared<PendingOrderBase>(ActionType::Sell, OrderType::Limit, signal, 0, "price");
         else if (is_short(signal))
-            order = make_shared<LimitShortOrder>(signal, 0, "price");
+            order = make_shared<PendingOrderBase>(ActionType::Short, OrderType::Limit, signal, 0, "price");
     } else if (signal->info["price"] < cur_price(signal->ticker)) {
         if (is_buy(signal))
-            order = make_shared<LimitBuyOrder>(signal, 0, "price");
+            order = make_shared<PendingOrderBase>(ActionType::Buy, OrderType::Limit, signal, 0, "price");
         else if (is_shortcover(signal))
-            order = make_shared<LimitCoverOrder>(signal, 0, "price");
+            order = make_shared<PendingOrderBase>(ActionType::Cover, OrderType::Limit, signal, 0, "price");
         else if (is_sell(signal))
-            order = make_shared<StopSellOrder>(signal, 0, "price");
+            order = make_shared<PendingOrderBase>(ActionType::Sell, OrderType::Stop, signal, 0, "price");
         else if (is_short(signal))
-            order = make_shared<StopShortOrder>(signal, 0, "price");
-
+            order = make_shared<PendingOrderBase>(ActionType::Short, OrderType::Stop, signal, 0, "price");
     } else {
         throw std::logic_error("Here shouldn't be raised");
     }

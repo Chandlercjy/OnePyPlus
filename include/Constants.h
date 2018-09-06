@@ -9,7 +9,6 @@ enum class ActionType {
     Sell,
     Short,
     Cover,
-    Exit_all,
     Cancel,
 };
 
@@ -18,9 +17,6 @@ enum class OrderType {
     Limit,
     Stop,
     Trailing_stop,
-    Limit_pct,
-    Stop_pct,
-    Trailing_stop_pct,
 };
 
 enum class OrderStatus {

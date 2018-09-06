@@ -56,7 +56,7 @@ void BrokerBase::_process_cancel_pending_order() {
             auto &order = *it;
             auto confirm_ticker = (order->ticker == ticker);
             auto confirm_long_short = (_judge_long_or_short(
-                                           order->get_action_type()) == long_or_short);
+                                           order->action_type) == long_or_short);
 
             if (confirm_ticker && confirm_long_short) {
                 if (cancel_order->is_target(order->target_price()))

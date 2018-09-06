@@ -66,14 +66,14 @@ class SignalByTrigger : public SignalBase {
                     const int mkt_id,
                     const string &trigger_key,
                     const double execute_price,
-                    const double first_cur_price,
+                    const double cur_price_when_generated,
                     const double parent_order_difference);
 
     const OrderType order_type;
     const int mkt_id;
     const string trigger_key;
     const double execute_price;
-    const double first_cur_price;
+    const double cur_price_when_generated;
     const double parent_order_difference;
 
     const int signal_id; // 触发信号重新计数
