@@ -31,8 +31,6 @@ class OrderBase {
 
     map<string, double> signal_info;
 
-    virtual const ActionType get_action_type() const = 0;
-    virtual const OrderType get_order_type() const = 0;
     virtual void set_status(const OrderStatus &value);
 
     void set_cur_price_when_generated_and_signal_type(const shared_ptr<SignalBase> &signal);

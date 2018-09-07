@@ -10,7 +10,7 @@ TrailingOrderBase::TrailingOrderBase(const ActionType &action_type,
                                      const shared_ptr<SignalBase> &signal,
                                      const int mkt_id,
                                      const string &trigger_key)
-    : PendingOrderBase(action_type, order_type, signal, mkt_id, trigger_key) {
+    : PendingOrder(action_type, order_type, signal, mkt_id, trigger_key) {
     _initialize_latest_target_price();
 };
 
@@ -19,7 +19,7 @@ TrailingOrderBase::TrailingOrderBase(const ActionType &action_type,
                                      const SignalByTriggerPtr &signal,
                                      const int mkt_id,
                                      const string &trigger_key)
-    : PendingOrderBase(action_type, order_type, signal, mkt_id, trigger_key) {
+    : PendingOrder(action_type, order_type, signal, mkt_id, trigger_key) {
     _initialize_latest_target_price();
 };
 
@@ -40,7 +40,7 @@ const bool TrailingOrderBase::is_triggered() {
             return true;
         } else {
             double new_value;
-            if (get_action_type() == ActionType::Sell)
+            if (action_type == ActionType::Sell)
                 new_value = cur_open() - difference();
             else
                 new_value = cur_high() - difference();
@@ -53,7 +53,7 @@ const bool TrailingOrderBase::is_triggered() {
             return true;
         } else {
             double new_value;
-            if (get_action_type() == ActionType::Sell)
+            if (action_type == ActionType::Sell)
                 new_value = cur_low() + difference();
             else
                 new_value = cur_open() + difference();

@@ -26,7 +26,7 @@ class CancelOrderBase {
     void set_cur_price_when_generated_and_signal_type();
 
     void set_status(const OrderStatus &value);
-    const ActionType get_action_type() const;
+    const ActionType action_type = ActionType::Cancel;
     const OrderStatus get_status() const;
 
     virtual const bool is_target(const string &trigger_key) = 0;

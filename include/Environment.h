@@ -34,12 +34,12 @@ class Environment {
     PtrBox<SignalCancelTSTPtr> signals_cancel_tst_cur;         // 动态地临时信号，会不断刷新
     PtrBox<SignalCancelPendingPtr> signals_cancel_pending_cur; // 动态地临时信号，会不断刷新
 
-    map<int, vector<PendingOrderBasePtr>> orders_child_of_mkt_dict; // 动态地保存跟随市价单的挂单
+    map<int, vector<PendingOrderPtr>> orders_child_of_mkt_dict; // 动态地保存跟随市价单的挂单
     PtrBox<MarketOrderPtr> orders_mkt_normal_cur;                            // 动态地保存当前订单, 会不断刷新
     PtrBox<MarketOrderPtr> orders_mkt_absolute_cur;                          // 动态地保存触发的挂单并成交信息，会不断刷新
     PtrBox<MarketOrderPtr> orders_mkt_submitted_cur;                         // 动态地保存成交单，会不断刷新
 
-    PtrBox<PendingOrderBasePtr> orders_pending; // 动态地保存挂单,触发会删除
+    PtrBox<PendingOrderPtr> orders_pending; // 动态地保存挂单,触发会删除
 
     PtrBox<CancelTSTOrderPtr> orders_cancel_tst_cur;               // 动态地保存撤单，会不断刷新
     PtrBox<CancelPendingOrderPtr> orders_cancel_pending_cur;       // 动态地保存撤单，会不断刷新

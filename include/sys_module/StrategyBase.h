@@ -48,8 +48,6 @@ class StrategyBase {
     void run();
 
     //protected:
-    template <typename T>
-    void save_to_env(const T *self_ptr, const string &name);
     virtual const string get_name() = 0;
 
   private:

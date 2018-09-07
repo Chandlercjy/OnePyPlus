@@ -73,9 +73,9 @@ void SubmitOrderChecker::_add_to_cash_cumu(const MarketOrderPtr &order) {
     cash_acumu += required_cash(order);
 };
 void SubmitOrderChecker::_add_to_position_cumu(const MarketOrderPtr &order) {
-    if (order->get_action_type() == ActionType::Sell)
+    if (order->action_type == ActionType::Sell)
         plong_acumu[order->ticker] += order->size;
-    else if (order->get_action_type() == ActionType::Cover)
+    else if (order->action_type == ActionType::Cover)
         pshort_acumu[order->ticker] += order->size;
     else
         throw std::logic_error("Never Raised");
@@ -84,9 +84,9 @@ void SubmitOrderChecker::_delete_from_cash_cumu(const MarketOrderPtr &order) {
     cash_acumu -= required_cash(order);
 };
 void SubmitOrderChecker::_delete_from_position_cumu(const MarketOrderPtr &order) {
-    if (order->get_action_type() == ActionType::Sell)
+    if (order->action_type == ActionType::Sell)
         plong_acumu[order->ticker] -= order->size;
-    else if (order->get_action_type() == ActionType::Cover)
+    else if (order->action_type == ActionType::Cover)
         pshort_acumu[order->ticker] -= order->size;
     else
         throw std::logic_error("Never Raised");
@@ -105,7 +105,7 @@ void SubmitOrderChecker::_make_position_cumu_full(const string &ticker,
 void SubmitOrderChecker::_check(const PtrBox<MarketOrderPtr> order_list) {
     for (auto &order : order_list) {
         const auto &ticker = order->ticker;
-        const auto &action_type = order->get_action_type();
+        const auto &action_type = order->action_type;
 
         if (action_type == ActionType::Buy || action_type == ActionType::Short) {
             _add_to_cash_cumu(order);

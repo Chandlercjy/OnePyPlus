@@ -22,9 +22,6 @@ class ReaderBase {
                                            const string &todate,
                                            const string &frequency);
 
-  protected:
-    template <typename reader_name>
-    void save_to_env(const reader_name *self_ptr);
     //private:
     //_check_readers_key();
 };

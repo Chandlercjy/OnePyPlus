@@ -1,11 +1,11 @@
 #include "OP_DECLARE.h"
-#include "PendingOrderBase.h"
+#include "PendingOrder.h"
 
 #pragma once
 
 OP_NAMESPACE_START
 
-class TrailingOrderBase : public PendingOrderBase {
+class TrailingOrderBase : public PendingOrder {
   public:
     TrailingOrderBase(const ActionType &action_type,
                       const OrderType &order_type,

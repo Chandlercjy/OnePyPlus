@@ -2,7 +2,7 @@
 #include "CancelOrderBase.h"
 #include "OP_DECLARE.h"
 #include "OrderBase.h"
-#include "PendingOrderBase.h"
+#include "PendingOrder.h"
 #include "TrailingOrderBase.h"
 #include <exception>
 
@@ -25,8 +25,6 @@ class MarketOrder : public OrderBase {
     const string long_or_short;
 
     const bool is_pure();
-    const ActionType get_action_type() const override;
-    const OrderType get_order_type() const override;
     const ActionType action_type;
     const OrderType order_type;
 

@@ -2,7 +2,7 @@
 #include "sys_module/models/CancelOrderBase.h"
 #include "sys_module/models/GeneralOrder.h"
 #include "sys_module/models/OrderBase.h"
-#include "sys_module/models/PendingOrderBase.h"
+#include "sys_module/models/PendingOrder.h"
 #include "sys_module/models/SignalCancel.h"
 #include "sys_module/models/TrailingOrderBase.h"
 #include "utils/utils.h"
@@ -29,8 +29,6 @@ MarketOrder::MarketOrder(const shared_ptr<SignalByTrigger> &signal,
 const bool MarketOrder::is_pure() {
     return !utils::Stl::is_elem_in_map_key(env->orders_child_of_mkt_dict, mkt_id);
 }
-const ActionType MarketOrder::get_action_type() const { return action_type; };
-const OrderType MarketOrder::get_order_type() const { return order_type; };
 const string MarketOrder::_set_long_or_short() {
     if (action_type == ActionType::Buy || action_type == ActionType::Sell)
         return "long";

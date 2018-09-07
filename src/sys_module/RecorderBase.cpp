@@ -38,7 +38,7 @@ void RecorderBase::_record_order() {
         auto long_or_short = order->long_or_short;
         auto size = order->size;
         auto execute_price = order->execute_price;
-        auto action_type = order->get_action_type();
+        auto action_type = order->action_type;
 
         auto last_position = position->latest(ticker, long_or_short);
         auto last_avg_price = avg_price->latest(ticker, long_or_short);
@@ -72,11 +72,5 @@ void RecorderBase::_record_order() {
         update(true);
     }
 };
-
-template <typename T>
-void RecorderBase::save_to_env(const T *self_ptr, const string &name) {
-    env->recorders[name] = make_shared<T>(*self_ptr); //TODO:设置名字
-    env->recorder = env->recorders[name];
-}
 
 OP_NAMESPACE_END

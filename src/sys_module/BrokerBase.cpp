@@ -11,11 +11,6 @@ BrokerBase::BrokerBase()
     : env(Environment::get_instance()),
       _order_generator(make_shared<OrderGenerator>()){};
 
-template <typename T>
-void BrokerBase::save_to_env(const T *self_ptr, const string &name) {
-    env->brokers[name] = make_shared<T>(*self_ptr); //TODO:设置名字
-}
-
 void BrokerBase::_clear_submitted_order() {
     env->orders_mkt_submitted_cur.clear();
     env->orders_cancel_tst_cur.clear();

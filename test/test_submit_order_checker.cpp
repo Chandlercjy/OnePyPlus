@@ -81,9 +81,9 @@ TEST_F(TestSubmit, Submit) {
     assert(go.env->orders_mkt_submitted_cur.size() == 2);
 
     for (auto &order : go.env->orders_mkt_submitted_cur)
-        if (order->get_action_type() == ActionType::Sell)
+        if (order->action_type == ActionType::Sell)
             ASSERT_EQ(order->size, long_po);
-        else if (order->get_action_type() == ActionType::Cover)
+        else if (order->action_type == ActionType::Cover)
             ASSERT_EQ(order->size, short_po);
         else
             throw std::logic_error("This can't be raised");

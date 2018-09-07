@@ -51,9 +51,6 @@ class RecorderBase {
                              const double margin_rate) = 0;
 
   protected:
-    template <typename T>
-    void save_to_env(const T *self_ptr, const string &name);
-
     virtual void _update_cash(const string &trading_date) = 0;
 
   private:

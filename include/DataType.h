@@ -26,7 +26,7 @@ class SignalCancelTST;
 class SignalCancelPending;
 class OrderBase;
 class MarketOrder;
-class PendingOrderBase;
+class PendingOrder;
 class CancelTSTOrder;
 class CancelPendingOrder;
 
@@ -67,7 +67,7 @@ using SignalCancelBasePtr = shared_ptr<SignalCancelBase>;
 using SignalCancelTSTPtr = shared_ptr<SignalCancelTST>;
 using SignalCancelPendingPtr = shared_ptr<SignalCancelPending>;
 
-using PendingOrderBasePtr = shared_ptr<PendingOrderBase>;
+using PendingOrderPtr = shared_ptr<PendingOrder>;
 using CancelTSTOrderPtr = shared_ptr<CancelTSTOrder>;
 using CancelPendingOrderPtr = shared_ptr<CancelPendingOrder>;
 

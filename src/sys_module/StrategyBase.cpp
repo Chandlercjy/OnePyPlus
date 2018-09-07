@@ -113,8 +113,4 @@ void StrategyBase::run() {
     handle_bar();
 };
 
-template <typename T>
-void StrategyBase::save_to_env(const T *self_ptr, const string &name) {
-    env->strategies[name] = make_shared<T>(*self_ptr);
-}
 OP_NAMESPACE_END

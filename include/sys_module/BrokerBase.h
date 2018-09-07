@@ -20,8 +20,6 @@ class BrokerBase {
     shared_ptr<SubmitOrderChecker> checker;
 
   protected:
-    template <typename T>
-    void save_to_env(const T *self_ptr, const string &name);
     double _required_cash_func(const MarketOrderPtr &order);
 
     virtual Cash_func_ptr_type cash_func() = 0;

@@ -2,7 +2,7 @@
 #include "Environment.h"
 #include "sys_module/components/PendingOrderChecker.h"
 #include "sys_module/components/TriggeredSignalGenerator.h"
-#include "sys_module/models/PendingOrderBase.h"
+#include "sys_module/models/PendingOrder.h"
 
 OP_NAMESPACE_START
 
