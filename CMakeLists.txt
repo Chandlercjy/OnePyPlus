@@ -11,8 +11,7 @@ SET(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/bin")
 SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 
 
-INCLUDE_DIRECTORIES(
-    ${PROJECT_SOURCE_DIR}/include
+INCLUDE_DIRECTORIES( ${PROJECT_SOURCE_DIR}/include
     ${PROJECT_SOURCE_DIR}/src
     )
 
@@ -29,38 +28,85 @@ AUX_SOURCE_DIRECTORY("${source_dir}/custom_module" onepy_custom)
 AUX_SOURCE_DIRECTORY("${source_dir}/utils" onepy_utils)
 
 SET(OnePy_src  
- ${onepy_src}
- ${onepy_sys}
- ${onepy_models}
- ${onepy_components}
- ${onepy_built}
- ${onepy_stock}
- ${onepy_custom}
- ${onepy_utils})
+    ${onepy_src}
+    ${onepy_sys}
+    ${onepy_models}
+    ${onepy_components}
+    ${onepy_built}
+    ${onepy_stock}
+    ${onepy_custom}
+    ${onepy_utils})
 
 
 
 #LINK_DIRECTORIES("${PROJECT_SOURCE_DIR}/lib")
 #LINK_LIBRARIES(demo_lib)
 
-
-
-add_executable(demo_OnePy
-    ${PROJECT_SOURCE_DIR}/main.cpp
+# 主程序
+add_executable(demo_OnePy ${PROJECT_SOURCE_DIR}/main.cpp
     ${PROJECT_SOURCE_DIR}/Luffy.hpp
-    #${PROJECT_SOURCE_DIR}/src/All.cpp
- ${OnePy_src}
-    )
+    ${OnePy_src})
 
-#SET(total_files ${source_dir}/All.cpp)
-#ADD_LIBRARY(demo_lib SHARED ${total_files})
-#INSTALL(TARGETS demo_lib LIBRARY DESTINATION lib)
 
+# 单元测试
 SET(test_dir "${PROJECT_SOURCE_DIR}/test/")
 AUX_SOURCE_DIRECTORY("${test_dir}" test_files)
-ADD_EXECUTABLE(test_OnePy 
-    ${test_files} 
-    ${OnePy_src}
-    )
+ADD_EXECUTABLE(test_OnePy ${test_files} ${OnePy_src})
 TARGET_LINK_LIBRARIES(test_OnePy gtest)
+
+
+FILE(GLOB OnePy_Python_Wrapper "${PROJECT_SOURCE_DIR}/python_wrapper/*.cpp")
+
+
+
+#PYTHON_ADD_MODULE(hello hello.cpp)
+#FILE(COPY hello.py DESTINATION .)
+#ADD_TEST(NAME 01-HelloWorld COMMAND ${PYTHON_EXECUTABLE} hello.py)
+
+FIND_PACKAGE(PythonInterp)
+
+
+
+if (PYTHONINTERP_FOUND)
+  if (UNIX AND NOT APPLE)
+    if (PYTHON_VERSION_MAJOR EQUAL 3)
+        FIND_PACKAGE(Boost COMPONENTS python${PYTHON_VERSION_SUFFIX})
+        FIND_PACKAGE(PythonInterp 3)
+        FIND_PACKAGE(PythonLibs 3 REQUIRED)
+    else()
+        FIND_PACKAGE(Boost COMPONENTS python)
+        FIND_PACKAGE(PythonInterp)
+        FIND_PACKAGE(PythonLibs REQUIRED)
+    endif()
+  else()	
+    if (PYTHON_VERSION_MAJOR EQUAL 3)
+        FIND_PACKAGE(Boost COMPONENTS python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
+        FIND_PACKAGE(PythonInterp 3)
+        FIND_PACKAGE(PythonLibs 3 REQUIRED)
+    else()
+        FIND_PACKAGE(Boost COMPONENTS python${PYTHON_VERSION_MAJOR}${PYTHON_VERSION_MINOR})
+        FIND_PACKAGE(PythonInterp)
+        FIND_PACKAGE(PythonLibs REQUIRED)
+    endif()
+  endif()
+else()
+    message("Python not found")
+endif()
+
+
+message(STATUS "PYTHON_LIBRARIES = ${PYTHON_LIBRARIES}")
+message(STATUS "PYTHON_EXECUTABLE = ${PYTHON_EXECUTABLE}")
+message(STATUS "PYTHON_INCLUDE_DIRS = ${PYTHON_INCLUDE_DIRS}")
+message(STATUS "Boost_LIBRARIES = ${Boost_LIBRARIES}")
+
+INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
+
+LINK_LIBRARIES(${Boost_LIBRARIES} ${PYTHON_LIBRARIES}) # Deprecated but so convenient!
+
+PYTHON_ADD_MODULE(OnePyPlus ${OnePy_Python_Wrapper})
+
+#FILE(COPY hello.py DESTINATION .)
+#ADD_TEST(NAME 01-HelloWorld COMMAND ${PYTHON_EXECUTABLE} hello.py)
+
+
 
