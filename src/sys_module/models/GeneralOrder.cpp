@@ -51,6 +51,10 @@ void CancelTSTOrder::_save_signal_info() {
     signal_info["takeprofit"] = takeprofit;
     signal_info["stoploss"] = stoploss;
     signal_info["trailingstop"] = trailingstop;
+
+    signal_info["takeprofit_pct"] = takeprofit;
+    signal_info["stoploss_pct"] = stoploss;
+    signal_info["trailingstop_pct"] = trailingstop;
 };
 
 const bool CancelTSTOrder::is_target(const string &trigger_key) {
@@ -73,7 +77,7 @@ const bool CancelPendingOrder::is_target(const double target_price) {
     if (below_price != 0)
         return target_price <= below_price;
     else if (above_price != 0)
-        return target_price <= above_price;
+        return target_price >= above_price;
     throw std::logic_error("Never raised");
     return false;
 };

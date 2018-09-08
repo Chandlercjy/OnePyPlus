@@ -41,8 +41,16 @@ class StrategyBase {
                const double price = 0,
                const double price_pct = 0);
 
-    void cancel_pending();
-    void cancel_tst();
+    void cancel_pending(const string &ticker,
+                        const string &long_or_short,
+                        const double below_price = 0,
+                        const double above_price = 0);
+
+    void cancel_tst(const string &ticker,
+                    const string &long_or_short,
+                    const bool takeprofit = false,
+                    const bool stoploss = false,
+                    const bool trailingstop = false);
 
     virtual void handle_bar(){};
     void run();

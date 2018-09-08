@@ -109,6 +109,31 @@ void StrategyBase::cover(const double size,
                                      ActionType::Cover);
 };
 
+void StrategyBase::cancel_pending(const string &ticker,
+                                  const string &long_or_short,
+                                  const double below_price,
+                                  const double above_price) {
+
+    _signal_generator->cancel_pending(ticker,
+                                      get_name(),
+                                      long_or_short,
+                                      below_price,
+                                      above_price);
+};
+
+void StrategyBase::cancel_tst(const string &ticker,
+                              const string &long_or_short,
+                              const bool takeprofit,
+                              const bool stoploss,
+                              const bool trailingstop) {
+    _signal_generator->cancel_tst(ticker,
+                                  get_name(),
+                                  long_or_short,
+                                  takeprofit,
+                                  stoploss,
+                                  trailingstop);
+};
+
 void StrategyBase::run() {
     handle_bar();
 };

@@ -20,17 +20,17 @@ class SignalGenerator {
                        const string &ticker,
                        const string &strategy_name,
                        const ActionType &action_type);
-    void cancel_tst(const string &strategy_name,
-                    const string &ticker,
+    void cancel_tst(const string &ticker,
+                    const string &strategy_name,
                     const string &long_or_short,
-                    const bool takeprofit = false,
-                    const bool stoploss = false,
-                    const bool trailingstop = false);
-    void cancel_pending(const string &strategy_name,
-                        const string &ticker,
+                    const bool takeprofit,
+                    const bool stoploss,
+                    const bool trailingstop);
+    void cancel_pending(const string &ticker,
+                        const string &strategy_name,
                         const string &long_or_short,
-                        const double below_price = 0,
-                        const double above_price = 0);
+                        const double below_price,
+                        const double above_price);
 
   private:
     const double _settle_price_pct(const string &ticker,

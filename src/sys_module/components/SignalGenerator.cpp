@@ -71,8 +71,8 @@ void SignalGenerator::sell_or_cover(map<string, double> &info,
     }
 }
 
-void SignalGenerator::cancel_tst(const string &strategy_name,
-                                 const string &ticker,
+void SignalGenerator::cancel_tst(const string &ticker,
+                                 const string &strategy_name,
                                  const string &long_or_short,
                                  const bool takeprofit,
                                  const bool stoploss,
@@ -89,8 +89,8 @@ void SignalGenerator::cancel_tst(const string &strategy_name,
     _generate_signal(signal);
 }
 
-void SignalGenerator::cancel_pending(const string &strategy_name,
-                                     const string &ticker,
+void SignalGenerator::cancel_pending(const string &ticker,
+                                     const string &strategy_name,
                                      const string &long_or_short,
                                      const double below_price,
                                      const double above_price) {

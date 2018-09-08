@@ -56,9 +56,9 @@ void BrokerBase::_process_cancel_pending_order() {
             if (confirm_ticker && confirm_long_short) {
                 if (cancel_order->is_target(order->target_price()))
                     env->orders_pending.erase(it);
-            } else
+             else
                 it++;
-        }
+        }}
     }
 }
 

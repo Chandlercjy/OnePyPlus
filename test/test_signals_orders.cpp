@@ -16,6 +16,7 @@ class TestOrders : public ::testing::Test {
   public:
     OnePiece go = SettingFunc::global_setting();
     shared_ptr<StrategyBase> strategy = go.env->strategies["DemoStrategy"];
+    shared_ptr<BrokerBase> broker = go.env->brokers["StockBroker"];
     OrderGenerator order_generator;
     double CLOSE = 11;
     double HIGH = 20;
@@ -200,7 +201,7 @@ class TestOrders : public ::testing::Test {
         }
     };
 
-    // 运行前应先initialized_env 
+    // 运行前应先initialized_env
     void test_pending_order(const double target_price,
                             const ActionType action_type,
                             const OrderType order_type) {
@@ -215,9 +216,29 @@ class TestOrders : public ::testing::Test {
         ASSERT_EQ(pending_order->target_price(), signal->price());
     };
 
-    // 运行前应先initialized_env 
-    void test_cancel_order(){
+    // 运行前应先initialized_env
+    void test_cancel_pending_order(const string &long_or_short) {
+        broker->run();
+        ASSERT_EQ(go.env->orders_pending.size(), 3);
+        strategy->cancel_pending(TICKER, long_or_short, 0, 20);
+        strategy->cancel_pending(TICKER, long_or_short, 3, 0);
+        broker->run();
+        ASSERT_EQ(go.env->orders_cancel_pending_submitted.size(), 2);
+        ASSERT_EQ(go.env->orders_pending.size(), 1);
+    };
 
+    void test_cancel_tst_order(const string &long_or_short,
+                               const bool takeprofit,
+                               const bool stoploss,
+                               const bool trailingstop) {
+        broker->run();
+        ASSERT_EQ(go.env->orders_mkt_submitted_cur.size(), 1);
+        auto mkt_id = go.env->orders_mkt_submitted_cur[0]->mkt_id;
+        ASSERT_EQ(go.env->orders_child_of_mkt_dict[mkt_id].size(), 1);
+        strategy->cancel_tst(TICKER, long_or_short,
+                             takeprofit, stoploss, trailingstop);
+        broker->run();
+        ASSERT_EQ(go.env->orders_child_of_mkt_dict[mkt_id].size(), 0);
     };
 };
 
@@ -320,17 +341,67 @@ TEST_F(TestOrders, Signals) {
     strategy->buy(100, TICKER, 0, 0, 0, 0, 0, 0, 20, 0);
     ASSERT_EQ(go.env->signals_pending_cur.size(), 1);
 
-    //ASSERT_EQ(go.env->signals_cancel_tst_cur.size(), 0);
-    //strategy->cancel_pending(TICKER, "long", 10);
-    //ASSERT_EQ(go.env->signals_cancel_tst_cur.size(), 1);
+    ASSERT_EQ(go.env->signals_cancel_tst_cur.size(), 0);
+    strategy->cancel_tst(TICKER, "long", true);
+    ASSERT_EQ(go.env->signals_cancel_tst_cur.size(), 1);
 
-    //ASSERT_EQ(go.env->signals_cancel_pending_cur.size(), 0);
-    //strategy->cancel_tst(TICKER, "long", True);
-    //ASSERT_EQ(go.env->signals_cancel_pending_cur.size(), 1);
+    ASSERT_EQ(go.env->signals_cancel_pending_cur.size(), 0);
+    strategy->cancel_pending(TICKER, "long", 10);
+    ASSERT_EQ(go.env->signals_cancel_pending_cur.size(), 1);
 }
 
-TEST_F(TestOrders, CancelOrder) {
+TEST_F(TestOrders, Cancel_Pending_Order) {
     go.env->initialize_env();
-    //strategy->cancel_pending(100, TICKER);
+    strategy->buy(100, TICKER, 0, 0, 0, 0, 0, 0, 20, 0);
+    strategy->buy(100, TICKER, 0, 0, 0, 0, 0, 0, 10, 0);
+    strategy->buy(100, TICKER, 0, 0, 0, 0, 0, 0, 2, 0);
+    test_cancel_pending_order("long");
 
+    go.env->initialize_env();
+    strategy->sell(100, TICKER, 20, 0);
+    strategy->sell(100, TICKER, 10, 0);
+    strategy->sell(100, TICKER, 2, 0);
+    test_cancel_pending_order("long");
+
+    go.env->initialize_env();
+    strategy->shortsell(100, TICKER, 0, 0, 0, 0, 0, 0, 20, 0);
+    strategy->shortsell(100, TICKER, 0, 0, 0, 0, 0, 0, 10, 0);
+    strategy->shortsell(100, TICKER, 0, 0, 0, 0, 0, 0, 2, 0);
+    test_cancel_pending_order("short");
+
+    go.env->initialize_env();
+    strategy->cover(100, TICKER, 20, 0);
+    strategy->cover(100, TICKER, 10, 0);
+    strategy->cover(100, TICKER, 2, 0);
+    test_cancel_pending_order("short");
+}
+
+TEST_F(TestOrders, Cancel_TST_Order) {
+    go.env->initialize_env();
+
+    strategy->buy(100, TICKER, 30, 0, 0, 0, 0, 0);
+    test_cancel_tst_order("long", true, false, false);
+    strategy->buy(100, TICKER, 0, 0.01, 0, 0, 0, 0);
+    test_cancel_tst_order("long", true, false, false);
+    strategy->buy(100, TICKER, 0, 0, 30, 0, 0, 0);
+    test_cancel_tst_order("long", false, true, false);
+    strategy->buy(100, TICKER, 0, 0, 0, 0.01, 0, 0);
+    test_cancel_tst_order("long", false, true, false);
+    strategy->buy(100, TICKER, 0, 0, 0, 0, 30, 0);
+    test_cancel_tst_order("long", false, false, true);
+    strategy->buy(100, TICKER, 0, 0, 0, 0, 0, 0.01);
+    test_cancel_tst_order("long", false, false, true);
+
+    strategy->shortsell(100, TICKER, 30, 0, 0, 0, 0, 0);
+    test_cancel_tst_order("short", true, false, false);
+    strategy->shortsell(100, TICKER, 0, 0.01, 0, 0, 0, 0);
+    test_cancel_tst_order("short", true, false, false);
+    strategy->shortsell(100, TICKER, 0, 0, 30, 0, 0, 0);
+    test_cancel_tst_order("short", false, true, false);
+    strategy->shortsell(100, TICKER, 0, 0, 0, 0.01, 0, 0);
+    test_cancel_tst_order("short", false, true, false);
+    strategy->shortsell(100, TICKER, 0, 0, 0, 0, 30, 0);
+    test_cancel_tst_order("short", false, false, true);
+    strategy->shortsell(100, TICKER, 0, 0, 0, 0, 0, 0.01);
+    test_cancel_tst_order("short", false, false, true);
 }

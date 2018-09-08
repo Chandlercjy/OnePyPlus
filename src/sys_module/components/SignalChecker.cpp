@@ -2,6 +2,7 @@
 #include "Exceptions.h"
 #include "sys_module/components/SignalChecker.h"
 #include "sys_module/models/Signal.h"
+#include "sys_module/models/SignalCancel.h"
 
 OP_NAMESPACE_START
 
@@ -37,7 +38,14 @@ void SignalChecker::check(const SignalBasePtr &signal) {
     _check_conflict(signal->trailingstop(), signal->trailingstop_pct(), "trailingstop");
 };
 
-void SignalChecker::check(const SignalCancelBasePtr &signal){};
+void SignalChecker::check(const SignalCancelTSTPtr &signal){};
+
+void SignalChecker::check(const SignalCancelPendingPtr &signal) {
+    if (signal->below_price == 0 && signal->above_price == 0)
+        throw std::logic_error("Should set one of below price & above price ");
+    else if (signal->below_price != 0 && signal->above_price != 0)
+        throw std::logic_error("Below price & above price can't be set together");
+};
 
 void SignalChecker::save_signals(const SignalPtr &value) {
     env->signals_normal_cur.push_back(value);

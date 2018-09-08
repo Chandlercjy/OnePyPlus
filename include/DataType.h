@@ -20,7 +20,6 @@ class SignalBase;
 class Signal;
 class SignalForPending;
 class SignalByTrigger;
-class SignalCancelBase;
 class SignalCancel;
 class SignalCancelTST;
 class SignalCancelPending;
@@ -63,7 +62,6 @@ using SignalBasePtr = shared_ptr<SignalBase>;
 using SignalPtr = shared_ptr<Signal>;
 using SignalForPendingPtr = shared_ptr<SignalForPending>;
 using SignalByTriggerPtr = shared_ptr<SignalByTrigger>;
-using SignalCancelBasePtr = shared_ptr<SignalCancelBase>;
 using SignalCancelTSTPtr = shared_ptr<SignalCancelTST>;
 using SignalCancelPendingPtr = shared_ptr<SignalCancelPending>;
 
