@@ -65,8 +65,6 @@ FILE(GLOB OnePy_Python_Wrapper "${PROJECT_SOURCE_DIR}/python_wrapper/*.cpp")
 
 FIND_PACKAGE(PythonInterp)
 
-
-
 if (PYTHONINTERP_FOUND)
   if (UNIX AND NOT APPLE)
     if (PYTHON_VERSION_MAJOR EQUAL 3)
@@ -103,7 +101,7 @@ INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
 
 LINK_LIBRARIES(${Boost_LIBRARIES} ${PYTHON_LIBRARIES}) # Deprecated but so convenient!
 
-PYTHON_ADD_MODULE(OnePyPlus ${OnePy_Python_Wrapper})
+PYTHON_ADD_MODULE(OnePyPlus ${OnePy_Python_Wrapper} ${OnePy_src})
 
 #FILE(COPY hello.py DESTINATION .)
 #ADD_TEST(NAME 01-HelloWorld COMMAND ${PYTHON_EXECUTABLE} hello.py)

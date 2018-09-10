@@ -16,28 +16,25 @@ using std::shared_ptr;
 OnePiece::OnePiece()
     : env(op::Environment::get_instance()),
       market_maker(make_shared<op::MarketMaker>()),
-      _event_loop(op::EVENT_LOOP),
-      _pending_order_checker(make_shared<op::PendingOrderChecker>()){};
+      _pending_order_checker(make_shared<op::PendingOrderChecker>()),
+      _event_loop(op::EVENT_LOOP){};
 
 void OnePiece::sunny(const bool &show_summary) {
     initialize_trading_system();
     while (true) {
         try {
-            if (!env->event_engine->is_core_empty()) {
-                op::EVENT cur_event = env->event_engine->get();
-                _run_event_loop(cur_event);
-            } else {
+            if (env->event_engine->is_core_empty()) {
                 market_maker->update_market();
                 _pending_order_checker->run();
+            } else {
+                op::EVENT cur_event = env->event_engine->get();
+                _run_event_loop(cur_event);
             };
 
-        } catch (except::BacktestFinished &e) {
+        } catch (BacktestFinished &e) {
             std::cout << e.what() << std::endl;
             if (show_summary)
                 output_summary();
-            break;
-        } catch (except::QueueEmptyError &e) {
-            std::cout << e.what() << std::endl; // Hope Never Raised!
             break;
         };
     };

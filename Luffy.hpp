@@ -42,7 +42,8 @@ class Luffy : public op::StrategyBase {
     const string get_name() override { return "luffy"; };
     void handle_bar() override {
         //buy(20, "000001", 0, 0, 0, 0, 0, 0, 0, 0.01);
-        buy(10, "000001");
+        buy(1, "000001",0,0,0,0,0,0.01,0,0);
+        //shortsell(5, "000001",0,0.1,0,0,0,0.01,0,0);
         //cout << env->recorder->balance->latest()
         //<< ", "
         //<< env->sys_date

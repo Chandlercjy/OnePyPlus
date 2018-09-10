@@ -17,7 +17,7 @@ const double SignalGenerator::_settle_price_pct(const string &ticker,
                                                 double price,
                                                 const double price_pct) {
     if (price != 0 && price_pct != 0) {
-        throw except::OrderConflictError();
+        throw OrderConflictError();
     } else if (price_pct != 0) {
         price = (price_pct + 1) * (env->feeds[ticker]->cur_price());
     };

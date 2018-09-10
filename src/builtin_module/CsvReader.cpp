@@ -55,7 +55,7 @@ inline void check_is_file_exist(const ifstream &file,
                                 const string &data_path) {
     if (!file) {
         std::cout << data_path << " 不存在!!可能路径不正确" << std::endl;
-        throw except::BacktestFinished();
+        throw BacktestFinished();
     }
 }
 

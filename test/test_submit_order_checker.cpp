@@ -14,9 +14,7 @@
 class TestSubmit : public ::testing::Test {
   public:
     void settle_next_open(op::OnePiece &go, const double next_open) {
-        go.env->initialize_env();
-        go.market_maker->initialize();
-        go.market_maker->update_market();
+        op::SettingFunc::global_setting();
         go.env->execute_on_close_or_next_open = "open";
         auto &open = go.env->feeds[op::TICKER]->next_ohlc->open;
         const_cast<double &>(open) = next_open;
@@ -50,6 +48,7 @@ TEST_F(TestSubmit, Submit) {
     order_generator.run();
     order_checker->run();
     ASSERT_TRUE(go.env->cur_suspended_tickers.empty());
+    assert(go.env->orders_mkt_submitted_cur.size()== 1);
     ASSERT_EQ(go.env->orders_mkt_submitted_cur.size(), 1);
 
     settle_next_open(go, NEXT_OPEN);

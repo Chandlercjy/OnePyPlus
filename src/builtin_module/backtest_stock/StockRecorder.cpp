@@ -33,7 +33,18 @@ void StockRecorder::initialize() {
     balance = make_shared<MoneySeries>("balance", initial_cash);
 };
 
-void StockRecorder::_update_cash(const string &trading_date){};
+void StockRecorder::_update_cash(const string &trading_date){
+
+        const double total_margin = margin->total_value();
+        const double total_market_value = market_value->total_value();
+        const double new_balance = balance->latest();
+        const double new_frozen_cash = total_margin+total_market_value;  // 更新frozen_cash
+        const double new_cash = new_balance - new_frozen_cash;  // 更新cash
+
+        frozen_cash->push_back(SeriesStruct{trading_date,new_frozen_cash});
+        cash->push_back(SeriesStruct{trading_date,new_cash});
+
+};
 void StockRecorder::set_setting(const double initial_cash_,
                                 const double comm_,
                                 const double comm_pct_,

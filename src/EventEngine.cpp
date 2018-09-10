@@ -23,7 +23,7 @@ int EventEngine::size(void) const {
 
 void EventEngine::_check_core_empty(void) const {
     if (_core.empty()) {
-        throw except::QueueEmptyError();
+        throw QueueEmptyError();
     };
 };
 

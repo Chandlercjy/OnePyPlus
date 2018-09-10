@@ -21,10 +21,10 @@ class OnePiece {
                   const string &frequency,
                   const string &instrument);
     const shared_ptr<MarketMaker> market_maker;
+    const shared_ptr<PendingOrderChecker> _pending_order_checker;
 
   private:
     vector<SingleLoop> _event_loop;
-    const shared_ptr<PendingOrderChecker> _pending_order_checker;
 
     void output_summary(){};
     void _run_event_loop(const EVENT &event);

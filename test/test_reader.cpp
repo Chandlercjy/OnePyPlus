@@ -29,7 +29,7 @@ void CSVReaderTest::test_load(const string &start,
     else if (FREQUENCY == "D")
         shift_num = 1;
     auto next_date = arrow::shift_days_to_str(first_date, shift_num);
-    ASSERT_EQ((++data_ptr)->date, next_date);
+    ASSERT_EQ(arrow::shift_days_to_str((++data_ptr)->date,0), next_date);
 
     auto last_date = (--iter_data->cend())->date;
 

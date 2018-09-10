@@ -7,7 +7,8 @@
 OP_NAMESPACE_START
 
 RecorderBase::RecorderBase()
-    : env(Environment::get_instance()){};
+    : env(Environment::get_instance()) 
+      {};
 
 void RecorderBase::run() {
     _record_order();
@@ -61,6 +62,7 @@ void RecorderBase::_record_order() {
                                  action_type,
                                  last_commission,
                                  long_or_short);
+
         realized_pnl->update_order(ticker,
                                    size,
                                    execute_price,

@@ -3,7 +3,7 @@
 
 #pragma once
 
-namespace except {
+OP_NAMESPACE_START
 
 using std::exception;
 
@@ -42,4 +42,4 @@ class QueueEmptyError : public exception {
     }
 };
 
-} // namespace except
+OP_NAMESPACE_END

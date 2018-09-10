@@ -31,11 +31,11 @@ void MarketMaker::update_market() {
         _check_blowup();
         env->event_engine->put(EVENT::Market_updated);
 
-    } catch (except::BacktestFinished &e) {
+    } catch (BacktestFinished &e) {
         e.what();
         _update_recorder(true);
-        throw except::BacktestFinished();
-    } catch (except::BlowUpError &e) {
+        throw BacktestFinished();
+    } catch (BlowUpError &e) {
         e.what();
         _update_recorder(true);
     }
@@ -104,7 +104,7 @@ void MarketMaker::_update_bar() {
                 if (env->is_show_today_signals)
                     bar_ptr->move_next_ohlc_to_cur_ohlc();
                 else
-                    throw except::BacktestFinished();
+                    throw BacktestFinished();
             } else {
                 env->cur_suspended_tickers.push_back(ticker);
                 env->suspended_tickers_record[ticker].push_back(env->sys_date);

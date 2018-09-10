@@ -3,8 +3,11 @@
 #include "Environment.h"
 #include "sys_module/models/BarBase.h"
 #include "sys_module/models/SeriesBase.h"
+#include "utils/utils.h"
 
 OP_NAMESPACE_START
+
+using namespace utils;
 
 SeriesBase::SeriesBase()
     : env(Environment::get_instance()) { _initialize_data(); }

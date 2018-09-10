@@ -4,8 +4,7 @@
 #include "builtin_module/backtest_stock/StockRecorder.h"
 
 OP_NAMESPACE_START
-using std::string;
-using std::vector;
+
 using namespace op;
 
 OnePiece stock(const vector<string> &ticker_list,

@@ -111,7 +111,7 @@ void SubmitOrderChecker::_check(const PtrBox<MarketOrderPtr> order_list) {
             _add_to_cash_cumu(order);
 
             if (_lack_of_cash()) {
-                //self.env.logger.warning("Cash is not enough for trading!")//TODO
+                std::cout<<"Cash is not enough for trading!"<<std::endl;
                 order->set_status(OrderStatus::Rejected);
                 _delete_from_cash_cumu(order);
 

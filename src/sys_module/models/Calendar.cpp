@@ -73,6 +73,7 @@ void Calendar::update_calendar() {
 void Calendar::_check_todate() {
     static arrow::seconds_type todate = arrow::str_to_sec(env->todate);
     if (arrow::str_to_sec(env->sys_date) >= todate)
-        throw except::BacktestFinished();
+        throw BacktestFinished();
 };
 OP_NAMESPACE_END
+
