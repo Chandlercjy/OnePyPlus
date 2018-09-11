@@ -28,8 +28,8 @@ void SeriesBase::change_initial_value(const string &ticker,
 double SeriesBase::latest(const string &ticker,
                           const string &long_or_short) {
     const string key = ticker + "_" + long_or_short;
-    int index = data[key].size() - 1;
-    return data[key][index].value;
+    auto last =  data[key].cend();
+    return (--last)->value;
 }
 
 double SeriesBase::total_value() {
@@ -46,16 +46,17 @@ void SeriesBase::_append_value(const string &ticker,
                                const string &long_or_short) {
     const string key = ticker + "_" + long_or_short;
     if (data[key].back().date == env->sys_date)
-        data[key].back().value = value;
+        data[key].back().value = Math::Round(value, 2);
     else
         data[key].push_back(SeriesStruct{env->sys_date, value});
 };
 double SeriesBase::get_barly_cur_price(const string &ticker,
                                        const bool order_executed) {
-    if (order_executed)
+    if (order_executed) {
         return env->feeds[ticker]->execute_price();
-    else
+    } else {
         return env->feeds[ticker]->open();
+    }
 };
 
 MoneySeries::MoneySeries(const string &name, const double initial_value)

@@ -22,16 +22,14 @@ class MarketOrder : public OrderBase {
 
     const double execute_price;
     const bool father_mkt_id;
+    const ActionType action_type;
     const string long_or_short;
+    const OrderType order_type;
 
     const bool is_pure();
-    const ActionType action_type;
-    const OrderType order_type;
 
   private:
     const string _set_long_or_short();
-
-    const int _set_father_mkt_id(const shared_ptr<SignalByTrigger> &signal);
 };
 
 class CancelTSTOrder : public CancelOrderBase {

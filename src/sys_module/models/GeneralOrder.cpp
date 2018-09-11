@@ -13,17 +13,17 @@ MarketOrder::MarketOrder(const shared_ptr<Signal> &signal, const int mkt_id)
     : OrderBase(signal, mkt_id),
       execute_price(_cur_price_when_generated),
       father_mkt_id(-1),
-      long_or_short(_set_long_or_short()),
       action_type(signal->action_type),
+      long_or_short(_set_long_or_short()),
       order_type(OrderType::Market){};
 
 MarketOrder::MarketOrder(const shared_ptr<SignalByTrigger> &signal,
                          const int mkt_id)
     : OrderBase(signal, mkt_id),
       execute_price(signal->execute_price),
-      father_mkt_id(_set_father_mkt_id(signal)),
-      long_or_short(_set_long_or_short()),
+      father_mkt_id(signal->mkt_id),
       action_type(signal->action_type),
+      long_or_short(_set_long_or_short()),
       order_type(OrderType::Market){};
 
 const bool MarketOrder::is_pure() {
@@ -35,9 +35,6 @@ const string MarketOrder::_set_long_or_short() {
     return "short";
 };
 
-const int MarketOrder::_set_father_mkt_id(const shared_ptr<SignalByTrigger> &signal) {
-    return signal->mkt_id;
-};
 
 CancelTSTOrder::CancelTSTOrder(const shared_ptr<SignalCancelTST> &signal)
     : CancelOrderBase(signal),

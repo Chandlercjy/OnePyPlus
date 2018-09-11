@@ -111,7 +111,7 @@ void SubmitOrderChecker::_check(const PtrBox<MarketOrderPtr> order_list) {
             _add_to_cash_cumu(order);
 
             if (_lack_of_cash()) {
-                std::cout<<"Cash is not enough for trading!"<<std::endl;
+                std::cout << "Cash is not enough for trading!" << std::endl;
                 order->set_status(OrderStatus::Rejected);
                 _delete_from_cash_cumu(order);
 
@@ -144,8 +144,13 @@ void SubmitOrderChecker::_check(const PtrBox<MarketOrderPtr> order_list) {
 
 void SubmitOrderChecker::_check_market_order() {
     cash_acumu = 0;
-    plong_acumu = {};
-    pshort_acumu = {};
+    plong_acumu.clear();
+    pshort_acumu.clear();
+    //for (auto &ticker : env->tickers) {
+        //plong_acumu[ticker] = 0;
+        //pshort_acumu[ticker] = 0;
+    //}
+
     _check(env->orders_mkt_absolute_cur);
     _check(env->orders_mkt_normal_cur);
 };

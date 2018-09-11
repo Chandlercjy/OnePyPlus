@@ -32,12 +32,11 @@ void MarketMaker::update_market() {
         env->event_engine->put(EVENT::Market_updated);
 
     } catch (BacktestFinished &e) {
-        e.what();
         _update_recorder(true);
         throw BacktestFinished();
     } catch (BlowUpError &e) {
-        e.what();
         _update_recorder(true);
+        throw BacktestFinished();
     }
 };
 

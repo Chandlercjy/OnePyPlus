@@ -93,6 +93,8 @@ void BarBase::next_directly() {
     ++previous_ohlc;
     ++current_ohlc;
     ++next_ohlc;
+    if (next_ohlc == _bar_series->cend())
+        next_ohlc = current_ohlc;
 }
 
 bool BarBase::is_suspended() {
