@@ -48,8 +48,6 @@ class Environment {
 
     //string logger = logging.getLogger("OnePy");
     shared_ptr<EventEngine> event_engine; //看看能不能设成会报错的指针
-    //string calendar = "";  // type:op.Calendar
-    //string bar_class = ""; // type:op.BarBase
     //string cache = {};
 
     string execute_on_close_or_next_open;

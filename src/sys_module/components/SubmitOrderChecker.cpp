@@ -146,10 +146,6 @@ void SubmitOrderChecker::_check_market_order() {
     cash_acumu = 0;
     plong_acumu.clear();
     pshort_acumu.clear();
-    //for (auto &ticker : env->tickers) {
-        //plong_acumu[ticker] = 0;
-        //pshort_acumu[ticker] = 0;
-    //}
 
     _check(env->orders_mkt_absolute_cur);
     _check(env->orders_mkt_normal_cur);

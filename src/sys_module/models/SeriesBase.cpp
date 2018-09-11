@@ -27,9 +27,7 @@ void SeriesBase::change_initial_value(const string &ticker,
 
 double SeriesBase::latest(const string &ticker,
                           const string &long_or_short) {
-    const string key = ticker + "_" + long_or_short;
-    auto last =  data[key].cend();
-    return (--last)->value;
+    return data[ticker + "_" + long_or_short].back().value;
 }
 
 double SeriesBase::total_value() {

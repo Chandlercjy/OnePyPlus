@@ -116,5 +116,3 @@ void MarginSeries::update_barly() {
 }
 
 OP_NAMESPACE_END
-
-

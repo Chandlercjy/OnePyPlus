@@ -39,7 +39,7 @@ TEST(BarTest, test_000001_LE) {
     // 最后数据
     while (!bars.is_bar_series_end())
         bars.next_directly();
-    ASSERT_LE(bars.current_ohlc->date, arrow::shift_days_to_str(END, 0));
+    ASSERT_LE(arrow::str_to_sec(bars.current_ohlc->date), arrow::shift_days(END, 0));
 };
 
 TEST(BarTest, test_000002_EQ) {

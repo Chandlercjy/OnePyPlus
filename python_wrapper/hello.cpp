@@ -37,6 +37,13 @@ class StrategyBasePy : public StrategyBase {
                   << std::endl;
     };
 
+    void print_position() {
+        std::cout << env->recorder->position->latest("000001", "long")
+                  << ", "
+                  << env->sys_date
+                  << std::endl;
+    };
+
     virtual void handle_bar() override {
         //std::cout<<4;
         //buy(20, "000001", 0, 0, 0, 0, 0, 0, 0, 0.01);
@@ -158,5 +165,6 @@ BOOST_PYTHON_MODULE(OnePyPlus) {
         .def("cover", &StrategyBasePy::cover)
         .def("get_name", &StrategyBasePy::get_name)
         .def("save_module", &StrategyBasePy::save_module)
-        .def("print_balance", &StrategyBasePy::print_balance);
+        .def("print_balance", &StrategyBasePy::print_balance)
+        .def("print_position", &StrategyBasePy::print_position);
 }

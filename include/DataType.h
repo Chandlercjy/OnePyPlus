@@ -79,6 +79,9 @@ using PtrBox = vector<T>;
 
 using Cash_func_ptr_type = double (*)(const MarketOrderPtr &order);
 
+using SeriesVector = vector<SeriesStruct>;
+using SeriesDict = map<string,SeriesVector>;
+
 //struct ChildOfMktStruct {
 //ChildOfMktStruct(
 //const int mkt_id,

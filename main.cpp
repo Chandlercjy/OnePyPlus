@@ -19,7 +19,7 @@ int main() {
     auto go = op::stock(ticker_list,
                         "D",
                         100000,
-                        "2018-01-05",
+                        "2017-01-05",
                         "2018-04-01",
                         "tushare");
 
