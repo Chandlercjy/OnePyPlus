@@ -28,6 +28,8 @@ class MarketOrder : public OrderBase {
 
     const bool is_pure();
 
+    double track_size = 0;
+
   private:
     const string _set_long_or_short();
 };

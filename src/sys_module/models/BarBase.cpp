@@ -21,10 +21,18 @@ const double BarBase::low() const { return current_ohlc->low; }
 const double BarBase::close() const { return current_ohlc->close; }
 const double BarBase::volume() const { return current_ohlc->volume; }
 const double BarBase::cur_price() const { return current_ohlc->close; }
+const string BarBase::next_date() const {
+    if (is_bar_series_end())
+        return current_ohlc->date;
+    return next_ohlc->date;
+}
 
 const double BarBase::execute_price() const {
-    if (env->execute_on_close_or_next_open == "open")
+    if (env->execute_on_close_or_next_open == "open") {
+        if (is_bar_series_end())
+            return current_ohlc->close;
         return next_ohlc->open;
+    }
     return current_ohlc->close;
 }
 
@@ -93,8 +101,8 @@ void BarBase::next_directly() {
     ++previous_ohlc;
     ++current_ohlc;
     ++next_ohlc;
-    if (next_ohlc == _bar_series->cend())
-        next_ohlc = current_ohlc;
+    //if (next_ohlc == _bar_series->cend())
+    //next_ohlc = current_ohlc;
 }
 
 bool BarBase::is_suspended() {
@@ -110,17 +118,6 @@ void BarBase::_delete_ohlc(const string &msg) {
     std::cout << " Delete " << ticker << " for lack of " << msg << std::endl; //TODO: 添加Logger
     env->cur_suspended_tickers.push_back(ticker);
     env->suspended_tickers_record[ticker].push_back(ticker);
-}
-
-void BarBase::move_next_ohlc_to_cur_ohlc() {
-    auto next_date = arrow::str_to_sec(next_ohlc->date);
-    auto todate = arrow::str_to_sec(env->todate);
-    if (todate == next_date) {
-        current_ohlc = next_ohlc;
-        const_cast<string &>(next_ohlc->date) =
-            arrow::shift_seconds_to_str(todate, Easy::get_second_ratio(frequency));
-    } else
-        env->cur_suspended_tickers.push_back(ticker);
 }
 
 bool BarBase::is_bar_series_end() const {

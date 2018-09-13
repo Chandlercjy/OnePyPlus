@@ -32,13 +32,13 @@ class BarBase {
 
     const double cur_price() const;
     const double execute_price() const;
+    const string next_date() const;
 
     bool initialize(int buffer_day);
     void next();
     void next_directly();
 
     bool is_suspended();
-    void move_next_ohlc_to_cur_ohlc();
 
     bool is_bar_series_end() const;
 

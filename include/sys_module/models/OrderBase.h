@@ -8,7 +8,7 @@ OP_NAMESPACE_START
 enum class ActionType;
 enum class OrderType;
 enum class OrderStatus;
-class SignalBase;
+class Signal;
 class SignalByTrigger;
 using std::map;
 using std::shared_ptr;
@@ -16,7 +16,10 @@ using std::shared_ptr;
 class OrderBase {
 
   public:
-    OrderBase(const shared_ptr<SignalBase> &signal,
+    OrderBase(const shared_ptr<Signal> &signal,
+              const int mkt_id);
+
+    OrderBase(const shared_ptr<SignalByTrigger> &signal,
               const int mkt_id);
 
     Environment *env;
@@ -39,11 +42,12 @@ class OrderBase {
     const OrderStatus get_status() const;
     const double get_cur_price_when_generated() const;
     const string get_signal_type() const;
+    string from_signal_type;
+    OrderType from_order_type;
 
   protected:
     OrderStatus _status;
 
-    string _signal_type;
     double _cur_price_when_generated;
 };
 

@@ -99,15 +99,8 @@ void MarketMaker::_update_bar() {
         if (!bar_ptr->is_bar_series_end())
             bar_ptr->next();
         else {
-            if (arrow::str_to_sec(env->sys_date) == arrow::str_to_sec(env->todate)) {
-                if (env->is_show_today_signals)
-                    bar_ptr->move_next_ohlc_to_cur_ohlc();
-                else
-                    throw BacktestFinished();
-            } else {
-                env->cur_suspended_tickers.push_back(ticker);
-                env->suspended_tickers_record[ticker].push_back(env->sys_date);
-            };
+            env->cur_suspended_tickers.push_back(ticker);
+            env->suspended_tickers_record[ticker].push_back(env->sys_date);
         };
     };
 };

@@ -7,6 +7,7 @@
 OP_NAMESPACE_START
 
 enum class ActionType;
+enum class OrderType;
 class ReaderBase;
 class BarBase;
 class BarBase;
@@ -51,6 +52,36 @@ struct SeriesStruct {
     double value;
 };
 
+struct TradeLogStruct {
+    TradeLogStruct(const string &entry_date,
+                   const string &exit_date,
+                   const double entry_price,
+                   const double exit_price,
+                   const string &entry_type,
+                   const string &exit_type,
+                   const double pl_points,
+                   const double re_pnl,
+                   const double commission)
+        : entry_date(entry_date),
+          exit_date(exit_date),
+          entry_price(entry_price),
+          exit_price(exit_price),
+          entry_type(entry_type),
+          exit_type(exit_type),
+          pl_points(pl_points),
+          re_pnl(re_pnl),
+          commission(commission){};
+    const string entry_date;
+    const string exit_date;
+    const double entry_price;
+    const double exit_price;
+    const string entry_type;
+    const string exit_type;
+    const double pl_points;
+    const double re_pnl;
+    const double commission;
+};
+
 //using SignalNormalPtr = unique_ptr<SignalNormalStruct>;
 //using SignalForPendingPtr = unique_ptr<SignalForPendingStruct>;
 //using SignalByTriggerPtr = unique_ptr<SignalByTriggerStruct>;
@@ -80,7 +111,7 @@ using PtrBox = vector<T>;
 using Cash_func_ptr_type = double (*)(const MarketOrderPtr &order);
 
 using SeriesVector = vector<SeriesStruct>;
-using SeriesDict = map<string,SeriesVector>;
+using SeriesDict = map<string, SeriesVector>;
 
 //struct ChildOfMktStruct {
 //ChildOfMktStruct(

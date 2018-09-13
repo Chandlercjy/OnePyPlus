@@ -19,10 +19,11 @@ int main() {
     auto go = op::stock(ticker_list,
                         "D",
                         100000,
-                        "2017-01-05",
-                        "2018-04-01",
+                        "2017-02-05",
+                        "2017-04-01",
                         "tushare");
 
+    go.env->is_show_today_signals=true;
     go.sunny();
     cout << (go.env->recorder->balance->latest());
     //cout << "hahah";

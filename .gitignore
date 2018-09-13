@@ -14,3 +14,4 @@ bin/demo_OnePy
 cmake-build-debug/*
 lib/OnePyPlus.so
 lib/OnePyPlus.so
+bin/demo_OnePy.dSYM
