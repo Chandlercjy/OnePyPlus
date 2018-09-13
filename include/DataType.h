@@ -100,6 +100,8 @@ using PendingOrderPtr = shared_ptr<PendingOrder>;
 using CancelTSTOrderPtr = shared_ptr<CancelTSTOrder>;
 using CancelPendingOrderPtr = shared_ptr<CancelPendingOrder>;
 
+using TradeLogPtr = shared_ptr<TradeLogStruct>;
+
 using OhlcVector = vector<OhlcStruct>;
 
 template <typename value, typename key = string>

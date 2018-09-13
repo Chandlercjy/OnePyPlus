@@ -16,8 +16,7 @@ TradeLogGenerator::TradeLogGenerator()
                       {OrderType::Stop, "Stop "},
                       {OrderType::Trailing_stop, "Trailing_stop "}}){};
 
-template <typename T>
-shared_ptr<TradeLogStruct> TradeLogGenerator::make_log(shared_ptr<T> &buy_order,
+shared_ptr<TradeLogStruct> TradeLogGenerator::make_log(MarketOrderPtr &buy_order,
                                                        MarketOrderPtr &sell_order,
                                                        const double size) {
     const double per_comm_pct = env->recorder->per_comm_pct;

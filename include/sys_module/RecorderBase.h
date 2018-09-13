@@ -5,6 +5,7 @@
 OP_NAMESPACE_START
 
 class Environment;
+class MatchEngine;
 class BarBase;
 
 class HoldingPnlSeriesBase;
@@ -23,8 +24,12 @@ class RecorderBase {
     RecorderBase();
 
     Environment *env;
+    shared_ptr<MatchEngine> match_engine;
+
+
     virtual shared_ptr<BarBase> bar_class(const string &ticker,
                                           const string &frequency) = 0;
+
 
     double initial_cash = 100000;
     double per_comm = 1;

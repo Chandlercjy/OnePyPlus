@@ -19,8 +19,8 @@ int main() {
     auto go = op::stock(ticker_list,
                         "D",
                         100000,
-                        "2017-02-05",
-                        "2017-04-01",
+                        "2018-02-05",
+                        "2018-04-01",
                         "tushare");
 
     go.env->is_show_today_signals=true;

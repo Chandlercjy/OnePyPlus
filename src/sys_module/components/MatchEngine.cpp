@@ -9,10 +9,10 @@ OP_NAMESPACE_START
 using namespace utils;
 
 MatchEngine::MatchEngine()
-    : log_generator(make_unique<TradeLogGenerator>()) {}
+    : env(Environment::get_instance()),
+      log_generator(make_shared<TradeLogGenerator>()) {}
 
-template <typename T>
-void MatchEngine::_append_finished(T &buy_order,
+void MatchEngine::_append_finished(MarketOrderPtr &buy_order,
                                    MarketOrderPtr &sell_order,
                                    const double size) {
     finished_log.emplace_back(log_generator->make_log(buy_order,
@@ -28,6 +28,7 @@ void MatchEngine::_search_father(MarketOrderPtr &order,
             log_with_trigger.erase(std::remove(log_with_trigger.begin(),
                                                log_with_trigger.end(),
                                                log));
+            //std::cout << log->mkt_id << std::endl;
             break;
         }
     }
@@ -103,13 +104,13 @@ void MatchEngine::match_order(MarketOrderPtr &order) {
         if (order->is_pure())
             long_log_pure[order->ticker].emplace_back(order);
         else
-            long_log_pure[order->ticker].emplace_back(order);
+            long_log_with_trigger[order->ticker].emplace_back(order);
     } else if (order->action_type == ActionType::Short) {
         order->track_size = order->size;
         if (order->is_pure())
             short_log_pure[order->ticker].emplace_back(order);
         else
-            short_log_pure[order->ticker].emplace_back(order);
+            short_log_with_trigger[order->ticker].emplace_back(order);
 
     } else {
         _pair_order(order->long_or_short, order);

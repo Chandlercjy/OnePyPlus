@@ -1,6 +1,7 @@
 #include "DataType.h"
 
 OP_NAMESPACE_START
+
 class Environment;
 
 class TradeLogGenerator {
@@ -8,8 +9,7 @@ class TradeLogGenerator {
     TradeLogGenerator();
     Environment *env;
 
-    template <typename T>
-    shared_ptr<TradeLogStruct> make_log(shared_ptr<T> &buy_order,
+    shared_ptr<TradeLogStruct> make_log(MarketOrderPtr &buy_order,
                                         MarketOrderPtr &sell_order,
                                         const double size);
 

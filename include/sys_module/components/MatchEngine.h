@@ -17,12 +17,11 @@ class MatchEngine {
     map<string, PtrBox<MarketOrderPtr>> short_log_pure;
     map<string, PtrBox<MarketOrderPtr>> short_log_with_trigger;
 
-    PtrBox<MarketOrderPtr> finished_log;
-    unique_ptr<TradeLogGenerator> log_generator;
+    PtrBox<TradeLogPtr> finished_log;
+    shared_ptr<TradeLogGenerator> log_generator;
     bool left_trade_settled = false;
 
-    template <typename T>
-    void _append_finished(T &buy_order,
+    void _append_finished(MarketOrderPtr &buy_order,
                           MarketOrderPtr &sell_order,
                           const double size);
 

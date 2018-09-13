@@ -7,7 +7,7 @@
 
 OP_NAMESPACE_START
 
-OrderBase::OrderBase(const shared_ptr<Signal> &signal,
+OrderBase::OrderBase(const shared_ptr<SignalBase> &signal,
                      const int mkt_id)
     : env(Environment::get_instance()),
       strategy_name(signal->strategy_name),

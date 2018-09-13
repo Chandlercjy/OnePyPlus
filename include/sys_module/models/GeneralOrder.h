@@ -21,7 +21,7 @@ class MarketOrder : public OrderBase {
     MarketOrder(const shared_ptr<SignalByTrigger> &signal, const int mkt_id);
 
     const double execute_price;
-    const bool father_mkt_id;
+    const int father_mkt_id;
     const ActionType action_type;
     const string long_or_short;
     const OrderType order_type;

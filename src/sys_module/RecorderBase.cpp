@@ -1,5 +1,6 @@
 #include "Environment.h"
 #include "sys_module/RecorderBase.h"
+#include "sys_module/components/MatchEngine.h"
 #include "sys_module/models/GeneralOrder.h"
 #include "sys_module/models/OrderBase.h"
 #include "sys_module/models/SeriesBase.h"
@@ -7,8 +8,8 @@
 OP_NAMESPACE_START
 
 RecorderBase::RecorderBase()
-    : env(Environment::get_instance()) 
-      {};
+    : env(Environment::get_instance()),
+      match_engine(make_shared<MatchEngine>()){};
 
 void RecorderBase::run() {
     _record_order();
@@ -70,7 +71,7 @@ void RecorderBase::_record_order() {
                                    last_avg_price,
                                    long_or_short);
         margin->update_order(ticker, long_or_short);
-        //match_engine.match_order(order)
+        match_engine->match_order(order);
         update(true);
     }
 };
