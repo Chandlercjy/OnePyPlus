@@ -1,7 +1,6 @@
 #include "EventEngine.h"
 #include "Exceptions.h"
 #include "Constants.h"
-#include <iostream>
 
 OP_NAMESPACE_START
 

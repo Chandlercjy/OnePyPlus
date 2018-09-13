@@ -15,3 +15,4 @@ cmake-build-debug/*
 lib/OnePyPlus.so
 lib/OnePyPlus.so
 bin/demo_OnePy.dSYM
+bin/demo_OnePy.dSYM/Contents/Resources/DWARF/demo_OnePy

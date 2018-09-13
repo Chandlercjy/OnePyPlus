@@ -42,9 +42,9 @@ void CommissionSeries::update_order(const string &ticker,
         } else {
             new_value = last_commission + per_comm * size / 100;
         }
+        _append_value(ticker, new_value, long_or_short);
     }
 
-    _append_value(ticker, new_value, long_or_short);
 }
 
 void HoldingPnlSeries::update_order(const string &ticker,

@@ -79,7 +79,7 @@ class Luffy(op.StrategyBase):
         self.buy(20, "000001", 0, 0.1, 0, 0, 0, 0, 0, 0)
         self.buy(20, "000001", 0, 0.01, 0, 0, 0, 0, 0, 0.01)
         # self.short(5, "000001",0,0.1,0,0,0,0.01,0,0)
-        # self.print_balance()
+        self.print_balance()
         # self.print_position()
 
     def run(self):
@@ -91,7 +91,7 @@ go.load_csv_reader("/Users/chandler/Documents/CLionProjects/OnePyPlus/data/",
                    "000001", "000001")
 go.set_stock_backtest(100000, 0, 0.0016, 0.1)
 
-go.set_date("2012-02-05", "2017-04-01", "D", "A_shares")
+go.set_date("2017-02-05", "2017-04-01", "D", "A_shares")
 # op.Luffy()
 a = Luffy("Luffy")
 go.sunny()

@@ -2,7 +2,6 @@
 #include "Environment.h"
 #include "sys_module/StrategyBase.h"
 #include "sys_module/components/SignalGenerator.h"
-#include <iostream>
 
 OP_NAMESPACE_START
 StrategyBase::StrategyBase()

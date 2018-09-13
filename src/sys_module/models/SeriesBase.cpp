@@ -44,7 +44,7 @@ void SeriesBase::_append_value(const string &ticker,
                                const string &long_or_short) {
     const string key = ticker + "_" + long_or_short;
     if (data[key].back().date == env->sys_date)
-        data[key].back().value = Math::Round(value, 2);
+        data[key].back().value = value;
     else
         data[key].push_back(SeriesStruct{env->sys_date, value});
 };

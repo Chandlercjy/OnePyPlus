@@ -7,10 +7,10 @@
 OP_NAMESPACE_START
 
 PendingOrder::PendingOrder(const ActionType &action_type,
-                                   const OrderType &order_type,
-                                   const shared_ptr<SignalBase> &signal,
-                                   const int mkt_id,
-                                   const string &trigger_key)
+                           const OrderType &order_type,
+                           const shared_ptr<SignalBase> &signal,
+                           const int mkt_id,
+                           const string &trigger_key)
     : env(Environment::get_instance()),
       strategy_name(signal->strategy_name),
       ticker(signal->ticker),
@@ -27,10 +27,10 @@ PendingOrder::PendingOrder(const ActionType &action_type,
       _cur_price_when_generated(env->feeds[ticker]->execute_price()){};
 
 PendingOrder::PendingOrder(const ActionType &action_type,
-                                   const OrderType &order_type,
-                                   const SignalByTriggerPtr &signal,
-                                   const int mkt_id,
-                                   const string &trigger_key)
+                           const OrderType &order_type,
+                           const SignalByTriggerPtr &signal,
+                           const int mkt_id,
+                           const string &trigger_key)
     : env(Environment::get_instance()),
       strategy_name(signal->strategy_name),
       ticker(signal->ticker),
@@ -106,7 +106,7 @@ const double PendingOrder::get_cur_price_when_generated() const {
 };
 
 const bool PendingOrder::set_target_below(const ActionType &action_type,
-                                              const OrderType &order_type) {
+                                          const OrderType &order_type) {
     switch (action_type) {
         case ActionType::Buy:
             switch (order_type) {
