@@ -9,11 +9,7 @@ OP_NAMESPACE_START
 using namespace utils;
 using std::ifstream;
 using std::ios;
-using std::make_shared;
-using std::shared_ptr;
-using std::string;
 using std::stringstream;
-using std::vector;
 
 inline OhlcVector::value_type settle_ohlc(const vector<string> &columns,
                                           const vector<string> &line_array) {

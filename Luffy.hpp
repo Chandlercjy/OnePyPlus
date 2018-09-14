@@ -2,6 +2,7 @@
 #include "EventEngine.h"
 #include "OnePy.h"
 #include "builtin_module/CsvReader.h"
+#include "builtin_module/MongodbReader.h"
 #include "builtin_module/backtest_stock/StockBroker.h"
 #include "builtin_module/backtest_stock/StockRecorder.h"
 #include "builtin_module/backtest_stock/StockSeries.h"

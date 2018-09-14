@@ -3,6 +3,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 3.9)
 project(OnePyPlus)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -std=c++17")
+
 #SET(CMAKE_BUILD_TYPE Release)
 SET(CMAKE_BUILD_TYPE Debug)
 SET( CMAKE_EXPORT_COMPILE_COMMANDS ON )
@@ -37,6 +38,15 @@ SET(OnePy_src
     ${onepy_custom}
     ${onepy_utils})
 
+#链接 MongoDB 静态库
+LINK_LIBRARIES(mongocxx)
+LINK_LIBRARIES(bsoncxx)
+SET(LIB_MONGOCXX_DIR /usr/local/include/bsoncxx/v_noabi)
+SET(LIB_BSONCXX_DIR /usr/local/include/mongocxx/v_noabi)
+
+INCLUDE_DIRECTORIES(
+    ${LIB_MONGOCXX_DIR}
+    ${LIB_BSONCXX_DIR})
 
 
 LINK_DIRECTORIES("${PROJECT_SOURCE_DIR}/lib")
@@ -49,11 +59,11 @@ add_executable(demo_OnePy ${PROJECT_SOURCE_DIR}/main.cpp
     
 
 
-## 单元测试
-#SET(test_dir "${PROJECT_SOURCE_DIR}/test/")
-#AUX_SOURCE_DIRECTORY("${test_dir}" test_files)
-#ADD_EXECUTABLE(test_OnePy ${test_files} )
-#TARGET_LINK_LIBRARIES(test_OnePy gtest)
+# 单元测试
+SET(test_dir "${PROJECT_SOURCE_DIR}/test/")
+AUX_SOURCE_DIRECTORY("${test_dir}" test_files)
+ADD_EXECUTABLE(test_OnePy ${test_files} )
+TARGET_LINK_LIBRARIES(test_OnePy gtest)
 
 
 
@@ -103,8 +113,6 @@ LINK_LIBRARIES(${Boost_LIBRARIES} ${PYTHON_LIBRARIES}) # Deprecated but so conve
 FILE(GLOB OnePy_Python_Wrapper "${PROJECT_SOURCE_DIR}/python_wrapper/*.cpp")
 PYTHON_ADD_MODULE(OnePyPlus ${OnePy_Python_Wrapper} )
 
-#FILE(COPY hello.py DESTINATION .)
-#ADD_TEST(NAME 01-HelloWorld COMMAND ${PYTHON_EXECUTABLE} hello.py)
 
 
 

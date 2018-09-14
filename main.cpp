@@ -9,8 +9,10 @@ using namespace std;
 using namespace op;
 
 int main() {
-    CsvReader ggss("/Users/chandler/Documents/CLionProjects/OnePyPlus/data/",
-                   "000001", "000001");
+    //CsvReader ggss("/Users/chandler/Documents/CLionProjects/OnePyPlus/data/",
+                   //"000001", "000001");
+    MongodbReader lalala("000001_tushare","000001");
+
 
     Luffy haha("keke");
 
@@ -19,8 +21,8 @@ int main() {
     auto go = op::stock(ticker_list,
                         "D",
                         100000,
-                        "2018-02-05",
-                        "2018-04-01",
+                        "2011-02-05",
+                        "2011-04-01",
                         "tushare");
 
     go.env->is_show_today_signals=true;

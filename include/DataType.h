@@ -108,6 +108,7 @@ using CancelPendingOrderPtr = shared_ptr<CancelPendingOrder>;
 using TradeLogPtr = shared_ptr<TradeLogStruct>;
 
 using OhlcVector = vector<OhlcStruct>;
+using OhlcVectorPtr = shared_ptr<OhlcVector>;
 
 template <typename value, typename key = string>
 using ModuleMap = map<key, shared_ptr<value>>;

@@ -15,12 +15,11 @@ class CsvReader : public ReaderBase {
     CsvReader(const string &data_path,
               const string &file_name,
               const string &ticker);
-
-    shared_ptr<OhlcVector> load(const string &fromdate,
-                                const string &todate,
-                                const string &frequency) const override;
-
     const string file_name;
     const string data_path;
+
+    OhlcVectorPtr load(const string &fromdate,
+                       const string &todate,
+                       const string &frequency) const override;
 };
 OP_NAMESPACE_END
