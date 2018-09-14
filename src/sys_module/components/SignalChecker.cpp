@@ -3,8 +3,10 @@
 #include "sys_module/components/SignalChecker.h"
 #include "sys_module/models/Signal.h"
 #include "sys_module/models/SignalCancel.h"
+#include "utils/utils.h"
 
 OP_NAMESPACE_START
+using utils::Stl;
 
 SignalChecker::SignalChecker()
     : env(Environment::get_instance()){};
@@ -32,6 +34,11 @@ void SignalChecker::_check_size(const int size) {
 };
 
 void SignalChecker::check(const SignalBasePtr &signal) {
+    if (!Stl::is_elem_in_map_key(env->feeds, signal->ticker)) {
+        const string msg = signal->ticker + " not in feeds!";
+        throw std::logic_error(msg);
+    }
+
     _check_size(signal->size());
     _check_conflict(signal->takeprofit(), signal->takeprofit_pct(), "takeprofit");
     _check_conflict(signal->stoploss(), signal->stoploss_pct(), "stoploss");

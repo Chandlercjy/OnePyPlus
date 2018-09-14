@@ -31,12 +31,14 @@ luffy = Luffy("hahahaha")
 # op.save_strategy(luffy)
 
 go = op.OnePiece()
-op.CsvReader("/Users/chandler/Documents/CLionProjects/OnePyPlus/data/",
-             "000001", "000001")
+
+# op.CsvReader("/Users/chandler/Documents/CLionProjects/OnePyPlus/data/",
+             # "000001", "000001")
+op.MongodbReader("AUD_USD_oanda","AUD_USD")
 
 go.set_stock_backtest(100000, 0, 0.0016, 0.1)
 
-go.set_date("2017-02-05", "2017-04-01", "D", "A_shares")
+go.set_date("2011-03-25", "2017-04-01", "H1", "A_shares")
 
 
 go.sunny(True)
@@ -44,10 +46,10 @@ go.sunny(True)
 # op.print_balance()
 # print(luffy.env)
 env = luffy.get_env()
-print(env.fromdate)
-print(list(env.tickers))
-print(list(env.suspended_tickers_record))
-print(go.avg_price)
+# print(env.fromdate)
+# print(list(env.tickers))
+# print(list(env.suspended_tickers_record))
+# print(go.avg_price)
 print(pd.DataFrame(go.trade_log))
 # env.fromdate = 1
 # print(env.sys_date)

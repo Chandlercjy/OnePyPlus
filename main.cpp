@@ -19,10 +19,10 @@ int main() {
     vector<string> ticker_list = {"000001"};
 
     auto go = op::stock(ticker_list,
-                        "D",
+                        "H1",
                         100000,
-                        "2011-02-05",
-                        "2011-04-01",
+                        "2018-02-05",
+                        "2018-02-08",
                         "tushare");
 
     go.env->is_show_today_signals=true;

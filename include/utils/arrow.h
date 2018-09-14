@@ -43,12 +43,18 @@ class arrow {
         pPos = strstr(pPos + 1, " ");
         //为了兼容有些没精确到时分秒的
         if (pPos != nullptr) {
+            if (std::strtoul(pPos + 1, 0, 0) == 0)
+                pPos++;
             iHour = std::strtoul(pPos + 1, 0, 0);
             pPos = strstr(pPos + 1, ":");
             if (pPos != nullptr) {
+                if (std::strtoul(pPos + 1, 0, 0) == 0)
+                    pPos++;
                 iMin = std::strtoul(pPos + 1, 0, 0);
                 pPos = strstr(pPos + 1, ":");
                 if (pPos != nullptr) {
+                    if (std::strtoul(pPos + 1, 0, 0) == 0)
+                        pPos++;
                     iSec = std::strtoul(pPos + 1, 0, 0);
                 }
             }

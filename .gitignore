@@ -18,3 +18,5 @@ bin/demo_OnePy.dSYM
 bin/demo_OnePy.dSYM/Contents/Resources/DWARF/demo_OnePy
 lib/libOnePyPluslib.dylib
 lib/libOnePlus.dylib
+lib/libOnePyPluslib.dylib.dSYM/Contents/Info.plist
+lib/libOnePyPluslib.dylib.dSYM/Contents/Resources/DWARF/libOnePyPluslib.dylib

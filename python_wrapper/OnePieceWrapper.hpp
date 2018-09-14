@@ -1,5 +1,4 @@
 #include "OnePy.h"
-#include "builtin_module/CsvReader.h"
 #include "builtin_module/backtest_stock/StockBroker.h"
 #include "builtin_module/backtest_stock/StockRecorder.h"
 #include "custom_module/backtest.h"
@@ -9,11 +8,6 @@
 #include "sys_module/components/PendingOrderChecker.h"
 #include "sys_module/models/SeriesBase.h"
 #include <boost/python.hpp>
-#include <boost/python/make_function.hpp>
-#include <boost/python/overloads.hpp>
-#include <boost/python/suite/indexing/map_indexing_suite.hpp>
-#include <boost/python/suite/indexing/vector_indexing_suite.hpp>
-#include <iostream>
 
 using namespace op;
 
@@ -134,32 +128,8 @@ class OnePieceWrapper {
     };
 };
 
-BOOST_PYTHON_MODULE(OnePyPlus) {
-    using namespace op;
+void export_OnePiece() {
     using namespace boost::python;
-
-    using StringList = vector<string>;
-    class_<StringList>("StringList")
-        .def(vector_indexing_suite<StringList>());
-
-    using Dict_StrList = map<string, vector<string>>;
-    class_<Dict_StrList>("Dict_StrList")
-        .def(map_indexing_suite<Dict_StrList>());
-
-    class_<CsvReader>("CsvReader", init<string, string, string>());
-    class_<Environment>("Environment")
-        .add_property("instrument", &Environment::instrument)
-        .add_property("sys_date", &Environment::sys_date)
-        .add_property("sys_frequency", &Environment::sys_frequency)
-        .add_property("fromdate", &Environment::fromdate)
-        .add_property("todate", &Environment::todate)
-        .add_property("tickers", &Environment::tickers)
-        .add_property("cur_suspended_tickers", &Environment::cur_suspended_tickers)
-        .add_property("suspended_tickers_record", &Environment::suspended_tickers_record)
-        .add_property("recorder", &Environment::recorder)
-
-        ;
-
     class_<OnePieceWrapper>("OnePiece")
         .def("sunny", &OnePieceWrapper::sunny)
         .def("set_date", &OnePieceWrapper::set_date)
@@ -173,11 +143,4 @@ BOOST_PYTHON_MODULE(OnePyPlus) {
         .add_property("position", &OnePieceWrapper::position)
         .add_property("avg_price", &OnePieceWrapper::avg_price)
         .add_property("trade_log", &OnePieceWrapper::trade_log);
-
-
-    export_StrategyBase();
-
-    //
-
-    //def("get_env", &get_env, return_value_policy<reference_existing_object>());
-}
+};
