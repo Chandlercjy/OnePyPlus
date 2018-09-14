@@ -40,8 +40,8 @@ SET(OnePy_src
 
 
 LINK_DIRECTORIES("${PROJECT_SOURCE_DIR}/lib")
-ADD_LIBRARY(OnePlus SHARED ${OnePy_src})
-LINK_LIBRARIES(OnePlus)
+ADD_LIBRARY(OnePyPluslib SHARED ${OnePy_src})
+LINK_LIBRARIES(OnePyPluslib)
 
 # 主程序
 add_executable(demo_OnePy ${PROJECT_SOURCE_DIR}/main.cpp

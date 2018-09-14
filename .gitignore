@@ -16,3 +16,5 @@ lib/OnePyPlus.so
 lib/OnePyPlus.so
 bin/demo_OnePy.dSYM
 bin/demo_OnePy.dSYM/Contents/Resources/DWARF/demo_OnePy
+lib/libOnePyPluslib.dylib
+lib/libOnePlus.dylib

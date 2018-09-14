@@ -16,7 +16,7 @@ using std::shared_ptr;
 class OrderBase {
 
   public:
-    OrderBase(const shared_ptr<SignalBase> &signal,
+    OrderBase(const shared_ptr<Signal> &signal,
               const int mkt_id);
 
     OrderBase(const shared_ptr<SignalByTrigger> &signal,

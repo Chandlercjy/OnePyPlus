@@ -22,6 +22,7 @@ shared_ptr<TradeLogStruct> TradeLogGenerator::make_log(MarketOrderPtr &buy_order
     const double per_comm_pct = env->recorder->per_comm_pct;
     const double per_comm = env->recorder->per_comm;
 
+    const string &ticker = buy_order->ticker;
     const string &entry_date = buy_order->trading_date;
     const string &exit_date = sell_order->trading_date;
 
@@ -42,13 +43,15 @@ shared_ptr<TradeLogStruct> TradeLogGenerator::make_log(MarketOrderPtr &buy_order
         (per_comm_pct == 0) ? (per_comm_pct * size * entry_price)
                             : (per_comm * size / 100);
 
-    return make_shared<TradeLogStruct>(entry_date,
+    return make_shared<TradeLogStruct>(ticker,
+                                       entry_date,
                                        exit_date,
                                        entry_price,
                                        exit_price,
                                        entry_type,
                                        exit_type,
                                        pl_points,
+                                       size,
                                        re_pnl,
                                        commission);
 }
@@ -58,6 +61,7 @@ shared_ptr<TradeLogStruct> TradeLogGenerator::settle_left_trade(
     const double per_comm_pct = env->recorder->per_comm_pct;
     const double per_comm = env->recorder->per_comm;
 
+    const string &ticker = unfinished_order->ticker;
     const string &entry_date = unfinished_order->trading_date;
     const string &exit_date = "";
 
@@ -77,13 +81,15 @@ shared_ptr<TradeLogStruct> TradeLogGenerator::settle_left_trade(
         (per_comm_pct == 0) ? (per_comm_pct * size * entry_price)
                             : (per_comm * size / 100);
 
-    return make_shared<TradeLogStruct>(entry_date,
+    return make_shared<TradeLogStruct>(ticker,
+                                       entry_date,
                                        exit_date,
                                        entry_price,
                                        exit_price,
                                        entry_type,
                                        exit_type,
                                        pl_points,
+                                       size,
                                        re_pnl,
                                        commission);
 }

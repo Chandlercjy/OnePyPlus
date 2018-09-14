@@ -1,19 +1,18 @@
-#include "Constants.h"
-#include "Environment.h"
-#include "EventEngine.h"
-#include "ExceptionWrapper.hpp"
 #include "OnePy.h"
 #include "builtin_module/CsvReader.h"
 #include "builtin_module/backtest_stock/StockBroker.h"
 #include "builtin_module/backtest_stock/StockRecorder.h"
-#include "builtin_module/backtest_stock/StockSeries.h"
 #include "custom_module/backtest.h"
 #include "strategy_wrapper.hpp"
 #include "sys_module/components/MarketMaker.h"
+#include "sys_module/components/MatchEngine.h"
 #include "sys_module/components/PendingOrderChecker.h"
 #include "sys_module/models/SeriesBase.h"
 #include <boost/python.hpp>
-#include <exception>
+#include <boost/python/make_function.hpp>
+#include <boost/python/overloads.hpp>
+#include <boost/python/suite/indexing/map_indexing_suite.hpp>
+#include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 #include <iostream>
 
 using namespace op;
@@ -75,6 +74,36 @@ class OnePieceWrapper {
         return result;
     };
 
+    py::dict trade_log() {
+        auto &match_engine = env->recorder->match_engine;
+        if (!match_engine->left_trade_settled) {
+            match_engine->append_left_trade_to_log();
+            match_engine->left_trade_settled = true;
+        }
+        py::dict log_dict;
+        map<string, py::list> log_list;
+        for (auto &log : match_engine->finished_log) {
+            log_list["ticker"].append(log->ticker);
+            log_list["entry_date"].append(log->entry_date);
+            log_list["entry_price"].append(log->entry_price);
+            log_list["entry_type"].append(log->entry_type);
+            log_list["size"].append(log->size);
+            log_list["exit_date"].append(log->exit_date);
+            log_list["exit_price"].append(log->exit_price);
+            log_list["exit_type"].append(log->exit_type);
+            log_list["pl_points"].append(log->pl_points);
+            log_list["re_pnl"].append(log->re_pnl);
+            log_list["comm"].append(log->commission);
+        }
+
+        for (auto &key : {"ticker", "entry_date", "entry_price", "entry_type",
+                          "size", "exit_date", "exit_price", "exit_type",
+                          "pl_points", "re_pnl", "comm"}) {
+            log_dict[key] = log_list[key];
+        }
+        return log_dict;
+    };
+
   private:
     OnePiece go;
 
@@ -104,11 +133,6 @@ class OnePieceWrapper {
         return result;
     };
 };
-
-#include <boost/python/make_function.hpp>
-#include <boost/python/overloads.hpp>
-#include <boost/python/suite/indexing/map_indexing_suite.hpp>
-#include <boost/python/suite/indexing/vector_indexing_suite.hpp>
 
 BOOST_PYTHON_MODULE(OnePyPlus) {
     using namespace op;
@@ -147,7 +171,9 @@ BOOST_PYTHON_MODULE(OnePyPlus) {
         .add_property("realized_pnl", &OnePieceWrapper::realized_pnl)
         .add_property("commission", &OnePieceWrapper::commission)
         .add_property("position", &OnePieceWrapper::position)
-        .add_property("avg_price", &OnePieceWrapper::avg_price);
+        .add_property("avg_price", &OnePieceWrapper::avg_price)
+        .add_property("trade_log", &OnePieceWrapper::trade_log);
+
 
     export_StrategyBase();
 

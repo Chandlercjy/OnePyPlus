@@ -1,6 +1,4 @@
 #include "OP_DECLARE.h"
-//#include "OrderStruct.h"
-//#include "SignalStruct.h"
 
 #pragma once
 
@@ -53,24 +51,30 @@ struct SeriesStruct {
 };
 
 struct TradeLogStruct {
-    TradeLogStruct(const string &entry_date,
+    TradeLogStruct(const string &ticker,
+                   const string &entry_date,
                    const string &exit_date,
                    const double entry_price,
                    const double exit_price,
                    const string &entry_type,
                    const string &exit_type,
                    const double pl_points,
+                   const double size,
                    const double re_pnl,
                    const double commission)
-        : entry_date(entry_date),
+        : ticker(ticker),
+          entry_date(entry_date),
           exit_date(exit_date),
           entry_price(entry_price),
           exit_price(exit_price),
           entry_type(entry_type),
           exit_type(exit_type),
           pl_points(pl_points),
+          size(size),
           re_pnl(re_pnl),
           commission(commission){};
+
+    const string ticker;
     const string entry_date;
     const string exit_date;
     const double entry_price;
@@ -78,6 +82,7 @@ struct TradeLogStruct {
     const string entry_type;
     const string exit_type;
     const double pl_points;
+    const double size;
     const double re_pnl;
     const double commission;
 };
