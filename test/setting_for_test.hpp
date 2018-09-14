@@ -19,12 +19,12 @@ const string FREQUENCY = "D";
 
 class DemoStrategy : public op::StrategyBase {
   public:
-    DemoStrategy() {
+    DemoStrategy(const string &name)
+        : StrategyBase(name) {
         auto module = std::make_shared<DemoStrategy>(*this);
-        env->save_module("DemoStrategy", module);
+        env->save_module(name, module);
     };
 
-    const string get_name() override { return "DemoStrategy"; };
     void handle_bar() override{};
 };
 
@@ -42,7 +42,7 @@ class SettingFunc {
     static OnePiece global_setting() {
         set_easy_context();
         CsvReader csv_reader("../data/", TICKER, TICKER);
-        DemoStrategy demo_strategy;
+        DemoStrategy demo_strategy("DemoStrategy");
         StockBroker broker;
         StockRecorder recorder;
         OnePiece go;

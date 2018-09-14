@@ -10,7 +10,8 @@ class SignalGenerator;
 class StrategyBase {
 
   public:
-    StrategyBase();
+    StrategyBase(const string &strategy_name);
+    virtual ~StrategyBase() = default;
     Environment *env;
     void buy(const double size,
              const string &ticker,
@@ -52,11 +53,10 @@ class StrategyBase {
                     const bool stoploss = false,
                     const bool trailingstop = false);
 
-    virtual void handle_bar(){};
+    virtual void handle_bar() = 0;
     void run();
 
-    //protected:
-    virtual const string get_name() = 0;
+    const string strategy_name;
 
   private:
     shared_ptr<SignalGenerator> _signal_generator;

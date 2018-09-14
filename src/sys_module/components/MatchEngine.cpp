@@ -28,7 +28,6 @@ void MatchEngine::_search_father(MarketOrderPtr &order,
             log_with_trigger.erase(std::remove(log_with_trigger.begin(),
                                                log_with_trigger.end(),
                                                log));
-            //std::cout << log->mkt_id << std::endl;
             break;
         }
     }

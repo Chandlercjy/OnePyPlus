@@ -39,23 +39,22 @@ SET(OnePy_src
 
 
 
-#LINK_DIRECTORIES("${PROJECT_SOURCE_DIR}/lib")
-#LINK_LIBRARIES(demo_lib)
+LINK_DIRECTORIES("${PROJECT_SOURCE_DIR}/lib")
+ADD_LIBRARY(OnePlus SHARED ${OnePy_src})
+LINK_LIBRARIES(OnePlus)
 
 # 主程序
 add_executable(demo_OnePy ${PROJECT_SOURCE_DIR}/main.cpp
-    ${PROJECT_SOURCE_DIR}/Luffy.hpp
-    ${OnePy_src})
+    ${PROJECT_SOURCE_DIR}/Luffy.hpp)
+    
 
 
 # 单元测试
 SET(test_dir "${PROJECT_SOURCE_DIR}/test/")
 AUX_SOURCE_DIRECTORY("${test_dir}" test_files)
-ADD_EXECUTABLE(test_OnePy ${test_files} ${OnePy_src})
+ADD_EXECUTABLE(test_OnePy ${test_files} )
 TARGET_LINK_LIBRARIES(test_OnePy gtest)
 
-
-FILE(GLOB OnePy_Python_Wrapper "${PROJECT_SOURCE_DIR}/python_wrapper/*.cpp")
 
 
 
@@ -101,7 +100,8 @@ INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
 
 LINK_LIBRARIES(${Boost_LIBRARIES} ${PYTHON_LIBRARIES}) # Deprecated but so convenient!
 
-PYTHON_ADD_MODULE(OnePyPlus ${OnePy_Python_Wrapper} ${OnePy_src})
+FILE(GLOB OnePy_Python_Wrapper "${PROJECT_SOURCE_DIR}/python_wrapper/*.cpp")
+PYTHON_ADD_MODULE(OnePyPlus ${OnePy_Python_Wrapper} )
 
 #FILE(COPY hello.py DESTINATION .)
 #ADD_TEST(NAME 01-HelloWorld COMMAND ${PYTHON_EXECUTABLE} hello.py)

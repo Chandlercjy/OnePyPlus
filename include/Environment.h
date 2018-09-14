@@ -15,7 +15,7 @@ class Environment {
     string todate;
     const vector<string> tickers;
     vector<string> cur_suspended_tickers;
-    map<const string, vector<string>> suspended_tickers_record;
+    map<string, vector<string>> suspended_tickers_record;
 
     ModuleMap<ReaderBase> readers;
     ModuleMap<BarBase> feeds;
@@ -76,6 +76,8 @@ class Environment {
         static Environment instance;
         return &instance;
     };
+    ~Environment() = default; // dtor hidden
+    Environment() noexcept;   // ctor hidden
 
   private:
     struct Object_Creator {
@@ -84,8 +86,6 @@ class Environment {
         }
     };
     static Object_Creator _object_creator;
-    Environment() noexcept;   // ctor hidden
-    ~Environment() = default; // dtor hidden
 };
 
 OP_NAMESPACE_END

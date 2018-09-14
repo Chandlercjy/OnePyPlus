@@ -10,13 +10,13 @@ class CleanerBase {
 
   public:
     CleanerBase();
+    virtual ~CleanerBase() = default;
 
     Environment *env;
 
     int bufferday;
 
     void run();
-    virtual ~CleanerBase() = default;
 
     void initialize_buffer_data(const string &ticker, int &bufferday);
 };

@@ -12,7 +12,7 @@ int main() {
     CsvReader ggss("/Users/chandler/Documents/CLionProjects/OnePyPlus/data/",
                    "000001", "000001");
 
-    Luffy haha;
+    Luffy haha("keke");
 
     vector<string> ticker_list = {"000001"};
 

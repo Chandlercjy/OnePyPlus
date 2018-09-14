@@ -10,6 +10,7 @@ class Environment;
 class ReaderBase {
   public:
     ReaderBase(const string &ticker);
+    virtual ~ReaderBase() = default;
 
     Environment *env;
     const string ticker;

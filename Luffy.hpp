@@ -35,11 +35,11 @@
 
 class Luffy : public op::StrategyBase {
   public:
-    Luffy() {
+    Luffy(const string &name)
+        : StrategyBase(name) {
         auto module = std::make_shared<Luffy>(*this);
         env->save_module("Luffy", module);
     };
-    const string get_name() override { return "luffy"; };
     void handle_bar() override {
         buy(20, "000001", 0, 0.01, 0, 0, 0, 0, 0, 0);
         buy(20, "000001", 0, 0.03, 0, 0, 0, 0, 0, 0);

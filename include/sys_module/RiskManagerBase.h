@@ -8,6 +8,7 @@ class Environment;
 class RiskManagerBase {
   public:
     RiskManagerBase();
+    virtual ~RiskManagerBase() = default;
     Environment *env;
 
     virtual const string get_name() = 0;

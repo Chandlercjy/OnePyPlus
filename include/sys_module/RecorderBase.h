@@ -22,14 +22,13 @@ class MoneySeries;
 class RecorderBase {
   public:
     RecorderBase();
+    virtual ~RecorderBase() = default;
 
     Environment *env;
     shared_ptr<MatchEngine> match_engine;
 
-
     virtual shared_ptr<BarBase> bar_class(const string &ticker,
                                           const string &frequency) = 0;
-
 
     double initial_cash = 100000;
     double per_comm = 1;

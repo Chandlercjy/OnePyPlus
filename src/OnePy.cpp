@@ -3,6 +3,8 @@
 #include "EventEngine.h"
 #include "Exceptions.h"
 #include "OnePy.h"
+#include "builtin_module/backtest_stock/StockBroker.h"
+#include "builtin_module/backtest_stock/StockRecorder.h"
 #include "config.h"
 #include "sys_module//components/MarketMaker.h"
 #include "sys_module//components/PendingOrderChecker.h"
@@ -76,6 +78,16 @@ void OnePiece::set_date(const string &fromdate,
     env->fromdate = fromdate;
     env->todate = todate;
     env->sys_frequency = frequency;
+};
+
+void OnePiece::set_stock_backtest(const double initial_cash,
+                                  const double comm,
+                                  const double comm_pct,
+                                  const double margin_rate) {
+    StockBroker broker;
+    StockRecorder recorder;
+    env->recorder->set_setting(initial_cash, comm,
+                               comm_pct, margin_rate);
 };
 
 OP_NAMESPACE_END

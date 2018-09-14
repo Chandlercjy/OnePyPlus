@@ -14,6 +14,8 @@ class SubmitOrderChecker;
 class BrokerBase {
   public:
     BrokerBase();
+    virtual ~BrokerBase() = default;
+
     Environment *env;
 
     void run();
