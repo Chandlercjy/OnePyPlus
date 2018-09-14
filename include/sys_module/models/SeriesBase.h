@@ -12,7 +12,7 @@ class SeriesBase {
     SeriesBase();
     Environment *env;
 
-    virtual const string get_name() = 0;
+    virtual const string get_name(){return "None";};
 
     void change_initial_value(const string &ticker,
                               const double value,

@@ -1,5 +1,7 @@
 #include "Environment.h"
+#include "sys_module/RecorderBase.h"
 #include "sys_module/StrategyBase.h"
+#include "sys_module/models/SeriesBase.h"
 #include <boost/python.hpp>
 #include <boost/python/overloads.hpp>
 
@@ -75,12 +77,12 @@ BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(cover_overloads, cover, 2, 4);
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(cancel_pending_overloads, cancel_pending, 2, 4);
 BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(cancel_tst_overloads, cancel_tst, 2, 5);
 
-struct StrategyBaseWrapper : StrategyBase, boost::python::wrapper<StrategyBase> {
+struct StrategyBaseWrapper : StrategyBase, py::wrapper<StrategyBase> {
     StrategyBaseWrapper(const string &name)
         : StrategyBase(name){};
 
     virtual void handle_bar() override {
-        if (boost::python::override n = this->get_override("handle_bar"))
+        if (py::override n = this->get_override("handle_bar"))
             n();
         else
             default_handle_bar();

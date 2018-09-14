@@ -46,6 +46,7 @@ env = luffy.get_env()
 print(env.fromdate)
 print(list(env.tickers))
 print(list(env.suspended_tickers_record))
+print(go.avg_price)
 # env.fromdate = 1
 # print(env.sys_date)
 # # op.Luffy()

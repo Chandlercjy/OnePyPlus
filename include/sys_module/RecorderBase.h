@@ -27,8 +27,6 @@ class RecorderBase {
     Environment *env;
     shared_ptr<MatchEngine> match_engine;
 
-    virtual shared_ptr<BarBase> bar_class(const string &ticker,
-                                          const string &frequency) = 0;
 
     double initial_cash = 100000;
     double per_comm = 1;
@@ -46,9 +44,12 @@ class RecorderBase {
     shared_ptr<MoneySeries> frozen_cash;
     shared_ptr<MoneySeries> balance;
 
-    virtual void initialize() = 0;
     void run();
     void update(const bool &order_executed);
+
+    virtual shared_ptr<BarBase> bar_class(const string &ticker,
+                                          const string &frequency) = 0;
+    virtual void initialize() = 0;
     virtual void set_setting(const double initial_cash,
                              const double comm,
                              const double comm_pct,

@@ -49,11 +49,11 @@ add_executable(demo_OnePy ${PROJECT_SOURCE_DIR}/main.cpp
     
 
 
-# 单元测试
-SET(test_dir "${PROJECT_SOURCE_DIR}/test/")
-AUX_SOURCE_DIRECTORY("${test_dir}" test_files)
-ADD_EXECUTABLE(test_OnePy ${test_files} )
-TARGET_LINK_LIBRARIES(test_OnePy gtest)
+## 单元测试
+#SET(test_dir "${PROJECT_SOURCE_DIR}/test/")
+#AUX_SOURCE_DIRECTORY("${test_dir}" test_files)
+#ADD_EXECUTABLE(test_OnePy ${test_files} )
+#TARGET_LINK_LIBRARIES(test_OnePy gtest)
 
 
 
