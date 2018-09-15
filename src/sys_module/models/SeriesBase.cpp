@@ -91,8 +91,7 @@ void PositionSeries::update_order(const string &ticker,
 const int PositionSeries::_direction(const ActionType &action_type) {
     if (action_type == ActionType::Buy || action_type == ActionType::Short)
         return 1;
-    else
-        return -1;
+    return -1;
 }
 
 void AvgPriceSeries::update_order(const string &ticker,

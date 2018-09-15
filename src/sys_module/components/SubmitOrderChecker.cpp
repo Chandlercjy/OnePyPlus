@@ -5,6 +5,7 @@
 #include "sys_module/models/GeneralOrder.h"
 #include "sys_module/models/SeriesBase.h"
 #include "utils/utils.h"
+#include <iostream>
 
 OP_NAMESPACE_START
 
@@ -125,6 +126,9 @@ void SubmitOrderChecker::_check(const PtrBox<MarketOrderPtr> order_list) {
 
             auto cur_pos = cur_position(ticker, action_type);
             auto acumu_position = _acumu_position(ticker, action_type);
+
+            std::cout << "cur: " << cur_pos <<" "<< env->sys_date << std::endl;
+            std::cout << "acumu: " << acumu_position << std::endl;
 
             if (_lack_of_position(cur_pos, acumu_position)) {
                 if (_is_partial(order, cur_pos, acumu_position)) {

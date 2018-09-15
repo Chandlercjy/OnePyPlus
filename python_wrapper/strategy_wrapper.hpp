@@ -4,6 +4,7 @@
 #include "sys_module/models/SeriesBase.h"
 #include <boost/python.hpp>
 #include <boost/python/overloads.hpp>
+#include <iostream>
 
 #pragma once
 
@@ -95,6 +96,10 @@ struct StrategyBaseWrapper : StrategyBase, py::wrapper<StrategyBase> {
         env->save_module(strategy->strategy_name, module);
     };
 
+    void print_balance() {
+        std::cout << env->recorder->balance->latest() << std::endl;
+    };
+
     Environment *get_env() {
         return env;
     };
@@ -138,5 +143,6 @@ void export_StrategyBase() {
                                   "ticker, long_or_short, below_price, above_price"))
 
         .def("save_to_env", &StrategyBaseWrapper::save_to_env)
+        .def("print_balance", &StrategyBaseWrapper::print_balance)
         .def("get_env", &StrategyBaseWrapper::get_env, return_value_policy<reference_existing_object>());
 };

@@ -10,8 +10,7 @@ TriggeredSignalGenerator::TriggeredSignalGenerator()
     : signal_checker(make_shared<SignalChecker>()){};
 
 void TriggeredSignalGenerator::_generate_bare_signal(const shared_ptr<PendingOrder> &order) {
-    static map<string, double> info;
-    info["size"] = order->size;
+    map<string, double> info = {{"size",order->size}};
     auto signal = make_shared<SignalByTrigger>(
         info,
         order->ticker,
@@ -27,9 +26,10 @@ void TriggeredSignalGenerator::_generate_bare_signal(const shared_ptr<PendingOrd
 };
 
 void TriggeredSignalGenerator::_generate_full_signal(const shared_ptr<PendingOrder> &order) {
-
+    map<string, double> info = order->signal_info;
+    info["price"] = 0;
     auto signal = make_shared<SignalByTrigger>(
-        order->signal_info,
+        info,
         order->ticker,
         order->strategy_name,
         order->action_type,

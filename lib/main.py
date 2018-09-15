@@ -18,8 +18,10 @@ class Luffy(op.StrategyBase):
     def handle_bar(self):
         # self.buy(20, "000001", 0, 0.1, 0, 0, 0, 0, 0, 0)
         # self.buy(20, "000001", 0, 0.03, 0, 0, 0, 0, 0, 0)
-        # self.buy(20, "000001", 0, 0.01, 0, 0, 0, 0, 0, 0.01)
-        self.short(20, "000001", 0, 0.01, 0, 0, 0, 0, 0, 0.01)
+        self.buy(20, "000001", 3, 0, 3, 0, 0, 0, 0, 0)
+        # self.short(20, "000001", 0, 0.01, 0, 0, 0, 0, 0, 0.01)
+        # self.short(20, "000001", 0, 0.01, 0, 0.01, 0, 0, 0, 0)
+        # self.print_balance()
         # self.buy(ticker="000001", size=20, takeprofit=0,takeprofit_pct=0.01)
         # print(66)
         # self.buy(20, "000001", 0, 0.01, 0, 0, 0, 0, 0, 0.01)

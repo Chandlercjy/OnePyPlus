@@ -58,24 +58,24 @@ MarketOrderPtr OrderGenerator::_generate_mkt_order(const shared_ptr<T> &signal) 
     return make_shared<MarketOrder>(signal, Counter::update_mkt_id());
 };
 
-template <typename T>
+template <typename T> // 注意有触发顺序假设！！不同顺序会导致结果不一样！！！
 vector<shared_ptr<PendingOrder>> OrderGenerator::_generate_child_of_mkt(const int mkt_id,
                                                                         const shared_ptr<T> &signal) {
     vector<shared_ptr<PendingOrder>> orders_basket;
     if (is_buy(signal)) {
-        _child_of_mkt(ActionType::Sell, OrderType::Limit, signal, mkt_id, "takeprofit", orders_basket);
-        _child_of_mkt(ActionType::Sell, OrderType::Limit, signal, mkt_id, "takeprofit_pct", orders_basket);
         _child_of_mkt(ActionType::Sell, OrderType::Stop, signal, mkt_id, "stoploss", orders_basket);
         _child_of_mkt(ActionType::Sell, OrderType::Stop, signal, mkt_id, "stoploss_pct", orders_basket);
         _child_of_mkt(ActionType::Sell, OrderType::Trailing_stop, signal, mkt_id, "trailingstop", orders_basket);
         _child_of_mkt(ActionType::Sell, OrderType::Trailing_stop, signal, mkt_id, "trailingstop_pct", orders_basket);
+        _child_of_mkt(ActionType::Sell, OrderType::Limit, signal, mkt_id, "takeprofit", orders_basket);
+        _child_of_mkt(ActionType::Sell, OrderType::Limit, signal, mkt_id, "takeprofit_pct", orders_basket);
     } else {
-        _child_of_mkt(ActionType::Cover, OrderType::Limit, signal, mkt_id, "takeprofit", orders_basket);
-        _child_of_mkt(ActionType::Cover, OrderType::Limit, signal, mkt_id, "takeprofit_pct", orders_basket);
         _child_of_mkt(ActionType::Cover, OrderType::Stop, signal, mkt_id, "stoploss", orders_basket);
         _child_of_mkt(ActionType::Cover, OrderType::Stop, signal, mkt_id, "stoploss_pct", orders_basket);
         _child_of_mkt(ActionType::Cover, OrderType::Trailing_stop, signal, mkt_id, "trailingstop", orders_basket);
         _child_of_mkt(ActionType::Cover, OrderType::Trailing_stop, signal, mkt_id, "trailingstop_pct", orders_basket);
+        _child_of_mkt(ActionType::Cover, OrderType::Limit, signal, mkt_id, "takeprofit", orders_basket);
+        _child_of_mkt(ActionType::Cover, OrderType::Limit, signal, mkt_id, "takeprofit_pct", orders_basket);
     }
 
     return orders_basket;
@@ -108,6 +108,7 @@ shared_ptr<PendingOrder> OrderGenerator::_generate_pending_order(const shared_pt
     }
     return order;
 };
+
 void OrderGenerator::submit_mkt_order_with_child(
     MarketOrderPtr &mkt_order,
     const vector<shared_ptr<PendingOrder>> &orders_basket,
