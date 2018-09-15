@@ -42,14 +42,14 @@ class Luffy : public op::StrategyBase {
         env->save_module("Luffy", module);
     };
     void handle_bar() override {
-        buy(20, "000001", 0, 0.01, 0, 0, 0, 0, 0, 0);
-        buy(20, "000001", 0, 0.03, 0, 0, 0, 0, 0, 0);
-        buy(20, "000001", 0, 0.01, 0, 0, 0, 0, 0, 0.01);
+//        shortsell(20, "000001", 0, 0.01, 0, 0, 0, 0, 0, 0.01);
+       buy(20, "000001", 3, 0, 3, 0, 0, 0, 0, 0);
+
 
         //shortsell(5, "000001",0,0.1,0,0,0,0.01,0,0);
-        //std::cout<<  env->feeds["000001"]->execute_price() << "----------------------" << std::endl;
-        std::cout << env->sys_date << "----------------------" << std::endl;
-        std::cout << "balance: " << env->recorder->balance->latest() << std::endl;
+//        std::cout<<  env->feeds["000001"]->execute_price() << "----------------------" << std::endl;
+        //std::cout << env->sys_date << "----------------------" << std::endl;
+//        std::cout << "balance: " << env->recorder->balance->latest() << std::endl;
         //std::cout << "commission: "<< env->recorder->commission->latest("000001","long") <<std::endl;
         //std::cout << "position: "<< env->recorder->position->latest("000001","long") <<std::endl;
         //std::cout << "market_value: "<< env->recorder->market_value->latest("000001","long") <<std::endl;

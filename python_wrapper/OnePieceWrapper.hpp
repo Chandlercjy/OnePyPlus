@@ -1,4 +1,6 @@
 #include "OnePy.h"
+#include "builtin_module/CsvReader.h"
+#include "builtin_module/MongodbReader.h"
 #include "builtin_module/backtest_stock/StockBroker.h"
 #include "builtin_module/backtest_stock/StockRecorder.h"
 #include "custom_module/backtest.h"
@@ -17,6 +19,16 @@ class OnePieceWrapper {
   public:
     Environment *env = Environment::get_instance();
     void sunny(const bool show_summary = true) { go.sunny(show_summary); };
+    void load_csv(const string &data_path,
+                  const string &file_name,
+                  const string &ticker) {
+        CsvReader csv_reader(data_path, file_name, ticker);
+    };
+
+    void load_mongodb(const string &database,
+                      const string &ticker) {
+        MongodbReader mongodb_reader(database, ticker);
+    };
 
     void set_date(const string &fromdate,
                   const string &todate,
@@ -144,7 +156,7 @@ class OnePieceWrapper {
         py::dict log_dict;
         map<string, py::list> log_list;
         for (auto &log : match_engine->finished_log)
-            if (log->entry_type.find("Short")!= string::npos) {
+            if (log->entry_type.find("Short") != string::npos) {
                 log_list["ticker"].append(log->ticker);
                 log_list["entry_date"].append(log->entry_date);
                 log_list["entry_price"].append(log->entry_price);
@@ -199,6 +211,8 @@ class OnePieceWrapper {
 void export_OnePiece() {
     using namespace boost::python;
     class_<OnePieceWrapper>("OnePiece")
+        .def("load_csv", &OnePieceWrapper::load_csv)
+        .def("load_mongodb", &OnePieceWrapper::load_mongodb)
         .def("sunny", &OnePieceWrapper::sunny)
         .def("set_date", &OnePieceWrapper::set_date)
         .def("set_stock_backtest", &OnePieceWrapper::set_stock_backtest)

@@ -11,6 +11,21 @@ import pandas as pd
 TRADING_DAYS_PER_YEAR = 252
 RISK_FREE = 0
 
+def dict_to_table(dict_data):
+    for key, value in dict_data.items():
+        if not isinstance(value, str):
+            dict_data[key] = str(value)
+
+    max_key_len = max([len(i) for i in dict_data])+1
+    max_value_len = max([len(i) for i in dict_data.values()])+1
+    total_len = max_key_len+max_value_len+3
+
+    print(f'+{total_len*"-"}+')
+
+    for key, value in dict_data.items():
+        print(f'|{key.ljust(max_key_len)} | {value.rjust(max_value_len)}|')
+    print(f'+{total_len*"-"}+')
+
 
 def get_sharpe_ratio(balance):
     data = balance.pct_change().dropna()
@@ -272,6 +287,10 @@ class AmazingAnalysis:
         self.margin = to_dataframe_list(tickers, "margin", go.margin)
         self.commission = go.commission
                          
+    def show(self):
+        dict_to_table(self.general_summary())
+        print(self.detail_summary())
+
 
     def general_summary(self) -> dict:
         daily_basis_balance = self.balance.resample('D').last().dropna()
