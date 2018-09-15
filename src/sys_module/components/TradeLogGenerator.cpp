@@ -40,7 +40,7 @@ shared_ptr<TradeLogStruct> TradeLogGenerator::make_log(MarketOrderPtr &buy_order
     const double re_pnl = pl_points * size;
 
     const double commission =
-        (per_comm_pct == 0) ? (per_comm_pct * size * entry_price)
+        (per_comm_pct != 0) ? (per_comm_pct * size * entry_price)
                             : (per_comm * size / 100);
 
     return make_shared<TradeLogStruct>(ticker,
@@ -66,7 +66,7 @@ shared_ptr<TradeLogStruct> TradeLogGenerator::settle_left_trade(
     const string &exit_date = "";
 
     const double entry_price = unfinished_order->execute_price;
-    const double exit_price = 0;
+    const double exit_price = env->feeds[ticker]->execute_price();
 
     const string &entry_type = order_type_map[unfinished_order->from_order_type] +
                                action_type_map[unfinished_order->action_type];
@@ -75,10 +75,10 @@ shared_ptr<TradeLogStruct> TradeLogGenerator::settle_left_trade(
     const int direction = unfinished_order->action_type == ActionType::Buy ? 1 : -1;
 
     const double pl_points = (exit_price - entry_price) * direction;
-    const double re_pnl = 0;
+    const double re_pnl = pl_points * size;
 
     const double commission =
-        (per_comm_pct == 0) ? (per_comm_pct * size * entry_price)
+        (per_comm_pct != 0) ? (per_comm_pct * size * entry_price)
                             : (per_comm * size / 100);
 
     return make_shared<TradeLogStruct>(ticker,

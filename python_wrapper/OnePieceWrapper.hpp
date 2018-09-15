@@ -8,6 +8,7 @@
 #include "sys_module/components/PendingOrderChecker.h"
 #include "sys_module/models/SeriesBase.h"
 #include <boost/python.hpp>
+#include <iostream>
 
 using namespace op;
 
@@ -29,6 +30,10 @@ class OnePieceWrapper {
                             const double comm_pct,
                             const double margin_rate) {
         go.set_stock_backtest(initial_cash, comm, comm_pct, margin_rate);
+    };
+
+    py::list tickers() {
+        return py::list(env->tickers);
     };
 
     py::list balance() {
@@ -98,6 +103,69 @@ class OnePieceWrapper {
         return log_dict;
     };
 
+    py::dict trade_log_long() {
+        auto &match_engine = env->recorder->match_engine;
+        if (!match_engine->left_trade_settled) {
+            match_engine->append_left_trade_to_log();
+            match_engine->left_trade_settled = true;
+        }
+        py::dict log_dict;
+        map<string, py::list> log_list;
+        for (auto &log : match_engine->finished_log) {
+            if (log->entry_type.find("Buy") != string::npos) {
+                log_list["ticker"].append(log->ticker);
+                log_list["entry_date"].append(log->entry_date);
+                log_list["entry_price"].append(log->entry_price);
+                log_list["entry_type"].append(log->entry_type);
+                log_list["size"].append(log->size);
+                log_list["exit_date"].append(log->exit_date);
+                log_list["exit_price"].append(log->exit_price);
+                log_list["exit_type"].append(log->exit_type);
+                log_list["pl_points"].append(log->pl_points);
+                log_list["re_pnl"].append(log->re_pnl);
+                log_list["comm"].append(log->commission);
+            }
+        }
+
+        for (auto &key : {"ticker", "entry_date", "entry_price", "entry_type",
+                          "size", "exit_date", "exit_price", "exit_type",
+                          "pl_points", "re_pnl", "comm"}) {
+            log_dict[key] = log_list[key];
+        }
+        return log_dict;
+    };
+
+    py::dict trade_log_short() {
+        auto &match_engine = env->recorder->match_engine;
+        if (!match_engine->left_trade_settled) {
+            match_engine->append_left_trade_to_log();
+            match_engine->left_trade_settled = true;
+        }
+        py::dict log_dict;
+        map<string, py::list> log_list;
+        for (auto &log : match_engine->finished_log)
+            if (log->entry_type.find("Short")!= string::npos) {
+                log_list["ticker"].append(log->ticker);
+                log_list["entry_date"].append(log->entry_date);
+                log_list["entry_price"].append(log->entry_price);
+                log_list["entry_type"].append(log->entry_type);
+                log_list["size"].append(log->size);
+                log_list["exit_date"].append(log->exit_date);
+                log_list["exit_price"].append(log->exit_price);
+                log_list["exit_type"].append(log->exit_type);
+                log_list["pl_points"].append(log->pl_points);
+                log_list["re_pnl"].append(log->re_pnl);
+                log_list["comm"].append(log->commission);
+            }
+
+        for (auto &key : {"ticker", "entry_date", "entry_price", "entry_type",
+                          "size", "exit_date", "exit_price", "exit_type",
+                          "pl_points", "re_pnl", "comm"}) {
+            log_dict[key] = log_list[key];
+        }
+        return log_dict;
+    };
+
   private:
     OnePiece go;
 
@@ -134,13 +202,17 @@ void export_OnePiece() {
         .def("sunny", &OnePieceWrapper::sunny)
         .def("set_date", &OnePieceWrapper::set_date)
         .def("set_stock_backtest", &OnePieceWrapper::set_stock_backtest)
+        .add_property("tickers", &OnePieceWrapper::tickers)
         .add_property("balance", &OnePieceWrapper::balance)
         .add_property("cash", &OnePieceWrapper::cash)
         .add_property("frozen_cash", &OnePieceWrapper::frozen_cash)
         .add_property("holding_pnl", &OnePieceWrapper::holding_pnl)
         .add_property("realized_pnl", &OnePieceWrapper::realized_pnl)
         .add_property("commission", &OnePieceWrapper::commission)
+        .add_property("margin", &OnePieceWrapper::margin)
         .add_property("position", &OnePieceWrapper::position)
         .add_property("avg_price", &OnePieceWrapper::avg_price)
-        .add_property("trade_log", &OnePieceWrapper::trade_log);
+        .add_property("trade_log", &OnePieceWrapper::trade_log)
+        .add_property("trade_log_long", &OnePieceWrapper::trade_log_long)
+        .add_property("trade_log_short", &OnePieceWrapper::trade_log_short);
 };
