@@ -10,7 +10,7 @@ class SignalGenerator;
 class StrategyBase {
 
   public:
-    StrategyBase(const string &strategy_name);
+    StrategyBase(const string &name);
     virtual ~StrategyBase() = default;
     Environment *env;
     void buy(const double size,
@@ -56,7 +56,7 @@ class StrategyBase {
     virtual void handle_bar() = 0;
     void run();
 
-    const string strategy_name;
+    const string name;
 
   private:
     shared_ptr<SignalGenerator> _signal_generator;

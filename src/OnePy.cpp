@@ -21,7 +21,7 @@ OnePiece::OnePiece()
       _pending_order_checker(make_shared<op::PendingOrderChecker>()),
       _event_loop(op::EVENT_LOOP){};
 
-void OnePiece::sunny(const bool &show_summary) {
+void OnePiece::sunny() {
     initialize_trading_system();
     while (true) {
         try {
@@ -35,8 +35,6 @@ void OnePiece::sunny(const bool &show_summary) {
 
         } catch (BacktestFinished &e) {
             std::cout << e.what() << std::endl;
-            if (show_summary)
-                output_summary();
             break;
         };
     };

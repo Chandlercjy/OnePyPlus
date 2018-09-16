@@ -3,11 +3,9 @@
 #include "sys_module/StrategyBase.h"
 #include "sys_module/models/SeriesBase.h"
 #include <boost/python.hpp>
-#include <boost/python/overloads.hpp>
 #include <iostream>
 
 #pragma once
-
 namespace py = boost::python;
 using namespace op;
 
@@ -93,7 +91,7 @@ struct StrategyBaseWrapper : StrategyBase, py::wrapper<StrategyBase> {
 
     void save_to_env(StrategyBaseWrapper *strategy) {
         auto module = make_shared<StrategyBaseWrapper>(*strategy);
-        env->save_module(strategy->strategy_name, module);
+        env->save_module(strategy->name, module);
     };
 
     void print_balance() {

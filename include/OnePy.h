@@ -17,7 +17,7 @@ class OnePiece {
     const shared_ptr<MarketMaker> market_maker;
     const shared_ptr<PendingOrderChecker> _pending_order_checker;
 
-    void sunny(const bool &show_summary = true); // 主循环
+    void sunny(); // 主循环
     void initialize_trading_system();
     void set_date(const string &fromdate,
                   const string &todate,
@@ -31,7 +31,6 @@ class OnePiece {
   private:
     vector<SingleLoop> _event_loop;
 
-    void output_summary(){};
     void _run_event_loop(const EVENT &event);
     bool _event_is_executed(const EVENT &cur_event,
                             SingleLoop &single_loop) const;

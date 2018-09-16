@@ -62,13 +62,10 @@ void MarketMaker::_initialize_calendar() {
 };
 
 void MarketMaker::_initialize_feeds() {
-    const vector<string> *ticker_ptr_const;
-    ticker_ptr_const = &env->tickers;
-    auto ticker_ptr = const_cast<vector<string> *>(ticker_ptr_const);
     for (auto &value : env->readers) {
         auto ohlc_bar = get_bar(value.second->ticker, env->sys_frequency);
         if (ohlc_bar->initialize(7)) {
-            ticker_ptr->push_back(value.second->ticker);
+            const_cast<vector<string> &>(env->tickers).push_back(value.second->ticker);
             env->feeds[value.second->ticker] = ohlc_bar;
         }
     }
@@ -78,8 +75,7 @@ void MarketMaker::_initialize_cleaners() {
     const vector<string> tickers_copy = env->tickers;
     for (auto &ticker : tickers_copy)
         for (auto &cleaner : env->cleaners) {
-            cleaner.second->initialize_buffer_data(ticker,
-                                                   cleaner.second->bufferday);
+            cleaner.second->initialize_buffer_data(ticker);
         }
 };
 

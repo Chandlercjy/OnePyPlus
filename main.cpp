@@ -8,13 +8,35 @@
 using namespace std;
 using namespace op;
 
+class SMA : public CleanerBase {
+  public:
+    SMA(const int rolling_window,
+        int buffer_day,
+        const string &frequency)
+        : CleanerBase("SMA",
+                      rolling_window,
+                      buffer_day,
+                      frequency) {
+        auto module = std::make_shared<SMA>(*this);
+        env->save_module(name, module);
+    };
+    double calculate(const string &ticker) override{
+        cout << "keke" << endl;
+        return 0;
+    };
+    ~SMA(){
+            CleanerBase::~CleanerBase();
+
+    };
+};
+
 int main() {
     //CsvReader ggss("/Users/chandler/Documents/CLionProjects/OnePyPlus/data/",
-                   //"000001", "000001");
-    MongodbReader lalala("000001_tushare","000001");
-
+    //"000001", "000001");
+    MongodbReader lalala("000001_tushare", "000001");
 
     Luffy haha("keke");
+    //SMA jhjh(10, 10, "D");
 
     vector<string> ticker_list = {"000001"};
 
@@ -29,5 +51,5 @@ int main() {
     go.sunny();
     cout << (go.env->recorder->balance->latest());
     //cout << "hahah";
-    std::cin.get();
+//    std::cin.get();
 }

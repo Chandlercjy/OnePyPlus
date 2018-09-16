@@ -2,27 +2,16 @@
 #include "OnePieceWrapper.hpp"
 #include "builtin_module/CsvReader.h"
 #include "builtin_module/MongodbReader.h"
+#include "cleaner_wrapper.hpp"
 #include "strategy_wrapper.hpp"
+#include "type_wrapper.hpp"
 #include <boost/python.hpp>
 #include <boost/python/make_function.hpp>
 #include <boost/python/overloads.hpp>
-#include <boost/python/suite/indexing/map_indexing_suite.hpp>
-#include <boost/python/suite/indexing/vector_indexing_suite.hpp>
-#include <iostream>
-
-using namespace op;
 
 BOOST_PYTHON_MODULE(OnePyPlus) {
     using namespace op;
     using namespace boost::python;
-
-    using StringList = vector<string>;
-    class_<StringList>("StringList")
-        .def(vector_indexing_suite<StringList>());
-
-    using Dict_StrList = map<string, vector<string>>;
-    class_<Dict_StrList>("Dict_StrList")
-        .def(map_indexing_suite<Dict_StrList>());
 
     class_<Environment>("Environment")
         .add_property("instrument", &Environment::instrument)
@@ -40,8 +29,6 @@ BOOST_PYTHON_MODULE(OnePyPlus) {
 
     export_OnePiece();
     export_StrategyBase();
-
-    //
-
-    //def("get_env", &get_env, return_value_policy<reference_existing_object>());
+    export_CleanerBase();
+    export_DataType();
 }

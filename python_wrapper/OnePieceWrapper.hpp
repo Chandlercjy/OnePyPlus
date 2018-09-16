@@ -1,10 +1,10 @@
+#include "Environment.h"
 #include "OnePy.h"
 #include "builtin_module/CsvReader.h"
 #include "builtin_module/MongodbReader.h"
 #include "builtin_module/backtest_stock/StockBroker.h"
 #include "builtin_module/backtest_stock/StockRecorder.h"
 #include "custom_module/backtest.h"
-#include "strategy_wrapper.hpp"
 #include "sys_module/components/MarketMaker.h"
 #include "sys_module/components/MatchEngine.h"
 #include "sys_module/components/PendingOrderChecker.h"
@@ -12,13 +12,15 @@
 #include <boost/python.hpp>
 #include <iostream>
 
+#pragma once
 using namespace op;
+namespace py = boost::python;
 
 class OnePieceWrapper {
 
   public:
     Environment *env = Environment::get_instance();
-    void sunny(const bool show_summary = true) { go.sunny(show_summary); };
+    void sunny() { go.sunny(); };
     void load_csv(const string &data_path,
                   const string &file_name,
                   const string &ticker) {

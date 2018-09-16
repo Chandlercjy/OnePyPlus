@@ -4,9 +4,9 @@
 #include "sys_module/components/SignalGenerator.h"
 
 OP_NAMESPACE_START
-StrategyBase::StrategyBase(const string &strategy_name)
+StrategyBase::StrategyBase(const string &name)
     : env(Environment::get_instance()),
-      strategy_name(strategy_name),
+      name(name),
       _signal_generator(make_shared<SignalGenerator>()){};
 
 void StrategyBase::buy(const double size,
@@ -33,7 +33,7 @@ void StrategyBase::buy(const double size,
 
     _signal_generator->buy_or_short(info,
                                     ticker,
-                                    strategy_name,
+                                    name,
                                     ActionType::Buy);
 };
 
@@ -56,7 +56,7 @@ void StrategyBase::sell(const double size,
 
     _signal_generator->sell_or_cover(info,
                                      ticker,
-                                     strategy_name,
+                                     name,
                                      ActionType::Sell);
 };
 
@@ -83,7 +83,7 @@ void StrategyBase::shortsell(const double size,
     };
     _signal_generator->buy_or_short(info,
                                     ticker,
-                                    strategy_name,
+                                    name,
                                     ActionType::Short);
 };
 
@@ -105,7 +105,7 @@ void StrategyBase::cover(const double size,
     };
     _signal_generator->sell_or_cover(info,
                                      ticker,
-                                     strategy_name,
+                                     name,
                                      ActionType::Cover);
 };
 
@@ -115,7 +115,7 @@ void StrategyBase::cancel_pending(const string &ticker,
                                   const double above_price) {
 
     _signal_generator->cancel_pending(ticker,
-                                      strategy_name,
+                                      name,
                                       long_or_short,
                                       below_price,
                                       above_price);
@@ -127,7 +127,7 @@ void StrategyBase::cancel_tst(const string &ticker,
                               const bool stoploss,
                               const bool trailingstop) {
     _signal_generator->cancel_tst(ticker,
-                                  strategy_name,
+                                  name,
                                   long_or_short,
                                   takeprofit,
                                   stoploss,

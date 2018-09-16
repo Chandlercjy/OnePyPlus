@@ -1,5 +1,6 @@
 
 #include <map>
+#include <deque>
 #include <string>
 #include <vector>
 
@@ -8,6 +9,7 @@
 using std::make_shared;
 using std::make_unique;
 using std::map;
+using std::deque;
 using std::move;
 using std::shared_ptr;
 using std::string;

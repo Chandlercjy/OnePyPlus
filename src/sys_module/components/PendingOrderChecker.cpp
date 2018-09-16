@@ -29,12 +29,12 @@ void PendingOrderChecker::_check_orders_pending_with_mkt() {
         for (auto &order : elem.second) {
             if (_triggered_signal_generator->generate_triggered_signal(order)) {
                 order->set_status(OrderStatus::Triggered);
-                //env->orders_child_of_mkt_dict.erase();
                 delete_record.push_back(elem.first);
                 break;
             }
         }
     }
+    //批量删除已被触发的child
     for (auto &key : delete_record)
         env->orders_child_of_mkt_dict.erase(key);
 };
