@@ -43,11 +43,9 @@ class SettingFunc {
         set_easy_context();
         CsvReader csv_reader("../data/", TICKER, TICKER);
         DemoStrategy demo_strategy("DemoStrategy");
-        StockBroker broker;
-        StockRecorder recorder;
         OnePiece go;
-        go.env->recorder->set_setting(100000, 0, 0.0016, 0.1);
-        go.set_date(START, END, FREQUENCY, "A_shares");
+        go.set_stock_backtest(100000, 0, 0.0016, 0.1);
+        go.set_date(START, END, FREQUENCY);
         go.initialize_trading_system();
         return go;
     };

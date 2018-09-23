@@ -51,8 +51,8 @@ int main() {
     auto go = op::forex(ticker_list,
                         "D",
                         100000,
-                        "2017-01-25",
-                        "2017-04-01",
+                        "2018-01-25",
+                        "2018-04-01",
                         "oanda");
 
     //go.env->is_show_today_signals=true;

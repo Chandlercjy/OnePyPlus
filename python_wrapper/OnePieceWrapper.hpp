@@ -34,9 +34,8 @@ class OnePieceWrapper {
 
     void set_date(const string &fromdate,
                   const string &todate,
-                  const string &frequency,
-                  const string &instrument) {
-        go.set_date(fromdate, todate, frequency, instrument);
+                  const string &frequency) {
+        go.set_date(fromdate, todate, frequency);
     };
 
     void set_stock_backtest(const double initial_cash,
@@ -44,6 +43,11 @@ class OnePieceWrapper {
                             const double comm_pct,
                             const double margin_rate) {
         go.set_stock_backtest(initial_cash, comm, comm_pct, margin_rate);
+    };
+
+    void set_forex_backtest(const double initial_cash,
+                            const double margin_rate) {
+        go.set_forex_backtest(initial_cash, margin_rate);
     };
 
     py::list tickers() {
@@ -218,6 +222,7 @@ void export_OnePiece() {
         .def("sunny", &OnePieceWrapper::sunny)
         .def("set_date", &OnePieceWrapper::set_date)
         .def("set_stock_backtest", &OnePieceWrapper::set_stock_backtest)
+        .def("set_forex_backtest", &OnePieceWrapper::set_forex_backtest)
         .add_property("tickers", &OnePieceWrapper::tickers)
         .add_property("balance", &OnePieceWrapper::balance)
         .add_property("cash", &OnePieceWrapper::cash)

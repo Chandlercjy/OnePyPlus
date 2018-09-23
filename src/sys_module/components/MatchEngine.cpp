@@ -140,8 +140,8 @@ void MatchEngine::append_left_trade_to_log() {
 }
 
 void MatchEngine::settle_left_trade(MarketOrderPtr &unfinished_order, const double size) {
-    //finished_log.emplace_back((*log_generator->settle_left_trade)(unfinished_order,
-    //size));
+    finished_log.emplace_back(log_generator->settle_left_trade(unfinished_order,
+                                                               size));
 }
 
 OP_NAMESPACE_END

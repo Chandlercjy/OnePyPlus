@@ -15,7 +15,7 @@ OnePiece stock(const vector<string> &ticker_list,
                const string &broker_name) {
     OnePiece go;
     go.set_stock_backtest(initial_cash, 0, 0.0016, 0.1);
-    go.set_date(start, end, frequency, "A_shares");
+    go.set_date(start, end, frequency);
     return go;
 };
 
@@ -27,7 +27,7 @@ OnePiece forex(const vector<string> &ticker_list,
                const string &broker_name) {
     OnePiece go;
     go.set_forex_backtest(initial_cash, 0.02);
-    go.set_date(start, end, frequency, "Forex");
+    go.set_date(start, end, frequency);
     return go;
 };
 

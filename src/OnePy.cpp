@@ -14,8 +14,6 @@
 #include <iostream>
 
 OP_NAMESPACE_START
-using std::make_shared;
-using std::shared_ptr;
 
 OnePiece::OnePiece()
     : env(op::Environment::get_instance()),
@@ -72,9 +70,7 @@ void OnePiece::_pre_initialize_trading_system(){};
 
 void OnePiece::set_date(const string &fromdate,
                         const string &todate,
-                        const string &frequency,
-                        const string &instrument) {
-    env->instrument = instrument;
+                        const string &frequency) {
     env->fromdate = fromdate;
     env->todate = todate;
     env->sys_frequency = frequency;
@@ -84,6 +80,7 @@ void OnePiece::set_stock_backtest(const double initial_cash,
                                   const double comm,
                                   const double comm_pct,
                                   const double margin_rate) {
+    env->instrument = "A_shares";
     StockBroker broker;
     StockRecorder recorder;
     env->recorder->set_setting(initial_cash, comm,
@@ -92,6 +89,7 @@ void OnePiece::set_stock_backtest(const double initial_cash,
 
 void OnePiece::set_forex_backtest(const double initial_cash,
                                   const double margin_rate) {
+    env->instrument = "Forex";
     ForexBroker broker;
     ForexRecorder recorder;
     env->recorder->set_setting(initial_cash, 0,

@@ -75,7 +75,7 @@ class TalibStrategy(op.StrategyBase):
 
 
 luffy = Luffy("hahahaha")
-a = [TalibStrategy("TalibStrategy")]
+# a = [TalibStrategy("TalibStrategy")]
 
 go = op.OnePiece()
 
@@ -85,12 +85,17 @@ go = op.OnePiece()
 START, END = '2017-05-25', '2018-03-09'
 START, END = "2018-01-25", "2018-04-01"
 
-go.load_mongodb("000001_tushare", "000001")
-go.set_stock_backtest(100000, 0, 0.0016, 0.1)
-go.set_date(START, END, "D", "A_shares")
+# go.load_mongodb("000001_tushare", "000001")
+# go.set_stock_backtest(100000, 0, 0.0016, 0.1)
+# go.set_date(START, END, "D")
+
+go.load_mongodb("EUR_USD_oanda", "EUR_USD")
+go.set_forex_backtest(100000, 0.02)
+go.set_date(START, END, "D")
 
 go.sunny()
 
 
 result = AmazingAnalysis(go)
+
 result.show()

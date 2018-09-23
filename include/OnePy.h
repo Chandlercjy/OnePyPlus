@@ -21,8 +21,7 @@ class OnePiece {
     void initialize_trading_system();
     void set_date(const string &fromdate,
                   const string &todate,
-                  const string &frequency,
-                  const string &instrument);
+                  const string &frequency);
     void set_stock_backtest(const double initial_cash,
                             const double comm,
                             const double comm_pct,
