@@ -8,6 +8,16 @@ OP_NAMESPACE_START
 
 using namespace utils;
 
+using make_log_func_ptr =
+    shared_ptr<TradeLogStruct> (TradeLogGenerator::*)(
+        MarketOrderPtr &buy_order,
+        MarketOrderPtr &sell_order,
+        const double size);
+
+using settle_left_trade_func_ptr =
+    shared_ptr<TradeLogStruct> (TradeLogGenerator::*)(
+        MarketOrderPtr &unfinished_order, const double size);
+
 MatchEngine::MatchEngine()
     : env(Environment::get_instance()),
       log_generator(make_shared<TradeLogGenerator>()) {}
@@ -130,8 +140,8 @@ void MatchEngine::append_left_trade_to_log() {
 }
 
 void MatchEngine::settle_left_trade(MarketOrderPtr &unfinished_order, const double size) {
-    finished_log.emplace_back(log_generator->settle_left_trade(unfinished_order,
-                                                               size));
+    //finished_log.emplace_back((*log_generator->settle_left_trade)(unfinished_order,
+    //size));
 }
 
 OP_NAMESPACE_END

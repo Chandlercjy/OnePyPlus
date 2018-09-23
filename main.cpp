@@ -33,19 +33,27 @@ class SMA : public CleanerBase {
 int main() {
     //CsvReader ggss("/Users/chandler/Documents/CLionProjects/OnePyPlus/data/",
     //"000001", "000001");
-    MongodbReader lalala("000001_tushare", "000001");
+    //MongodbReader lalala("000001_tushare", "000001");
+    MongodbReader lalala("EUR_USD_oanda", "EUR_USD");
 
     Luffy haha("keke");
     //SMA jhjh(10, 10, "D");
 
     vector<string> ticker_list = {"000001"};
 
-    auto go = op::stock(ticker_list,
+    //auto go = op::stock(ticker_list,
+                        //"D",
+                        //100000,
+                        //"2018-01-25",
+                        //"2018-04-01",
+                        //"tushare");
+
+    auto go = op::forex(ticker_list,
                         "D",
                         100000,
-                        "2018-01-25",
-                        "2018-04-01",
-                        "tushare");
+                        "2017-01-25",
+                        "2017-04-01",
+                        "oanda");
 
     //go.env->is_show_today_signals=true;
     go.sunny();

@@ -1,11 +1,14 @@
 #include "Constants.h"
 #include "Environment.h"
-#include "builtin_module/backtest_stock/StockSeries.h"
+#include "builtin_module/backtest_stock/ForexSeries.h"
 #include "sys_module/RecorderBase.h"
+#include "utils/easy_func.h"
 
 OP_NAMESPACE_START
 
-void RealizedPnlSeriesStock::update_order(const string &ticker,
+using ForexUtils = utils::ForexUtils;
+
+void RealizedPnlSeriesForex::update_order(const string &ticker,
                                      const double size,
                                      const double execute_price,
                                      const ActionType &action_type,
@@ -16,38 +19,35 @@ void RealizedPnlSeriesStock::update_order(const string &ticker,
 
     if (action_type == ActionType::Sell)
         new_value = (latest(ticker, long_or_short) +
-                     (execute_price - last_avg_price) * size);
+                     (execute_price - last_avg_price) * size *
+                         ForexUtils::dollar_per_pips(ticker, execute_price));
     else if (action_type == ActionType::Cover)
         new_value = (latest(ticker, long_or_short) -
-                     (execute_price - last_avg_price) * size);
+                     (execute_price - last_avg_price) * size *
+                         ForexUtils::dollar_per_pips(ticker, execute_price));
 
     if (new_value)
         _append_value(ticker, new_value, long_or_short);
 }
 
-void CommissionSeriesStock::update_order(const string &ticker,
+void CommissionSeriesForex::update_order(const string &ticker,
                                     const double size,
                                     const double execute_price,
                                     const ActionType &action_type,
                                     const double last_commission,
                                     const string &long_or_short) {
 
-    const double per_comm = env->recorder->per_comm;
-    const double per_comm_pct = env->recorder->per_comm_pct;
-    double new_value = 0;
+    auto slippage = utils::Forex_slippage[ticker];
 
     if (action_type == ActionType::Buy || action_type == ActionType::Short) {
-        if (per_comm_pct) {
-            new_value = last_commission + per_comm_pct * size * execute_price;
-        } else {
-            new_value = last_commission + per_comm * size / 100;
-        }
+        auto new_value = (last_commission +
+                          slippage * size / 1e5 *
+                              ForexUtils::dollar_per_pips(ticker, execute_price));
         _append_value(ticker, new_value, long_or_short);
     }
-
 }
 
-void HoldingPnlSeriesStock::update_order(const string &ticker,
+void HoldingPnlSeriesForex::update_order(const string &ticker,
                                     const double cur_price,
                                     const double new_avg_price,
                                     const double new_position,
@@ -57,12 +57,13 @@ void HoldingPnlSeriesStock::update_order(const string &ticker,
         new_value = 0;
     } else {
         int earn_short = (long_or_short == "long") ? 1 : -1;
-        new_value = ((cur_price - new_avg_price) * new_position * earn_short);
+        new_value = ((cur_price - new_avg_price) * new_position * earn_short *
+                     ForexUtils::dollar_per_pips(ticker, cur_price));
     };
     _append_value(ticker, new_value, long_or_short);
 }
 
-void HoldingPnlSeriesStock::update_barly(const bool order_executed) {
+void HoldingPnlSeriesForex::update_barly(const bool order_executed) {
     for (auto &ticker : env->tickers) {
         auto cur_price = get_barly_cur_price(ticker, order_executed);
         for (auto &long_or_short : {"long", "short"}) {
@@ -77,27 +78,27 @@ void HoldingPnlSeriesStock::update_barly(const bool order_executed) {
     }
 }
 
-void MarketValueSeriesStock::update_order(const string &ticker,
+void MarketValueSeriesForex::update_order(const string &ticker,
                                      const double cur_price,
                                      const double new_position,
                                      const string &long_or_short) {
-    double new_value = new_position * cur_price;
+    double new_value = (new_position *
+                        ForexUtils::market_value_multiplyer(ticker, cur_price));
     _append_value(ticker, new_value, long_or_short);
 }
 
-void MarketValueSeriesStock::update_barly(const bool order_executed) {
+void MarketValueSeriesForex::update_barly(const bool order_executed) {
     for (auto &ticker : env->tickers) {
         auto cur_price = get_barly_cur_price(ticker, order_executed);
         for (auto &long_or_short : {"long", "short"}) {
             double new_position = env->recorder->position->latest(
                 ticker, long_or_short);
-
             update_order(ticker, cur_price, new_position, long_or_short);
         }
     }
 }
 
-void MarginSeriesStock::update_order(const string &ticker,
+void MarginSeriesForex::update_order(const string &ticker,
                                 const string &long_or_short) {
 
     if (long_or_short == "short") {
@@ -108,7 +109,7 @@ void MarginSeriesStock::update_order(const string &ticker,
     };
 }
 
-void MarginSeriesStock::update_barly() {
+void MarginSeriesForex::update_barly() {
 
     for (auto &ticker : env->tickers)
         for (auto &long_or_short : {"long", "short"})

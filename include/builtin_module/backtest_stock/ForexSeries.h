@@ -5,7 +5,7 @@
 
 OP_NAMESPACE_START
 
-class RealizedPnlSeriesStock : public RealizedPnlSeriesBase {
+class RealizedPnlSeriesForex : public RealizedPnlSeriesBase {
   public:
     using RealizedPnlSeriesBase::RealizedPnlSeriesBase;
 
@@ -17,7 +17,7 @@ class RealizedPnlSeriesStock : public RealizedPnlSeriesBase {
                       const string &long_or_short) override;
 };
 
-class CommissionSeriesStock : public CommissionSeriesBase {
+class CommissionSeriesForex : public CommissionSeriesBase {
   public:
     using CommissionSeriesBase::CommissionSeriesBase;
     void update_order(const string &ticker,
@@ -28,7 +28,7 @@ class CommissionSeriesStock : public CommissionSeriesBase {
                       const string &long_or_short) override;
 };
 
-class HoldingPnlSeriesStock : public HoldingPnlSeriesBase {
+class HoldingPnlSeriesForex : public HoldingPnlSeriesBase {
   public:
     using HoldingPnlSeriesBase::HoldingPnlSeriesBase;
     void update_order(const string &ticker,
@@ -39,7 +39,7 @@ class HoldingPnlSeriesStock : public HoldingPnlSeriesBase {
     void update_barly(const bool order_executed) override;
 };
 
-class MarketValueSeriesStock : public MarketValueSeriesBase {
+class MarketValueSeriesForex : public MarketValueSeriesBase {
   public:
     using MarketValueSeriesBase::MarketValueSeriesBase;
     void update_order(const string &ticker,
@@ -49,7 +49,7 @@ class MarketValueSeriesStock : public MarketValueSeriesBase {
     void update_barly(const bool order_executed) override;
 };
 
-class MarginSeriesStock : public MarginSeriesBase {
+class MarginSeriesForex : public MarginSeriesBase {
   public:
     using MarginSeriesBase::MarginSeriesBase;
     void update_order(const string &ticker,

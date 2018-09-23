@@ -28,6 +28,9 @@ class OnePiece {
                             const double comm_pct,
                             const double margin_rate);
 
+    void set_forex_backtest(const double initial_cash,
+                            const double margin_rate);
+
   private:
     vector<SingleLoop> _event_loop;
 

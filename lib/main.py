@@ -13,11 +13,13 @@ class Luffy(op.StrategyBase):
                           params=dict(timeperiod=10),
                           buffer_day=15,
                           frequency="D").calculate
+        self.env = self.get_env()
 
     def handle_bar(self):
-        self.buy(20, "000001", 3, 0, 3, 0, 0, 0, 0, 0)
-        print("SMA: ", self.sma("000001"))
-        print("Talib: ", self.sma1("000001"))
+        for ticker in self.env.tickers:
+            self.buy(20, ticker, 3, 0, 3, 0, 0, 0, 0, 0)
+        # print("SMA: ", self.sma("000001"))
+        # print("Talib: ", self.sma1("000001"))
         # print(self.sma.data["000001_D"].date)
         # print(self.get_env().cleaners["SMA"])
 
@@ -73,7 +75,7 @@ class TalibStrategy(op.StrategyBase):
 
 
 luffy = Luffy("hahahaha")
-# a = [TalibStrategy("TalibStrategy")]
+a = [TalibStrategy("TalibStrategy")]
 
 go = op.OnePiece()
 

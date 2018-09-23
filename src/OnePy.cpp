@@ -5,6 +5,8 @@
 #include "OnePy.h"
 #include "builtin_module/backtest_stock/StockBroker.h"
 #include "builtin_module/backtest_stock/StockRecorder.h"
+#include "builtin_module/backtest_stock/ForexBroker.h"
+#include "builtin_module/backtest_stock/ForexRecorder.h"
 #include "config.h"
 #include "sys_module//components/MarketMaker.h"
 #include "sys_module//components/PendingOrderChecker.h"
@@ -86,6 +88,14 @@ void OnePiece::set_stock_backtest(const double initial_cash,
     StockRecorder recorder;
     env->recorder->set_setting(initial_cash, comm,
                                comm_pct, margin_rate);
+};
+
+void OnePiece::set_forex_backtest(const double initial_cash,
+                                  const double margin_rate) {
+    ForexBroker broker;
+    ForexRecorder recorder;
+    env->recorder->set_setting(initial_cash, 0,
+                               0, margin_rate);
 };
 
 OP_NAMESPACE_END

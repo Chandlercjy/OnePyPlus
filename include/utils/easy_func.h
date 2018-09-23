@@ -1,8 +1,10 @@
 
+#include <map>
 #include <string>
 #pragma once
 
 namespace utils {
+using std::map;
 using std::string;
 
 class Easy {
@@ -48,5 +50,36 @@ class Easy {
         return result;
     };
 };
+
+class ForexUtils {
+  public:
+    ForexUtils() = delete;
+
+    static double
+    dollar_per_pips(const string &ticker, const double cur_price) {
+        if (ticker.find("USD") == 0)
+            return 10 / cur_price;
+        else if (ticker.find("USD") == 4)
+            return 10;
+        else
+            throw std::logic_error("Could only backtest in USD currency pairs.");
+    };
+
+    static double market_value_multiplyer(const string &ticker,
+                                           const double cur_price) {
+        if (ticker.find("USD") == 0)
+            return 1;
+        else if (ticker.find("USD") == 4)
+            return cur_price;
+        else
+            throw std::logic_error("Could only backtest in USD currency pairs.");
+    };
+};
+
+static map<string, double> Forex_slippage = {{"EUR_USD", 1.5},
+                                                   {"AUD_USD", 1.5},
+                                                   {"GBP_USD", 2.0},
+                                                   {"USD_CAD", 2.0},
+                                                   {"USD_JPY", 1.5}};
 
 } // namespace utils
