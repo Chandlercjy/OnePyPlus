@@ -129,17 +129,17 @@ void MatchEngine::match_order(MarketOrderPtr &order) {
 void MatchEngine::append_left_trade_to_log() {
     for (auto &ticker : env->tickers) {
         for (auto &order : long_log_pure[ticker])
-            settle_left_trade(order, order->track_size);
+            _settle_left_trade(order, order->track_size);
         for (auto &order : long_log_with_trigger[ticker])
-            settle_left_trade(order, order->track_size);
+            _settle_left_trade(order, order->track_size);
         for (auto &order : short_log_pure[ticker])
-            settle_left_trade(order, order->track_size);
+            _settle_left_trade(order, order->track_size);
         for (auto &order : short_log_with_trigger[ticker])
-            settle_left_trade(order, order->track_size);
+            _settle_left_trade(order, order->track_size);
     }
 }
 
-void MatchEngine::settle_left_trade(MarketOrderPtr &unfinished_order, const double size) {
+void MatchEngine::_settle_left_trade(MarketOrderPtr &unfinished_order, const double size) {
     finished_log.emplace_back(log_generator->settle_left_trade(unfinished_order,
                                                                size));
 }

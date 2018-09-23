@@ -20,6 +20,12 @@ class MatchEngine {
     PtrBox<TradeLogPtr> finished_log;
     shared_ptr<TradeLogGenerator> log_generator;
     bool left_trade_settled = false;
+    void match_order(MarketOrderPtr &order);
+    void append_left_trade_to_log();
+
+  private:
+    void _settle_left_trade(MarketOrderPtr &unfinished_order,
+                           const double size);
 
     void _append_finished(MarketOrderPtr &buy_order,
                           MarketOrderPtr &sell_order,
@@ -36,10 +42,6 @@ class MatchEngine {
                           const bool counteract = false);
     void _pair_order(const string &long_or_short,
                      MarketOrderPtr &order);
-    void match_order(MarketOrderPtr &order);
-    void append_left_trade_to_log();
-    void settle_left_trade(MarketOrderPtr &unfinished_order,
-                           const double size);
 };
 
 OP_NAMESPACE_END
