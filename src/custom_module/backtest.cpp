@@ -1,7 +1,7 @@
 #include "Environment.h"
 #include "OnePy.h"
-#include "builtin_module/backtest_stock/StockBroker.h"
-#include "builtin_module/backtest_stock/StockRecorder.h"
+#include "builtin_module/backtest/StockBroker.h"
+#include "builtin_module/backtest/StockRecorder.h"
 
 OP_NAMESPACE_START
 

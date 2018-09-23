@@ -24,7 +24,7 @@ AUX_SOURCE_DIRECTORY("${source_dir}/sys_module" onepy_sys)
 AUX_SOURCE_DIRECTORY("${source_dir}/sys_module/models" onepy_models)
 AUX_SOURCE_DIRECTORY("${source_dir}/sys_module/components" onepy_components)
 AUX_SOURCE_DIRECTORY("${source_dir}/builtin_module" onepy_built)
-AUX_SOURCE_DIRECTORY("${source_dir}/builtin_module/backtest_stock" onepy_stock)
+AUX_SOURCE_DIRECTORY("${source_dir}/builtin_module/backtest" onepy_backtest)
 AUX_SOURCE_DIRECTORY("${source_dir}/custom_module" onepy_custom)
 AUX_SOURCE_DIRECTORY("${source_dir}/utils" onepy_utils)
 
@@ -34,7 +34,7 @@ SET(OnePy_src
     ${onepy_models}
     ${onepy_components}
     ${onepy_built}
-    ${onepy_stock}
+    ${onepy_backtest}
     ${onepy_custom}
     ${onepy_utils})
 

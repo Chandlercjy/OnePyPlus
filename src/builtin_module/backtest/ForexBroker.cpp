@@ -1,5 +1,5 @@
 #include "DataType.h"
-#include "builtin_module/backtest_stock/ForexBroker.h"
+#include "builtin_module/backtest/ForexBroker.h"
 #include "sys_module/BrokerBase.h"
 #include "sys_module/RecorderBase.h"
 #include "sys_module/components/SubmitOrderChecker.h"

@@ -1,6 +1,6 @@
 #include "Constants.h"
 #include "Environment.h"
-#include "builtin_module/backtest_stock/ForexSeries.h"
+#include "builtin_module/backtest/ForexSeries.h"
 #include "sys_module/RecorderBase.h"
 #include "utils/easy_func.h"
 

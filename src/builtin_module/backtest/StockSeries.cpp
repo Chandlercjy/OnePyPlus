@@ -1,6 +1,6 @@
 #include "Constants.h"
 #include "Environment.h"
-#include "builtin_module/backtest_stock/StockSeries.h"
+#include "builtin_module/backtest/StockSeries.h"
 #include "sys_module/RecorderBase.h"
 
 OP_NAMESPACE_START

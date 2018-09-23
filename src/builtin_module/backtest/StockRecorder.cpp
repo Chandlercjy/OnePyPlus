@@ -1,6 +1,6 @@
 #include "Environment.h"
-#include "builtin_module/backtest_stock/StockRecorder.h"
-#include "builtin_module/backtest_stock/StockSeries.h"
+#include "builtin_module/backtest/StockRecorder.h"
+#include "builtin_module/backtest/StockSeries.h"
 #include "sys_module/components/MatchEngine.h"
 #include "sys_module/components/TradeLogGenerator.h"
 #include "sys_module/models/BarBase.h"

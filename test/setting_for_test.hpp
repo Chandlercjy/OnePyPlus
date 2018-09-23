@@ -2,8 +2,8 @@
 #include "OP_DECLARE.h"
 #include "OnePy.h"
 #include "builtin_module/CsvReader.h"
-#include "builtin_module/backtest_stock/StockBroker.h"
-#include "builtin_module/backtest_stock/StockRecorder.h"
+#include "builtin_module/backtest/StockBroker.h"
+#include "builtin_module/backtest/StockRecorder.h"
 #include "sys_module/StrategyBase.h"
 
 #pragma once
