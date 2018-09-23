@@ -3937,7 +3937,7 @@ scan_keyword(std::basic_istream<CharT, Traits> &is, FwdIter kb, FwdIter ke) {
             ++n_does_match;
         }
     }
-    // While there might be a match, test keywords against the next CharT
+    // While there might be a match, tests keywords against the next CharT
     for (size_t indx = 0; is && n_might_match > 0; ++indx) {
         // Peek at the next CharT but don't consume it
         auto ic = is.peek();

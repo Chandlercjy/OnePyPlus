@@ -60,7 +60,7 @@ add_executable(demo_OnePy ${PROJECT_SOURCE_DIR}/main.cpp
 
 
 # 单元测试
-SET(test_dir "${PROJECT_SOURCE_DIR}/test/")
+SET(test_dir "${PROJECT_SOURCE_DIR}/tests/")
 AUX_SOURCE_DIRECTORY("${test_dir}" test_files)
 ADD_EXECUTABLE(test_OnePy ${test_files} )
 TARGET_LINK_LIBRARIES(test_OnePy gtest)
@@ -110,7 +110,7 @@ INCLUDE_DIRECTORIES(${Boost_INCLUDE_DIRS} ${PYTHON_INCLUDE_DIRS})
 
 LINK_LIBRARIES(${Boost_LIBRARIES} ${PYTHON_LIBRARIES}) # Deprecated but so convenient!
 
-FILE(GLOB OnePy_Python_Wrapper "${PROJECT_SOURCE_DIR}/python_wrapper/*.cpp")
+FILE(GLOB OnePy_Python_Wrapper "${PROJECT_SOURCE_DIR}/python/*.cpp")
 PYTHON_ADD_MODULE(OnePyPlus ${OnePy_Python_Wrapper} )
 
 
