@@ -8,12 +8,15 @@
 #include "sys_module/components/MarketMaker.h"
 #include "sys_module/components/MatchEngine.h"
 #include "sys_module/components/PendingOrderChecker.h"
+#include "sys_module/models/BarBase.h"
 #include "sys_module/models/SeriesBase.h"
+#include "utils/utils.h"
 #include <boost/python.hpp>
 #include <iostream>
 
 #pragma once
 using namespace op;
+using utils::Stl;
 namespace py = boost::python;
 
 class OnePieceWrapper {
@@ -48,6 +51,36 @@ class OnePieceWrapper {
     void set_forex_backtest(const double initial_cash,
                             const double margin_rate) {
         go.set_forex_backtest(initial_cash, margin_rate);
+    };
+
+    py::dict ohlc(const string &ticker) {
+        py::dict result;
+        py::list date;
+        py::list open;
+        py::list high;
+        py::list low;
+        py::list close;
+        py::list volume;
+        if (Stl::is_elem_in_map_key(env->feeds, ticker)) {
+            auto &bar_series = env->feeds[ticker]->_bar_series;
+            for (auto &ohlc : *bar_series) {
+                date.append(ohlc.date);
+                open.append(ohlc.open);
+                high.append(ohlc.high);
+                low.append(ohlc.low);
+                close.append(ohlc.close);
+                volume.append(ohlc.volume);
+            }
+        } else {
+            std::cout << ticker << " is not found in ohlc!" << std::endl;
+        }
+        result["date"] = date;
+        result["open"] = open;
+        result["high"] = high;
+        result["low"] = low;
+        result["close"] = close;
+        result["volume"] = volume;
+        return result;
     };
 
     py::list tickers() {
@@ -88,6 +121,10 @@ class OnePieceWrapper {
     };
     py::dict avg_price() {
         static auto result = _get_money_series(env->recorder->avg_price->data);
+        return result;
+    };
+    py::dict market_value() {
+        static auto result = _get_money_series(env->recorder->market_value->data);
         return result;
     };
 
@@ -223,6 +260,7 @@ void export_OnePiece() {
         .def("set_date", &OnePieceWrapper::set_date)
         .def("set_stock_backtest", &OnePieceWrapper::set_stock_backtest)
         .def("set_forex_backtest", &OnePieceWrapper::set_forex_backtest)
+        .def("ohlc", &OnePieceWrapper::ohlc)
         .add_property("tickers", &OnePieceWrapper::tickers)
         .add_property("balance", &OnePieceWrapper::balance)
         .add_property("cash", &OnePieceWrapper::cash)
@@ -233,6 +271,7 @@ void export_OnePiece() {
         .add_property("margin", &OnePieceWrapper::margin)
         .add_property("position", &OnePieceWrapper::position)
         .add_property("avg_price", &OnePieceWrapper::avg_price)
+        .add_property("market_value", &OnePieceWrapper::market_value)
         .add_property("trade_log", &OnePieceWrapper::trade_log)
         .add_property("trade_log_long", &OnePieceWrapper::trade_log_long)
         .add_property("trade_log_short", &OnePieceWrapper::trade_log_short);

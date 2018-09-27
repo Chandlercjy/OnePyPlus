@@ -41,10 +41,10 @@ class BarBase {
     bool is_suspended();
 
     bool is_bar_series_end() const;
+    shared_ptr<OhlcVector> _bar_series = nullptr;
 
   private:
     OhlcVector::const_iterator _iter_data;
-    shared_ptr<OhlcVector> _bar_series = nullptr;
     inline void _update_iter_data(const string &start, const string &end);
     inline void _delete_ohlc(const string &msg);
 };

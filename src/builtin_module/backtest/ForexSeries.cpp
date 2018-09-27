@@ -9,11 +9,11 @@ OP_NAMESPACE_START
 using ForexUtils = utils::ForexUtils;
 
 void RealizedPnlSeriesForex::update_order(const string &ticker,
-                                     const double size,
-                                     const double execute_price,
-                                     const ActionType &action_type,
-                                     const double last_avg_price,
-                                     const string &long_or_short) {
+                                          const double size,
+                                          const double execute_price,
+                                          const ActionType &action_type,
+                                          const double last_avg_price,
+                                          const string &long_or_short) {
 
     double new_value = 0;
 
@@ -31,11 +31,11 @@ void RealizedPnlSeriesForex::update_order(const string &ticker,
 }
 
 void CommissionSeriesForex::update_order(const string &ticker,
-                                    const double size,
-                                    const double execute_price,
-                                    const ActionType &action_type,
-                                    const double last_commission,
-                                    const string &long_or_short) {
+                                         const double size,
+                                         const double execute_price,
+                                         const ActionType &action_type,
+                                         const double last_commission,
+                                         const string &long_or_short) {
 
     auto slippage = utils::Forex_slippage[ticker];
 
@@ -48,10 +48,10 @@ void CommissionSeriesForex::update_order(const string &ticker,
 }
 
 void HoldingPnlSeriesForex::update_order(const string &ticker,
-                                    const double cur_price,
-                                    const double new_avg_price,
-                                    const double new_position,
-                                    const string &long_or_short) {
+                                         const double cur_price,
+                                         const double new_avg_price,
+                                         const double new_position,
+                                         const string &long_or_short) {
     double new_value = 0;
     if (new_position == 0) {
         new_value = 0;
@@ -79,9 +79,9 @@ void HoldingPnlSeriesForex::update_barly(const bool order_executed) {
 }
 
 void MarketValueSeriesForex::update_order(const string &ticker,
-                                     const double cur_price,
-                                     const double new_position,
-                                     const string &long_or_short) {
+                                          const double cur_price,
+                                          const double new_position,
+                                          const string &long_or_short) {
     double new_value = (new_position *
                         ForexUtils::market_value_multiplyer(ticker, cur_price));
     _append_value(ticker, new_value, long_or_short);
@@ -99,14 +99,12 @@ void MarketValueSeriesForex::update_barly(const bool order_executed) {
 }
 
 void MarginSeriesForex::update_order(const string &ticker,
-                                const string &long_or_short) {
+                                     const string &long_or_short) {
 
-    if (long_or_short == "short") {
-        auto new_value = env->recorder->market_value->latest(
-                             ticker, long_or_short) *
-                         env->recorder->margin_rate;
-        _append_value(ticker, new_value, long_or_short);
-    };
+    auto new_value = env->recorder->market_value->latest(
+                         ticker, long_or_short) *
+                     env->recorder->margin_rate;
+    _append_value(ticker, new_value, long_or_short);
 }
 
 void MarginSeriesForex::update_barly() {

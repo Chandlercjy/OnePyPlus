@@ -1,5 +1,6 @@
 import OnePyPlus as op
 from op_analysis.analysis import Analysis
+from op_analysis.plotter_matplotlib import Matplotlib
 
 
 def dict_to_table(dict_data):
@@ -21,7 +22,11 @@ def dict_to_table(dict_data):
 class Output:
     def __init__(self, go: op.OnePiece):
         self.analysis = Analysis(go)
+        self.plotter = Matplotlib(go)
 
     def show(self):
         dict_to_table(self.analysis.general_summary())
         print(self.analysis.detail_summary())
+
+    def plot(self, ticker):
+        self.plotter.plot(ticker)
