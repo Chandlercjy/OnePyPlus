@@ -42,11 +42,12 @@ def get_hurst(array: pd.Series, fold_times: list = [1, 2, 4, 8, 16, 32]):
 
 class Hurst(op.CleanerBase):
 
-    def __init__(self, rolling_window=100, buffer_day=100, frequency="D"):
+    def __init__(self, rolling_window=100, buffer_day=140, frequency="D"):
         super().__init__("Hurst", rolling_window, buffer_day, frequency)
         self.save_to_env(self)
         self.data = self.get_data()
 
     def calculate(self, ticker):
-        array = np.array(self.data[f"{ticker}_{self.frequency}"].close)
+        data = self.data[f"{ticker}_{self.frequency}"].close
+        array = np.array(np.diff(np.log(data)))
         return get_hurst(array)

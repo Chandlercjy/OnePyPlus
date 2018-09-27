@@ -11,21 +11,6 @@ import pandas as pd
 TRADING_DAYS_PER_YEAR = 252
 RISK_FREE = 0
 
-def dict_to_table(dict_data):
-    for key, value in dict_data.items():
-        if not isinstance(value, str):
-            dict_data[key] = str(value)
-
-    max_key_len = max([len(i) for i in dict_data])+1
-    max_value_len = max([len(i) for i in dict_data.values()])+1
-    total_len = max_key_len+max_value_len+3
-
-    print(f'+{total_len*"-"}+')
-
-    for key, value in dict_data.items():
-        print(f'|{key.ljust(max_key_len)} | {value.rjust(max_value_len)}|')
-    print(f'+{total_len*"-"}+')
-
 
 def get_sharpe_ratio(balance):
     data = balance.pct_change().dropna()
@@ -152,9 +137,10 @@ def process_log(trade_logs):
     for i in range(len(trade_logs['ticker'])):
         start = trade_logs['entry_date'][i]
         end = trade_logs['exit_date'][i]
+
         if not end:
             end = start
-        period = get_trade_period(start,end)
+        period = get_trade_period(start, end)
         trade_logs['holding_period'].append(period)
 
     if len(trade_logs['ticker']) == 0:
@@ -265,7 +251,8 @@ def to_dataframe_list(tickers, name, series) -> list:
 
     return dataframe_list
 
-def get_total_value(data:list) -> float:
+
+def get_total_value(data: list) -> float:
     total = 0
 
     for data_list in data.values():
@@ -274,23 +261,17 @@ def get_total_value(data:list) -> float:
 
     return total
 
-class AmazingAnalysis:
+
+class Analysis:
 
     def __init__(self, go):
         self.go = go
-        tickers = go.tickers
         self.balance = to_dataframe(go.balance, "balance")
-
-        self.holding_pnl = to_dataframe_list(tickers,
+        self.holding_pnl = to_dataframe_list(go.tickers,
                                              "holding_pnl",
                                              go.holding_pnl)
-        self.margin = to_dataframe_list(tickers, "margin", go.margin)
+        self.margin = to_dataframe_list(go.tickers, "margin", go.margin)
         self.commission = go.commission
-                         
-    def show(self):
-        dict_to_table(self.general_summary())
-        print(self.detail_summary())
-
 
     def general_summary(self) -> dict:
         daily_basis_balance = self.balance.resample('D').last().dropna()
@@ -490,70 +471,3 @@ class AmazingAnalysis:
 
         # from OnePy.custom_module.trade_log_analysis import APP
         # APP.run_server(debug=False)
-
-# || +--------------------------------+
-# || |Fromdate           |  2018-01-25|
-# || |Todate             |  2018-04-01|
-# || |Initial_Value      |  $100000.00|
-# || |Final_Value        |  $100129.47|
-# || |Total_Return       |      0.129%|
-# || |Max_Drawdown       |      0.154%|
-# || |Max_Duration       |     11 days|
-# || |Max_Drawdown_Date  |  2018-02-26|
-# || |Sharpe_Ratio       |        1.77|
-# || +--------------------------------+
-# || 100129.46821784
-# || +---------------------------------------+
-# || |Start_date                |  2018-01-25|
-# || |End_date                  |  2018-04-01|
-# || |Initial_balance           |  $100000.00|
-# || |End_balance               |  $100129.47|
-# || |Total_return              |       0.13%|
-# || |Total_net_pnl             |     $129.47|
-# || |Total_commission          |      $14.14|
-# || |Total_trading_days        |     48 days|
-# || |Max_drawdown              |       0.15%|
-# || |Max_drawdown_date         |  2018-02-26|
-# || |Max_duration_in_drawdown  |     11 days|
-# || |Max_margin                |     $301.61|
-# || |Max_win_holding_pnl       |      $50.27|
-# || |Max_loss_holding_pnl      |    -$106.84|
-# || |Sharpe_ratio              |        1.77|
-# || |Sortino_ratio             |        1.53|
-# || |Number_of_trades          |          36|
-# || |Number_of_daily_trades    |        0.75|
-# || |Number_of_profit_days     |     48 days|
-# || |Number_of_loss_days       |      0 days|
-# || |Avg_daily_pnl             |       $2.70|
-# || |Avg_daily_commission      |       $0.29|
-# || |Avg_daily_return          |       0.00%|
-# || |Avg_daily_std             |       0.00%|
-# || |Annual_compound_return    |       0.70%|
-# || |Annual_average_return     |       0.69%|
-# || |Annual_std                |       0.04%|
-# || |Annual_pnl                |     $679.71|
-# || +---------------------------------------+
-# ||                                All Trades Long Trades Short Trades
-# || Total_number_of_trades                 36        None           36
-# || Total_net_pnl                     $129.47        None      $129.47
-# || Ratio_avg_win_avg_loss               5.05        None         5.05
-# || Profit_factor                      176.86        None       176.86
-# || Percent_profitable                 97.22%        None       97.22%
-# || Number_of_winning_trades               35        None           35
-# || Number_of_losing_trades                 1        None            1
-# || Max_holding_period             31.62 days        None   31.62 days
-# || Max_consecutive_winning_trade          35        None           35
-# || Max_consecutive_losing_trade            0        None            0
-# || Largest_winning_trade              $61.00        None       $61.00
-# || Largest_losing_trade               -$0.82        None       -$0.82
-# || Gross_profit                      $144.43        None      $144.43
-# || Gross_loss                         -$0.82        None       -$0.82
-# || Gross_commission                   $14.14        None       $14.14
-# || Expectancy_adjusted_ratio            4.89        None         4.89
-# || Expectancy                          $3.99        None        $3.99
-# || Avg_winning_trade                   $4.13        None        $4.13
-# || Avg_net_pnl_per_trade               $3.60        None        $3.60
-# || Avg_losing_trade                   -$0.82        None       -$0.82
-# || Avg_holding_period              4.89 days        None    4.89 days
-# || python   2.29s user 0.39s system 87% cpu 3.067 total
-# || [Finished in 3 seconds]
