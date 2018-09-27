@@ -41,9 +41,9 @@ const bool TrailingOrderBase::is_triggered() {
         } else {
             double new_value;
             if (action_type == ActionType::Sell)
-                new_value = cur_open() - difference();
+                new_value = cur_open() - difference;
             else
-                new_value = cur_high() - difference();
+                new_value = cur_high() - difference;
             if (_latest_target_price < new_value)
                 _latest_target_price = new_value;
             return false;
@@ -54,9 +54,9 @@ const bool TrailingOrderBase::is_triggered() {
         } else {
             double new_value;
             if (action_type == ActionType::Sell)
-                new_value = cur_low() + difference();
+                new_value = cur_low() + difference;
             else
-                new_value = cur_open() + difference();
+                new_value = cur_open() + difference;
             if (_latest_target_price > new_value)
                 _latest_target_price = new_value;
             return false;
@@ -66,9 +66,9 @@ const bool TrailingOrderBase::is_triggered() {
 
 void TrailingOrderBase::_initialize_latest_target_price() {
     if (target_below)
-        _latest_target_price = _cur_price_when_generated - difference();
+        _latest_target_price = cur_price_when_generated - difference;
     else
-        _latest_target_price = _cur_price_when_generated + difference();
+        _latest_target_price = cur_price_when_generated + difference;
 };
 
 const double TrailingOrderBase::cur_high_cross_target_price() {

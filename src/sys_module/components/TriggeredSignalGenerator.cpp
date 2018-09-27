@@ -22,7 +22,7 @@ void TriggeredSignalGenerator::_generate_bare_signal(const shared_ptr<PendingOrd
         order->trigger_key,
         order->target_price(),
         order->get_cur_price_when_generated(),
-        order->difference());
+        order->difference);
     signal_checker->save_signals(signal);
 };
 
@@ -39,7 +39,7 @@ void TriggeredSignalGenerator::_generate_full_signal(const shared_ptr<PendingOrd
         order->trigger_key,
         order->target_price(),
         order->get_cur_price_when_generated(),
-        order->difference());
+        order->difference);
     signal_checker->save_signals(signal);
 };
 

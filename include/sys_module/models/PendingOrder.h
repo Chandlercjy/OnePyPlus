@@ -46,14 +46,15 @@ class PendingOrder {
     virtual const double target_price();
 
     const bool is_with_mkt();
-    const double difference();
     const OrderStatus get_status() const;
     const double get_cur_price_when_generated() const;
+
+    const double cur_price_when_generated;
+    const double difference;
 
   protected:
     OrderStatus _status;
 
-    const double _cur_price_when_generated;
 
     const double cur_open() const;
     const double cur_high() const;
@@ -66,6 +67,7 @@ class PendingOrder {
   private:
     static const bool set_target_below(const ActionType &action_type,
                                        const OrderType &order_type);
+    const double set_difference();
 };
 
 OP_NAMESPACE_END

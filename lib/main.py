@@ -34,7 +34,7 @@ go = op.OnePiece()
 # "000001", "000001")
 
 START, END = '2017-05-25', '2018-03-09'
-START, END = "2018-01-25", "2018-03-01"
+START, END = "2018-01-25", "2018-04-01"
 
 # go.load_mongodb("000001_tushare", "000001")
 # go.set_stock_backtest(100000, 0, 0.0016, 0.1)

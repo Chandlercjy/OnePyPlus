@@ -52,7 +52,7 @@ int main() {
                         "M30",
                         100000,
                         "2017-01-25",
-                        "2017-02-01",
+                        "2017-03-01",
                         "oanda");
 
     //go.env->is_show_today_signals=true;
