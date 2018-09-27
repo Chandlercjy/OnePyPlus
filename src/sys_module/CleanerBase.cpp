@@ -23,12 +23,11 @@ CleanerBase::CleanerBase(const string &name,
 
 void CleanerBase::run() {
     _append_data_to_buffer();
-    //std::cout<<data["000001_D"].date.size()<<std::endl;
 };
 
 //设置frequency，如果没有指定的话就默认为系统frequency
 void CleanerBase::_settle_frequency(const string &ticker) {
-    if (frequency.size())
+    if (frequency != env->sys_frequency)
         _save_cleaners_feeds(ticker);
     else
         const_cast<string &>(frequency) = env->sys_frequency;
@@ -36,7 +35,8 @@ void CleanerBase::_settle_frequency(const string &ticker) {
 
 //保存cleaners的专有数据feeds
 void CleanerBase::_save_cleaners_feeds(const string &ticker) {
-    const string key = ticker + " " + frequency;
+    static const string temp = "_";
+    auto key = ticker + temp + frequency;
     auto value = env->recorder->bar_class(ticker, frequency);
 
     if (value->initialize(7))
@@ -46,6 +46,7 @@ void CleanerBase::_save_cleaners_feeds(const string &ticker) {
 void CleanerBase::_save_data(const string &ticker,
                              const string &key,
                              shared_ptr<BarBase> cleaners_ohlc) {
+
     data[key].date.emplace_back(cleaners_ohlc->date());
     data[key].open.emplace_back(cleaners_ohlc->open());
     data[key].high.emplace_back(cleaners_ohlc->high());
@@ -71,11 +72,14 @@ void CleanerBase::_append_data_to_buffer() {
                 _save_data(ticker, key, env->feeds[ticker]);
             } else {
                 auto &cleaners_ohlc = env->cleaners_feeds[key];
-                while (arrow::str_to_sec(cleaners_ohlc->next_date()) <=
-                       arrow::str_to_sec(env->sys_date)) {
-                    if (!cleaners_ohlc->is_bar_series_end()) {
+                if (!cleaners_ohlc->is_bar_series_end()) {
+                    while (arrow::str_to_sec(cleaners_ohlc->next_date()) <=
+                           arrow::str_to_sec(env->sys_date)) {
                         cleaners_ohlc->next_directly();
-                        _save_data(ticker, key, cleaners_ohlc);
+                        if (!cleaners_ohlc->is_bar_series_end())
+                            _save_data(ticker, key, cleaners_ohlc);
+                        else
+                            break;
                     }
                 }
             }
@@ -104,7 +108,8 @@ void CleanerBase::initialize_buffer_data(const string &ticker) {
     _settle_frequency(ticker);
 
     //初始化data,若已存在则什么都不做
-    auto key = ticker + "_" + frequency;
+    static const string temp = "_";
+    auto key = ticker + temp + frequency;
     data.emplace(key, ticker);
 
     //假如时间太长没有load到，就删除

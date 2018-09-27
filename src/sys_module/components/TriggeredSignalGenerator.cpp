@@ -5,12 +5,13 @@
 #include "utils/utils.h"
 
 OP_NAMESPACE_START
+using utils::Stl;
 
 TriggeredSignalGenerator::TriggeredSignalGenerator()
     : signal_checker(make_shared<SignalChecker>()){};
 
 void TriggeredSignalGenerator::_generate_bare_signal(const shared_ptr<PendingOrder> &order) {
-    map<string, double> info = {{"size",order->size}};
+    map<string, double> info = {{"size", order->size}};
     auto signal = make_shared<SignalByTrigger>(
         info,
         order->ticker,
@@ -44,7 +45,7 @@ void TriggeredSignalGenerator::_generate_full_signal(const shared_ptr<PendingOrd
 
 bool TriggeredSignalGenerator::generate_triggered_signal(const shared_ptr<PendingOrder> &order) {
     static Environment *env = Environment::get_instance();
-    if (!utils::Stl::is_elem_in_vector(env->cur_suspended_tickers, order->ticker))
+    if (!Stl::is_elem_in_vector(env->cur_suspended_tickers, order->ticker))
         if (order->is_triggered()) {
             if (order->is_with_mkt())
                 TriggeredSignalGenerator::_generate_bare_signal(order);
