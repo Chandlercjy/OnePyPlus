@@ -10,9 +10,11 @@ enum class ActionType;
 class SeriesBase {
   public:
     SeriesBase();
+    virtual ~SeriesBase() = default;
+
     Environment *env;
 
-    virtual const string get_name(){return "None";};
+    virtual const string get_name() { return "None"; };
 
     void change_initial_value(const string &ticker,
                               const double value,

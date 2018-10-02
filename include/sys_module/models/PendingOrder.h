@@ -20,6 +20,7 @@ class PendingOrder {
                  const SignalByTriggerPtr &signal,
                  const int mkt_id,
                  const string &trigger_key);
+    virtual ~PendingOrder()=default;
 
     Environment *env;
 
@@ -54,7 +55,6 @@ class PendingOrder {
 
   protected:
     OrderStatus _status;
-
 
     const double cur_open() const;
     const double cur_high() const;

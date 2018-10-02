@@ -15,7 +15,7 @@ enum class OrderType;
 class Signal;
 class SignalByTrigger;
 
-class MarketOrder : public OrderBase {
+class MarketOrder final : public OrderBase {
   public:
     MarketOrder(const shared_ptr<Signal> &signal, const int mkt_id);
     MarketOrder(const shared_ptr<SignalByTrigger> &signal, const int mkt_id);
@@ -34,7 +34,7 @@ class MarketOrder : public OrderBase {
     const string _set_long_or_short();
 };
 
-class CancelTSTOrder : public CancelOrderBase {
+class CancelTSTOrder final : public CancelOrderBase {
   public:
     explicit CancelTSTOrder(const shared_ptr<SignalCancelTST> &signal);
 

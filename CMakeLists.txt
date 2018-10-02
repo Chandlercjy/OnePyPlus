@@ -39,6 +39,7 @@ SET(OnePy_src
     ${onepy_utils})
 
 #链接 MongoDB 静态库
+LINK_DIRECTORIES("/usr/local/lib")
 LINK_LIBRARIES(mongocxx)
 LINK_LIBRARIES(bsoncxx)
 SET(LIB_MONGOCXX_DIR /usr/local/include/bsoncxx/v_noabi)

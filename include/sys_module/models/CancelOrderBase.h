@@ -11,6 +11,7 @@ class SignalCancelBase;
 class CancelOrderBase {
   public:
     explicit CancelOrderBase(const shared_ptr<SignalCancelBase> &signal);
+    virtual ~CancelOrderBase() = default;
 
     Environment *env;
 

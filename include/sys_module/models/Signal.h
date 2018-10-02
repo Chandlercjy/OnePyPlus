@@ -15,6 +15,7 @@ class SignalBase {
                const string &ticker,
                const string &strategy_name,
                const ActionType &action_type);
+    virtual ~SignalBase() = default;
 
     Environment *env;
 
