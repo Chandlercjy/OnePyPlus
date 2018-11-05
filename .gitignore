@@ -21,3 +21,4 @@ lib/libOnePlus.dylib
 lib/libOnePyPluslib.dylib.dSYM/Contents/Info.plist
 lib/libOnePyPluslib.dylib.dSYM/Contents/Resources/DWARF/libOnePyPluslib.dylib
 *.pyc
+.ycm_extra_conf.py
